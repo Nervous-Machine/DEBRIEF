@@ -34,7 +34,7 @@ true only when every step is certified or accepted from refereed literature and 
 rerun independently).
 
 **cycles** — `cycle` (number or label), `dated`, `by` (who did the work: a Git identity, optionally an ORCID),
-`kind` (`learning` | `rerun` | `read` | `claim` | `data` | `correction`), `preregistered` {`question`, `rule`,
+`kind` (`learning` | `rerun` | `read` | `claim` | `data` | `correction` | `trace` | `replay`), `preregistered` {`question`, `rule`,
 `predictions[]`, `commit` (path to the pre-registration file, or a commit id), `results[]` (paths to the files
 holding the outcome, used for the ordering check), `before_data` (true | false | unknown)}, `outcome` {`verdict`,
 `numbers{}`, `misses[]`}, `spoken`, `finding_ids[]`, `gap_ids[]`, `audience`.
@@ -85,7 +85,7 @@ been verified") are allowed. The validator checks this.
 
 ## 4. Contribution kinds
 
-Every contribution is one cycle. A cycle carries `by`, `dated`, what was written first, what happened and the
+Every contribution is one cycle. (`replay` cycles record what was public at a date, with no new work; `learning` cycles are a learning run's own; neither is a contribution kind.) A cycle carries `by`, `dated`, what was written first, what happened and the
 misses. Nothing else enters the ledger.
 
 | kind | who | submits | rule |
@@ -93,6 +93,7 @@ misses. Nothing else enters the ledger.
 | `rerun` | anyone with hardware | pre-registration with predictions, then logs and results | the pre-registration commit precedes the results commit; predictions are compared and misses recorded |
 | `read` | a person reading a definitional trace | a signed or refused checklist, with comments | by name; a refusal names the item and why; a signature may be withdrawn by a later cycle, never deleted |
 | `claim` | anyone | source pin (repo, commit, file hashes), pre-registration, steps graph, first checks | the claim's author may open it but may not sign its own read |
+| `trace` | the keeper or a contributor | a definitional trace prepared for human review, with its pre-registration | renderings are marked as the tracer's; a trace changes no standing |
 | `data` | a data supplier | source, licence, hashes, collection dates, the gap it addresses, how to be named | the gap's history records the contributor; the gap moves `immovable` → `in_cycle` on receipt |
 
 Closing a semantic gap (proposed, 0.1.0): two independent `signed` cycles by people who are not authors of the

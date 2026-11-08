@@ -226,7 +226,9 @@
             "read",
             "claim",
             "data",
-            "correction"
+            "correction",
+            "trace",
+            "replay"
           ]
         },
         "preregistered": {

@@ -114,7 +114,7 @@ def rules(L, errs, warns):
             errs.append(f"cycle {c['cycle']}: unknown verdict {c['outcome']['verdict']}")
         errs += [f"cycle {c['cycle']}: unknown finding {x}" for x in c.get("finding_ids", []) if x not in fids]
         errs += [f"cycle {c['cycle']}: unknown gap {x}" for x in c.get("gap_ids", []) if x not in gids]
-        if c.get("kind") in ("rerun", "read", "claim", "data") and not c.get("by"):
+        if c.get("kind") in ("rerun", "read", "claim", "data", "trace") and not c.get("by"):
             errs.append(f"cycle {c['cycle']}: contribution cycle without `by`")
         if c["outcome"]["verdict"] in ("signed", "refused") and c.get("kind") != "read":
             errs.append(f"cycle {c['cycle']}: verdict {c['outcome']['verdict']} only on a read cycle")

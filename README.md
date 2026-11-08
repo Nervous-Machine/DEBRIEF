@@ -4,8 +4,8 @@ The protocol behind the DEBRIEF register: a way to keep score of a claim, a comp
 anyone can see what was checked, under what rule written down first, what standing each piece has, and where the
 frontier of what is known actually is. Contributions enter as dated cycles under the contributor's own name.
 
-Status: in preparation (November 2026). Protocol version 0.1.0. This repository goes public when the first
-mission repository validates against it in CI.
+Status: public and under construction (November 2026), built and amended in the open. Protocol version 0.1.0.
+Decisions still open are listed in GOVERNANCE.md.
 
 ## The family
 
@@ -15,7 +15,7 @@ Repositories are named `DEBRIEF-domain-regime`.
 |---|---|
 | `DEBRIEF` (this one) | schema, rules, tools, templates, the reusable validation workflow, and the cross-mission index |
 | `DEBRIEF-math-primegaps` | the first mission: an independent rerun and definitional trace of openai/PrimeGaps186 |
-| `DEBRIEF-space-lunar` | lunar-orbit radiation learning run, reconstructed record, open surface gap |
+| `DEBRIEF-space-lunar` | lunar-orbit radiation learning run, reconstructed record, open surface gap (pending) |
 | `DEBRIEF-space-mars` | Mars surface radiation learning run (pending) |
 
 A mission repository holds its own `ledger.json`, pre-registrations with their hashes, checks, logs and traces. It

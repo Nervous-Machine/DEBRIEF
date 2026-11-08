@@ -17,7 +17,7 @@ GAP_STATUS = {"proposed", "in_cycle", "resolved_learned", "resolved_refuted", "i
 OPEN_GAP = {"proposed", "in_cycle", "immovable"}
 CLOSE_KIND = {"data_release", "measurement", "research", "decision", "rerun", "read"}
 AUDIENCE = {"briefing", "internal", None}
-RESERVED = re.compile(r"\b(?:is|was|are|were|been|be|now|fully|formally|independently)\s+(?:verified|proved|proven)\b|\bis\s+(?:now\s+)?a\s+(?:proved\s+|proven\s+)?theorem\b", re.I)
+RESERVED = re.compile(r"\b(?:is|was|are|were|has been|have been|now|fully|formally|independently)\s+(?:verified|proved|proven)\b|\bis\s+(?:now\s+)?a\s+(?:proved\s+|proven\s+)?theorem\b", re.I)
 NEGATION = re.compile(r"\b(?:not|no|never|nobody|none|nothing|neither|nor|hasn't|isn't|wasn't|cannot|can't|until|unless|before|whether|if|would|only if|do not|does not|did not|don't|doesn't)\b|n't\b", re.I)
 
 

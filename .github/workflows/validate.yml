@@ -38,11 +38,18 @@ jobs:
           repository: Nervous-Machine/DEBRIEF
           ref: ${{ inputs.protocol_ref }}
           path: .debrief-protocol
-      - name: Install jsonschema
-        run: python3 -m pip install --quiet jsonschema
+      - name: Install jsonschema and PyYAML
+        run: python3 -m pip install --quiet jsonschema pyyaml
+      - name: Merge contributed cycles, if any
+        run: |
+          if [ -d cycles ]; then
+            python3 .debrief-protocol/tools/merge_cycles.py "${{ inputs.ledger }}" cycles --out /tmp/merged.json
+          else
+            cp "${{ inputs.ledger }}" /tmp/merged.json
+          fi
       - name: Validate
         run: |
-          python3 .debrief-protocol/tools/validate.py "${{ inputs.ledger }}" --repo . ${{ inputs.strict && '--strict' || '' }}
+          python3 .debrief-protocol/tools/validate.py /tmp/merged.json --repo . ${{ inputs.strict && '--strict' || '' }}
       - name: Check pre-registration hashes
         run: |
           set -e

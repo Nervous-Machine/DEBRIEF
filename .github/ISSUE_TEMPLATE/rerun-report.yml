@@ -1,0 +1,56 @@
+name: Rerun report
+description: Report an independent rerun of a mission's build, checkers or certificate. Becomes a `rerun` cycle under your name.
+title: "Rerun: <mission> on <hardware>"
+labels: ["rerun"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A rerun counts fully only if its pre-registration was committed before it ran. If you forked the mission
+        repository and committed a `prereg_<label>.yaml` with its `.sha256` first, link that fork here. If you did not,
+        the cycle is still recorded, with `before_data: false`, and it is still useful.
+  - type: input
+    id: mission
+    attributes:
+      label: Mission repository
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Name as you want it recorded
+    validations:
+      required: true
+  - type: input
+    id: prereg
+    attributes:
+      label: Pre-registration
+      description: URL of your committed prereg file and its .sha256, or "none"
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: CPU architecture, cores, memory, OS, toolchain versions and any patches
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Results
+      description: Each check, its predicted outcome if registered, its actual outcome, wall time. Attach or link logs.
+    validations:
+      required: true
+  - type: textarea
+    id: misses
+    attributes:
+      label: Predictions that did not hold
+      description: What you predicted, what happened. Leave empty if none.
+  - type: dropdown
+    id: verdict
+    attributes:
+      label: Verdict
+      options: [confirmed, refuted, mixed, unavailable]
+    validations:
+      required: true

@@ -1,0 +1,53 @@
+# Reusable: a mission repository calls this on `issues: [opened, edited]`. For an issue labelled read, rerun or data,
+# it writes cycles/<kind>-issue-<n>.yaml from the form answers, verbatim, and opens a pull request under the
+# submitter's handle for a maintainer to merge after validation.
+name: DEBRIEF issue to cycle
+on:
+  workflow_call:
+    inputs:
+      protocol_ref:
+        type: string
+        default: main
+jobs:
+  cycle:
+    if: contains(github.event.issue.labels.*.name, 'read') || contains(github.event.issue.labels.*.name, 'rerun') || contains(github.event.issue.labels.*.name, 'data')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Nervous-Machine/DEBRIEF
+          ref: ${{ inputs.protocol_ref }}
+          path: .debrief-protocol
+      - name: Work out the kind
+        id: kind
+        run: |
+          labels='${{ join(github.event.issue.labels.*.name, ',') }}'
+          for k in read rerun data; do case ",$labels," in *",$k,"*) echo "kind=$k" >> "$GITHUB_OUTPUT";; esac; done
+      - name: Write the cycle file from the form
+        env:
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          printf '%s' "$BODY" > /tmp/issue_body.md
+          python3 .debrief-protocol/tools/issue_to_cycle.py --kind "${{ steps.kind.outputs.kind }}" --issue "${{ github.event.issue.number }}" \
+            --author "${{ github.event.issue.user.login }}" --body /tmp/issue_body.md --out cycles
+      - name: Open a pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: cycle/issue-${{ github.event.issue.number }}
+          title: "${{ steps.kind.outputs.kind }} cycle from #${{ github.event.issue.number }} by @${{ github.event.issue.user.login }}"
+          body: |
+            Generated from issue #${{ github.event.issue.number }}, answers copied verbatim. Closes #${{ github.event.issue.number }} when merged.
+            A maintainer fills in `gap_ids` if the form did not name the gap, runs validation, and merges. Nothing in the content is edited.
+          commit-message: "Cycle from issue #${{ github.event.issue.number }} (${{ steps.kind.outputs.kind }}) by ${{ github.event.issue.user.login }}"
+          add-paths: cycles/
+      - name: Tell the submitter
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number,
+              body: "Thank you. Your answers are now a cycle file in a pull request, under your handle, copied verbatim. A maintainer will merge it once validation passes, and your name enters the ledger and the next release's author list." })

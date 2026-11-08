@@ -1,0 +1,67 @@
+name: Semantic read
+description: Sign or refuse the checklist of a mission's definitional trace. Becomes a `read` cycle under your name.
+title: "Semantic read: <mission or claim>"
+labels: ["read"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Read the mission's `trace/DEFINITIONAL-TRACE.md` first. Each item below is one line of its sign-off
+        checklist. Sign what you agree with, refuse what you do not, and say why. Your answers become one cycle in
+        the ledger under your GitHub handle, exactly as written. Nothing is edited on the way.
+  - type: input
+    id: mission
+    attributes:
+      label: Mission repository
+      description: e.g. DEBRIEF-math-primegaps
+    validations:
+      required: true
+  - type: input
+    id: trace_commit
+    attributes:
+      label: Trace commit
+      description: The commit id of the trace you read (from the file's history on GitHub)
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Name as you want it recorded
+      description: Optional ORCID after a comma. No institution is required.
+    validations:
+      required: true
+  - type: checkboxes
+    id: independence
+    attributes:
+      label: Independence
+      options:
+        - label: I am not an author of the claim under review.
+          required: true
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Checklist
+      description: One line per item, in the form `A1: signed` or `A1: refused — reason`. Use the item ids from Part E of the trace.
+      placeholder: |
+        A1: signed
+        A2: signed
+        A3: refused — the rendering says "infinitely many n" but the Lean statement quantifies over ...
+        B1: signed
+        B2: signed
+        D: signed
+    validations:
+      required: true
+  - type: textarea
+    id: misses
+    attributes:
+      label: Renderings you found wrong, even if harmless
+      description: Quote the trace line and say what it should say. Leave empty if none.
+  - type: dropdown
+    id: verdict
+    attributes:
+      label: Overall
+      options:
+        - signed (every item signed)
+        - refused (at least one item refused)
+    validations:
+      required: true

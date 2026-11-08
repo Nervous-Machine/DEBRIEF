@@ -1,0 +1,41 @@
+name: Data contribution
+description: Offer a dataset that addresses an open gap. Becomes a `data` cycle under the supplier's name once terms are confirmed.
+title: "Data: <gap> in <mission>"
+labels: ["data"]
+body:
+  - type: input
+    id: mission
+    attributes:
+      label: Mission repository and gap id
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Supplier, as they want to be named
+    validations:
+      required: true
+  - type: input
+    id: institution
+    attributes:
+      label: Institution, as confirmed by the supplier
+    validations:
+      required: true
+  - type: input
+    id: licence
+    attributes:
+      label: Licence or data-use terms
+    validations:
+      required: true
+  - type: textarea
+    id: dataset
+    attributes:
+      label: Dataset
+      description: Instrument, quantity, cadence, coverage dates, format, size, how it was processed before arrival
+    validations:
+      required: true
+  - type: textarea
+    id: first_use
+    attributes:
+      label: What will be done with it first
+      description: Written before anyone looks at the values. This becomes the cycle's rule.

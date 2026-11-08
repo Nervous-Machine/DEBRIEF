@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "DEBRIEF: a protocol for keeping score of claims, with contributions as named, dated cycles"
+message: "If you use the protocol or a mission ledger, cite the mission repository's own CITATION.cff; it lists the contributors of record."
+type: software
+version: 0.1.0
+date-released: 2026-11-08
+license: Apache-2.0
+repository-code: https://github.com/Nervous-Machine/DEBRIEF
+authors:
+  - family-names: Bennett
+    given-names: Heidi
+    affiliation: Nervous Machine

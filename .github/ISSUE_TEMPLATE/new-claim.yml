@@ -1,0 +1,36 @@
+name: New claim
+description: Propose a claim for the register. A maintainer creates a DEBRIEF-<domain>-<regime> repository or points you at a fork.
+title: "New claim: <short name>"
+labels: ["claim"]
+body:
+  - type: input
+    id: statement
+    attributes:
+      label: The claim, in the authors' own terms
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source pin
+      description: Paper (title, date, URL, PDF sha256); repository URL; full commit id; files and their sha256; licence
+    validations:
+      required: true
+  - type: dropdown
+    id: author
+    attributes:
+      label: Are you an author of the claim?
+      options: ["no", "yes"]
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: The claim as steps
+      description: Each step and how it would be checked (computation, literature, formal-conditional, rerun-of-certificate, human-semantic-review)
+    validations:
+      required: true
+  - type: textarea
+    id: first_checks
+    attributes:
+      label: What you would check first, and what you predict

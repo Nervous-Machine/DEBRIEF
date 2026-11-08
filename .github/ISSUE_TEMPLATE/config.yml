@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Which form?
+    url: https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTING.md
+    about: The four contribution kinds and their rules.

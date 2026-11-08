@@ -81,7 +81,7 @@ def spoken(L):
 
 def asks(L):
     m = L["missions"][0]
-    out = [f"# Asks — {m['title']}", "", "Each open gap below is a place a contribution can land. A contribution is one cycle in this repository's ledger, under your name. See CONTRIBUTING.md for the templates.", ""]
+    out = [f"# Asks — {m['title']}", "", "Each open gap below is a place a contribution can land. A contribution is one cycle in this repository's ledger, under your name. How to contribute, and the templates: https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTING.md", ""]
     for g in sorted(L["gaps"], key=lambda g: g["priority"]):
         if g["status"] not in OPEN_GAP:
             continue

@@ -14,9 +14,12 @@ Repositories are named `DEBRIEF-domain-regime`.
 | repository | what it holds |
 |---|---|
 | `DEBRIEF` (this one) | schema, rules, tools, templates, the reusable validation workflow, and the cross-mission index |
-| `DEBRIEF-math-primegaps` | the first mission: an independent rerun and definitional trace of openai/PrimeGaps186 |
-| `DEBRIEF-space-lunar` | lunar-orbit radiation learning run, reconstructed record, open surface gap (pending) |
+| [`DEBRIEF-math-primegaps`](https://github.com/Nervous-Machine/DEBRIEF-math-primegaps) | independent rerun and definitional trace of openai/PrimeGaps186 (lim inf prime gaps ≤ 186) |
+| [`DEBRIEF-math-zhang240`](https://github.com/Nervous-Machine/DEBRIEF-math-zhang240) | pre-registered rerun of Hanxin Zhang's exact certificate for ≤ 240 |
+| [`DEBRIEF-space-lunar`](https://github.com/Nervous-Machine/DEBRIEF-space-lunar) | lunar-orbit radiation learning run, reconstructed record, the Mars-to-Moon cross-check, the open surface gap |
 | `DEBRIEF-space-mars` | Mars surface radiation learning run (pending) |
+
+The current standing of every mission is in [`INDEX.md`](INDEX.md).
 
 A mission repository holds its own `ledger.json`, pre-registrations with their hashes, checks, logs and traces. It
 pins a protocol version and calls this repository's workflow to validate on every pull request.
@@ -38,7 +41,10 @@ schema/SCHEMA.md            the written rules
 schema/ledger.schema.json   the machine-checkable shape of ledger.json
 tools/validate.py           structural and protocol checks; exit code 1 on any error
 tools/prereg.py             hash a pre-registration; refuse edits after results exist
-tools/render.py             ledger.json -> SCORECARD.md and a spoken knowledge base
+tools/render.py             ledger.json -> SCORECARD.md, ASKS.md and a spoken knowledge base
+tools/merge_cycles.py       contributed cycles/ -> ledger, applying the two-signature rule
+tools/issue_to_cycle.py     issue form -> cycle file, verbatim
+tools/index.py              mission ledgers -> INDEX.md
 templates/                  prereg.yaml, trace.md, one template per contribution kind
 .github/workflows/validate.yml   reusable workflow a mission repository calls
 ```

@@ -1,0 +1,22 @@
+# Contribution: dataset. One cycle. The three fields marked REQUIRED are confirmed with the supplier before the
+# credit line is written.
+kind: data
+cycle: "<number or label>"
+dated: "<YYYY-MM-DD>"
+by: "<how the supplier wants to be named>"           # REQUIRED, confirmed with supplier
+institution: "<as confirmed by the supplier>"        # REQUIRED, confirmed with supplier
+licence: "<licence or data-use terms>"               # REQUIRED, confirmed with supplier
+dataset:
+  description: "<instrument, quantity, cadence>"
+  coverage: "<start> to <end>"
+  files: [{path: "<file or fetch script>", sha256: "<hash>", bytes: 0}]
+  provenance: "<where it came from, how it was processed before arrival>"
+addresses_gap: "<gap id>"                              # the gap moves immovable -> in_cycle on receipt
+preregistered:
+  question: "<what the data is expected to allow>"
+  rule: "<what will be done with it first, written before looking at values>"
+  before_data: true
+outcome:
+  verdict: admitted
+spoken: "<two sentences: what arrived, from whom, and which gap it opens>"
+gap_ids: ["<gap id>"]

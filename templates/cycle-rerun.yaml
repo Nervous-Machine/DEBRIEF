@@ -1,0 +1,23 @@
+# Contribution: rerun. One cycle. Copy to cycles/<cycle>.yaml in the mission repository, with your logs alongside.
+kind: rerun
+cycle: "<number or label>"
+dated: "<YYYY-MM-DD>"
+by: "<git identity; ORCID optional>"
+preregistered:
+  commit: "<path to your prereg.yaml in this repository>"
+  results: ["<path to results file>", "<path to log>"]
+  question: "<what you set out to check>"
+  rule: "<the pass condition, as registered>"
+  predictions: ["<as registered>"]
+  before_data: true
+environment:
+  hardware: "<cpu arch, cores, memory>"
+  toolchain: "<versions, commits, patches>"
+  wall_time: "<h:mm>"
+outcome:
+  verdict: confirmed | refuted | mixed | unavailable
+  numbers: {}
+  misses: ["<any prediction that did not hold, and what happened instead>"]
+spoken: "<two or three plain sentences a voice could read: what was rerun, on what, what happened>"
+finding_ids: []
+gap_ids: ["<gap this bears on, if any>"]

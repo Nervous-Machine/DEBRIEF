@@ -1,0 +1,35 @@
+# Pre-registration: <one line naming the claim or question>
+# Written <YYYY-MM-DD>, BEFORE running any check below. Changes after this point go in an amendment block
+# appended by `tools/prereg.py amend`, never in this body. Register with `tools/prereg.py register <this file>`.
+
+by: "<git identity; ORCID optional>"
+mission: "<mission_id>"
+cycle: "<number or label>"
+
+claim:
+  statement: "<the claim in the authors' own terms>"
+  source: "<paper, repository, commit, file hashes>"
+
+steps:   # the claim as a graph of units: what each step needs and what checks it
+  S1: {name: "<step>", check: computation | literature | formal-conditional | rerun-of-certificate | human-semantic-review}
+
+standing_rule:
+  certified: "a deterministic check run under this rule, or a formal check rerun by a party independent of the authors"
+  accepted: "a published, refereed theorem; a formal check reported by the authors' own toolchain; or a step inside a formally checked deduction"
+  refuted: "a counterexample, a failed check, or a published objection the authors have not answered"
+  open: "an input no independent party has checked; it becomes a gap with what would close it"
+  corroboration: "numeric spot checks support a literature input but never raise its standing"
+
+claim_rule: >
+  The whole claim is called verified only if every step is certified or accepted from refereed literature AND
+  the formal deduction has been rerun independently. Otherwise it is called conditionally supported, and the
+  ledger names each open input.
+
+checks:
+  C1: "<step id>: <exactly what will be computed or run, and the pass condition>"
+
+predictions:
+  C1: pass | fail | "<a number or range>"
+
+results_files:   # where the outcome will be written; the validator checks these are committed after this file
+  - results.json

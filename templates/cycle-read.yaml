@@ -1,0 +1,23 @@
+# Contribution: semantic read. One cycle. Usually created from the "Semantic read" issue form.
+kind: read
+cycle: "<number or label>"
+dated: "<YYYY-MM-DD>"
+by: "<your name as you want it recorded; git identity; ORCID optional>"
+not_an_author_of_the_claim: true
+preregistered:
+  commit: "<path to the trace you read, e.g. trace/DEFINITIONAL-TRACE.md>"
+  question: "Do the formal statements say what the paper claims, as rendered in the trace?"
+  rule: "Each checklist item is signed or refused by name. A refusal names the item and the reason."
+  before_data: true
+checklist:
+  - {item: "A1", signed: true | false, note: ""}
+  - {item: "A2", signed: true | false, note: ""}
+  - {item: "A3", signed: true | false, note: ""}
+  - {item: "B1", signed: true | false, note: ""}
+  - {item: "B2", signed: true | false, note: ""}
+outcome:
+  verdict: signed | refused
+  misses: ["<any rendering in the trace you found wrong, even if harmless>"]
+spoken: "<one or two sentences: who read what, and whether they signed>"
+finding_ids: []
+gap_ids: ["<the semantic gap id>"]

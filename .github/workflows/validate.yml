@@ -1,0 +1,52 @@
+# Reusable workflow. A mission repository calls it on every push and pull request:
+#
+#   jobs:
+#     debrief:
+#       uses: Nervous-Machine/DEBRIEF/.github/workflows/validate.yml@v0.1.0
+#       with:
+#         ledger: ledger/ledger.json
+#
+# It checks the ledger's shape and the protocol rules, including the git-history rules (7 and 8), and fails the
+# check on any error. The calling repository must be able to read this one (it is, once DEBRIEF is public).
+name: DEBRIEF validate
+on:
+  workflow_call:
+    inputs:
+      ledger:
+        description: path to the mission's ledger.json
+        type: string
+        default: ledger/ledger.json
+      protocol_ref:
+        description: DEBRIEF ref to validate against
+        type: string
+        default: main
+      strict:
+        description: treat warnings as errors
+        type: boolean
+        default: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the mission repository with full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check out the DEBRIEF protocol
+        uses: actions/checkout@v4
+        with:
+          repository: Nervous-Machine/DEBRIEF
+          ref: ${{ inputs.protocol_ref }}
+          path: .debrief-protocol
+      - name: Install jsonschema
+        run: python3 -m pip install --quiet jsonschema
+      - name: Validate
+        run: |
+          python3 .debrief-protocol/tools/validate.py "${{ inputs.ledger }}" --repo . ${{ inputs.strict && '--strict' || '' }}
+      - name: Check pre-registration hashes
+        run: |
+          set -e
+          for f in $(git ls-files '*.sha256'); do
+            p="${f%.sha256}"; [ -f "$p" ] || continue
+            python3 .debrief-protocol/tools/prereg.py check "$p"
+          done

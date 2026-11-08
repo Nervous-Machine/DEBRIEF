@@ -1,0 +1,24 @@
+# Contribution: new claim. Opens a mission repository or a new claim within one. Authors may open their own
+# claim; they may not sign its semantic read.
+kind: claim
+cycle: 0
+dated: "<YYYY-MM-DD>"
+by: "<git identity; ORCID optional>"
+is_author_of_the_claim: true | false
+claim:
+  statement: "<the claim in the authors' terms>"
+  paper: "<title, date, URL, sha256 of the PDF>"
+  repository: "<URL>"
+  commit: "<full commit id>"
+  files: [{path: "<file>", sha256: "<hash>"}]
+  licence: "<licence of the source; if it forbids vendoring, store hashes and a fetch script only>"
+preregistered:
+  commit: "prereg.yaml"
+  question: "<what this mission will establish about the claim>"
+  rule: "<the standing rule, as in prereg.yaml>"
+  before_data: true
+steps: "<see prereg.yaml>"
+outcome:
+  verdict: admitted
+spoken: "<two sentences: what the claim is and what will be checked>"
+gap_ids: []

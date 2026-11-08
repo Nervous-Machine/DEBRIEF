@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Nervous-Machine/DEBRIEF/schema/ledger.schema.json",
+  "title": "DEBRIEF ledger (protocol 0.1.0)",
+  "type": "object",
+  "required": ["missions", "cycles", "findings", "gaps", "anomalies", "background", "sessions"],
+  "properties": {
+    "missions": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"$ref": "#/$defs/mission"}},
+    "cycles": {"type": "array", "items": {"$ref": "#/$defs/cycle"}},
+    "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+    "gaps": {"type": "array", "items": {"$ref": "#/$defs/gap"}},
+    "anomalies": {"type": "array", "items": {"$ref": "#/$defs/anomaly"}},
+    "background": {"type": "array", "items": {"$ref": "#/$defs/background"}},
+    "sessions": {"type": "array", "items": {"type": "object"}}
+  },
+  "$defs": {
+    "base": {
+      "type": "object",
+      "required": ["mission_id", "pod", "schema_version", "created_by", "created_at", "provenance"],
+      "properties": {
+        "mission_id": {"type": "string"},
+        "pod": {"type": "string"},
+        "schema_version": {"const": "nm-debrief-v1"},
+        "created_by": {"type": "string"},
+        "created_at": {"type": "string"},
+        "provenance": {"type": "object"},
+        "audience": {"enum": ["briefing", "internal"]}
+      }
+    },
+    "spoken": {"type": "object", "required": ["spoken"], "properties": {"spoken": {"type": "string"}}},
+    "mission": {
+      "allOf": [{"$ref": "#/$defs/base"}],
+      "required": ["title", "record_quality", "short_version", "implications", "certainty_statement"],
+      "properties": {
+        "title": {"type": "string"},
+        "kind": {"enum": ["learning", "audit"]},
+        "protocol_version": {"type": "string"},
+        "claim_rule_met": {"type": "boolean"},
+        "status": {"enum": ["active", "closed"]},
+        "record_quality": {"enum": ["full_ledger", "reconstructed"]},
+        "record_note": {"type": "string"},
+        "scope_limits": {"type": "array", "items": {"type": "string"}},
+        "record_limits": {"type": "array", "items": {"type": "string"}},
+        "short_version": {"$ref": "#/$defs/spoken"},
+        "what_happened": {"$ref": "#/$defs/spoken"},
+        "certainty_statement": {"$ref": "#/$defs/spoken"},
+        "implications": {"type": "object"},
+        "sources": {"type": "array", "items": {"type": "object", "required": ["kind", "ref"]}}
+      }
+    },
+    "cycle": {
+      "allOf": [{"$ref": "#/$defs/base"}],
+      "required": ["cycle", "dated", "preregistered", "outcome", "spoken"],
+      "properties": {
+        "cycle": {"type": ["integer", "string"]},
+        "dated": {"type": "string"},
+        "by": {"type": "string"},
+        "kind": {"enum": ["learning", "rerun", "read", "claim", "data", "correction"]},
+        "preregistered": {
+          "type": "object",
+          "required": ["question", "rule", "before_data"],
+          "properties": {
+            "question": {"type": "string"},
+            "rule": {"type": "string"},
+            "predictions": {"type": "array"},
+            "commit": {"type": "string"},
+            "results": {"type": "array", "items": {"type": "string"}},
+            "before_data": {"enum": [true, false, "unknown"]}
+          }
+        },
+        "outcome": {
+          "type": "object",
+          "required": ["verdict"],
+          "properties": {
+            "verdict": {"enum": ["admitted", "not_admitted", "confirmed", "refuted", "unavailable", "corrected", "withdrawn", "classified", "learned", "mixed", "signed", "refused"]},
+            "numbers": {"type": "object"},
+            "misses": {"type": "array"}
+          }
+        },
+        "spoken": {"type": "string"},
+        "finding_ids": {"type": "array", "items": {"type": "string"}},
+        "gap_ids": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "finding": {
+      "allOf": [{"$ref": "#/$defs/base"}],
+      "required": ["finding_id", "kind", "spoken", "evidence", "standing", "certainty"],
+      "properties": {
+        "finding_id": {"type": "string"},
+        "kind": {"enum": ["learned", "retracted", "ruled_out", "discovery", "correction"]},
+        "spoken": {"type": "string"},
+        "evidence": {"type": "object", "properties": {"numbers": {"type": "object"}, "cycles": {"type": "array"}, "confirmed_by": {"type": "array"}}},
+        "standing": {"type": "object", "required": ["status"], "properties": {"status": {"enum": ["accepted", "certified", "refuted"]}, "basis": {"type": "string"}, "note": {"type": "string"}}},
+        "certainty": {"type": "object", "properties": {"earned": {"enum": [true, false, null]}, "note": {"type": "string"}}}
+      }
+    },
+    "gap": {
+      "allOf": [{"$ref": "#/$defs/base"}],
+      "required": ["gap_id", "title", "spoken", "status", "closes_with", "ask", "priority"],
+      "properties": {
+        "gap_id": {"type": "string"},
+        "title": {"type": "string"},
+        "spoken": {"type": "string"},
+        "status": {"enum": ["proposed", "in_cycle", "resolved_learned", "resolved_refuted", "immovable"]},
+        "opened_cycle": {"type": ["integer", "string"]},
+        "history": {"type": "array", "items": {"type": "object", "required": ["cycle", "hypothesis", "result"]}},
+        "closes_with": {"type": "array", "items": {"type": "object", "required": ["what", "kind", "external"], "properties": {"kind": {"enum": ["data_release", "measurement", "research", "decision", "rerun", "read"]}, "external": {"type": "boolean"}, "who_could_act": {"type": "string"}}}},
+        "expected_signal": {"type": "string"},
+        "resolution_by": {"type": "string"},
+        "ask": {"$ref": "#/$defs/spoken"},
+        "priority": {"type": "integer"}
+      }
+    },
+    "anomaly": {
+      "allOf": [{"$ref": "#/$defs/base"}],
+      "required": ["anomaly_id", "when", "spoken", "status", "urgency", "from_trusted_node"],
+      "properties": {
+        "status": {"enum": ["open", "explained", "confirmed"]},
+        "urgency": {"enum": ["immediate", "daily"]},
+        "from_trusted_node": {"enum": [true, false, "unknown"]}
+      }
+    },
+    "background": {
+      "allOf": [{"$ref": "#/$defs/base"}],
+      "required": ["term", "spoken", "source"],
+      "properties": {"term": {"type": "string"}, "spoken": {"type": "string"}, "source": {"type": "string"}}
+    }
+  }
+}

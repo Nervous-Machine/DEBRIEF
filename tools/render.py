@@ -85,7 +85,7 @@ def asks(L):
     for g in sorted(briefing(L["gaps"]), key=lambda g: g["priority"]):
         if g["status"] not in OPEN_GAP:
             continue
-        out += [f"## {g['priority']}. {g['title']}", "", g["spoken"], "", f"Status: {g['status'].replace('_', ' ')}.", ""]
+        out += [f"## {g['priority']}. {g['title']} (ledger id {g['gap_id']})", "", g["spoken"], "", f"Status: {g['status'].replace('_', ' ')}.", ""]
         for c in g["closes_with"]:
             out.append(f"- **{c['what']}** — contribution kind: {CONTRIB.get(c['kind'], c['kind'])}; who could act: {c.get('who_could_act', 'anyone')}.")
         out += ["", f"Signal expected: {g.get('expected_signal') or 'not yet registered'}. Resolution by: {g.get('resolution_by') or 'none registered'}.", ""]

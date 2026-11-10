@@ -1,6 +1,8 @@
 # Reusable: a mission repository calls this on `issues: [opened, edited]`. For an issue labelled read, rerun or data,
 # it writes cycles/<kind>-issue-<n>.yaml from the form answers, verbatim, and opens a pull request under the
-# submitter's handle for a maintainer to merge after validation.
+# submitter's handle for a maintainer to merge after validation. A form that cannot be read (for a read: an empty or
+# malformed checklist, an unknown trace commit, an item the trace does not have) writes nothing; the submitter is
+# told what to change, and editing the issue runs this again.
 name: DEBRIEF issue to cycle
 on:
   workflow_call:
@@ -18,6 +20,8 @@ jobs:
       issues: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/checkout@v4
         with:
           repository: Nervous-Machine/DEBRIEF
@@ -29,13 +33,28 @@ jobs:
           labels='${{ join(github.event.issue.labels.*.name, ',') }}'
           for k in read rerun data; do case ",$labels," in *",$k,"*) echo "kind=$k" >> "$GITHUB_OUTPUT";; esac; done
       - name: Write the cycle file from the form
+        id: write
         env:
           BODY: ${{ github.event.issue.body }}
         run: |
           printf '%s' "$BODY" > /tmp/issue_body.md
+          rc=0
           python3 .debrief-protocol/tools/issue_to_cycle.py --kind "${{ steps.kind.outputs.kind }}" --issue "${{ github.event.issue.number }}" \
-            --author "${{ github.event.issue.user.login }}" --body /tmp/issue_body.md --out cycles
+            --author "${{ github.event.issue.user.login }}" --body /tmp/issue_body.md --out cycles --repo . > /tmp/issue_to_cycle.out || rc=$?
+          cat /tmp/issue_to_cycle.out
+          if [ "$rc" = 0 ]; then echo "ok=true" >> "$GITHUB_OUTPUT"
+          elif [ "$rc" = 2 ]; then echo "ok=false" >> "$GITHUB_OUTPUT"
+          else exit "$rc"; fi
+      - name: Tell the submitter what to change
+        if: steps.write.outputs.ok == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const problems = require('fs').readFileSync('/tmp/issue_to_cycle.out', 'utf8').trim().split('\n').map(l => '- ' + l).join('\n');
+            await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number,
+              body: "Thank you. This form could not be recorded yet, so nothing has entered the ledger:\n\n" + problems + "\n\nEdit the issue to correct it and it will be read again." })
       - name: Open a pull request
+        if: steps.write.outputs.ok == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
           branch: cycle/issue-${{ github.event.issue.number }}
@@ -46,6 +65,7 @@ jobs:
           commit-message: "Cycle from issue #${{ github.event.issue.number }} (${{ steps.kind.outputs.kind }}) by ${{ github.event.issue.user.login }}"
           add-paths: cycles/
       - name: Tell the submitter
+        if: steps.write.outputs.ok == 'true'
         uses: actions/github-script@v7
         with:
           script: |

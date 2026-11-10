@@ -41,7 +41,7 @@ body:
     id: checklist
     attributes:
       label: Checklist
-      description: One line per item, in the form `A1: signed` or `A1: refused — reason`. Use the item ids from Part E of the trace.
+      description: "One line per item, in the form `A1: signed` or `A1: refused — reason`. Use the item ids from Part E of the trace; a read counts as a signature only if every item there is signed."
       placeholder: |
         A1: signed
         A2: signed

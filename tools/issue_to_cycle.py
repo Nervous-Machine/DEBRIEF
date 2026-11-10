@@ -128,14 +128,28 @@ def rerun_cycle(a, s):
     return "\n".join(lines) + "\n"
 
 
+def gap_ids_in(text):
+    """Ledger gap ids named in a free-text answer such as 'DEBRIEF-space-lunar, gap 1 (G2)': G2, ZG1."""
+    return sorted(set(re.findall(r"\b[A-Z]{0,3}G\d+\b", text or "")))
+
+
+def first_sentence(text, limit=200):
+    t = " ".join((text or "").split())
+    cut = t.find(". ")
+    t = t[:cut + 1] if 0 < cut < limit else t
+    return t if len(t) <= limit else t[:limit].rsplit(" ", 1)[0] + "…"
+
+
 def data_cycle(a, s):
     by = s.get("supplier, as they want to be named", a.author)
+    gids = gap_ids_in(s.get("mission repository and gap id", ""))
     lines = [f"# data cycle from issue #{a.issue}; answers copied verbatim; terms to be confirmed with the supplier before merge", "kind: data",
              f"cycle: {q('data-' + str(a.issue))}", f"dated: {q(a.date)}", f"by: {q(by)}", f"github: {q(a.author)}",
              f"institution: {q(s.get('institution, as confirmed by the supplier', ''))}", f"licence: {q(s.get('licence or data-use terms', ''))}",
              f"dataset: {q(s.get('dataset', ''))}", f"addresses_gap: {q(s.get('mission repository and gap id', ''))}", "preregistered:",
-             f"  question: {q('What the data allows: ' + s.get('dataset', '')[:120])}", f"  rule: {q(s.get('what will be done with it first', ''))}", "  before_data: true",
-             "outcome:", "  verdict: admitted", f"spoken: {q('A dataset arrived from ' + by + '.')}", "finding_ids: []", "gap_ids: []"]
+             f"  question: {q('What the data allows: ' + first_sentence(s.get('dataset', '')))}", f"  rule: {q(s.get('what will be done with it first', ''))}", "  before_data: true",
+             "outcome:", "  verdict: admitted", f"spoken: {q('A dataset arrived from ' + by + '.')}", "finding_ids: []",
+             "gap_ids: [" + ", ".join(q(g) for g in gids) + "]"]
     return "\n".join(lines) + "\n"
 
 

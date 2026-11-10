@@ -6,7 +6,8 @@ usage: merge_cycles.py LEDGER.json CYCLES_DIR [--out MERGED.json] [--authors "na
 Each YAML file in CYCLES_DIR is one contributed cycle (see templates/cycle-*.yaml). The tool appends cycles not
 already in the ledger (matched on `cycle`), fills in the base fields from the mission document, and applies the
 semantic-gap rule to any gap a `read` cycle names: two independent `signed` cycles by people who are not authors
-of the claim, with no standing `refused` cycle, resolve the gap; one refusal reopens it. It writes the merged
+of the claim, with no standing `refused` cycle, resolve the gap; one refusal reopens it. An admitted `data` cycle
+that names an immovable gap moves it to in_cycle. It writes the merged
 ledger to --out (default: in place). Requires PyYAML.
 """
 import datetime, glob, json, os, sys
@@ -46,8 +47,18 @@ def main(argv):
         doc.setdefault("outcome", {}).setdefault("verdict", "mixed")
         doc.setdefault("spoken", "")
         L["cycles"].append(doc); have.add(str(c["cycle"])); added.append(str(c["cycle"]))
-    # semantic-gap rule
+    # data rule: an admitted dataset that names an immovable gap moves it to in_cycle (nothing is resolved by arrival)
     gaps = {g["gap_id"]: g for g in L["gaps"]}
+    for c in L["cycles"]:
+        if c.get("kind") != "data" or c.get("outcome", {}).get("verdict") != "admitted" or str(c["cycle"]) not in added:
+            continue
+        for gid in c.get("gap_ids", []):
+            g = gaps.get(gid)
+            if g and g["status"] == "immovable":
+                g.setdefault("history", []).append({"cycle": str(c["cycle"]), "hypothesis": "data rule: an admitted dataset addresses this gap",
+                                                   "before_data": True, "result": f"dataset from {c.get('by', '?')} admitted; status immovable -> in_cycle"})
+                g["status"] = "in_cycle"
+    # semantic-gap rule
     for gid, g in gaps.items():
         reads = [c for c in L["cycles"] if c.get("kind") == "read" and gid in c.get("gap_ids", [])]
         if not reads:

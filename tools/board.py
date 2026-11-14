@@ -66,11 +66,14 @@ def page(claims, generated):
     closest = sorted(closest, key=lambda c: (-c["stage"], c["open_gaps"]))
     def row(c):
         checked = f'{c["certified"]} certified, {c["accepted"]} accepted' + (f', {c["refuted"]} refuted' if c["refuted"] else "")
-        who = f'{len(c["people"])} ' + ("person" if len(c["people"]) == 1 else "people") + (f' ({len(c["outside"])} outside the maintainer)' if c["outside"] else " (maintainer only)")
+        short = lambda p: p.split(" (")[0]
+        names = [short(p) for p in c["people"] if MAINTAINER.match(p)] + [short(p) for p in c["outside"]]
+        who = ", ".join(f'<span class="who-outside">{e(n)}</span>' if i >= len(names) - len(c["outside"]) else e(n) for i, n in enumerate(names)) if names else "nobody yet"
+        who += f'<div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTORS.md">' + (f'{len(c["outside"])} outside the maintainer' if c["outside"] else "maintainer only") + " →</a></div>"
         return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div><div class="sub dim">Rests on {e(c["rests_on"])}.</div></td>'
                 f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{e(checked)} · {c["open_gaps"]} open</div></td>'
                 f'<td>{e(c["first_ask"] or c["needs_next"])}<div class="sub">{e(c["first_ask_what"])}</div><div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">What would close it →</a></div></td>'
-                f'<td>{e(who)}<div class="sub">last cycle {e(c["last_text"])}</div></td></tr>')
+                f'<td>{who}<div class="sub">last cycle {e(c["last_text"])}</div></td></tr>')
     closest_rows = "\n".join(row(c) for c in closest) or '<tr><td colspan="4" class="empty">Nothing yet.</td></tr>'
     unlooked = [c for c in sorted(claims, key=lambda c: c["last"]) if not c["outside"]]
     unlooked_rows = "\n".join(f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div></td><td>{e(c["area"])}</td>'
@@ -112,6 +115,7 @@ table.map td.cell{{min-width:140px;background:rgba(255,255,255,.015)}}
 .stage.s3{{border-color:rgba(0,212,100,.6);color:var(--green)}}.stage.s4{{background:rgba(0,212,100,.15);border-color:var(--green);color:var(--green)}}
 .legend{{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:.8rem;color:var(--muted);margin-top:14px;align-items:center}}
 .legend .chip{{margin:0}}
+.who-outside{{color:var(--green)}}
 footer{{padding:30px 0 50px;border-top:1px solid var(--border);font-size:.85rem;color:var(--muted)}}
 footer p{{margin-bottom:6px}}
 </style>

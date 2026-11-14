@@ -191,20 +191,22 @@
    "title": "The claimed solution of Erdős Problem #768 (density of integers with a witness divisor for every prime factor)",
    "area": "Number theory: multiplicative structure",
    "rests_on": "an arXiv paper and a Lean development that vendors two other Lean projects",
-   "stage": 0,
-   "stage_name": "Registered",
-   "needs_next": "an independent rerun of whatever is machine-checkable",
-   "certified": 0,
+   "stage": 1,
+   "stage_name": "Checks rerun",
+   "needs_next": "a reading guide that traces each formal statement to its definitions",
+   "certified": 1,
    "accepted": 0,
    "refuted": 0,
-   "open_gaps": 3,
-   "first_ask": "The Lean development has not been built or kernel-checked by anyone outside the claimant",
-   "first_ask_what": "a pre-registered rerun: fetch at the pinned commit, build, confirm no sorry or admit, print the axioms",
-   "people": [],
+   "open_gaps": 2,
+   "first_ask": "Do the formal statements say what the problem asks?",
+   "first_ask_what": "two independent mathematicians read the formal statement against the problem as posed and sign, or refuse",
+   "people": [
+    "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
+   ],
    "outside": [],
-   "cycles": 0,
-   "last": "2026-06-23",
-   "last_text": "23 Jun 2026"
+   "cycles": 1,
+   "last": "2026-11-14",
+   "last_text": "14 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-erdos856",

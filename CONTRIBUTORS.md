@@ -8,6 +8,9 @@ Newest first. Generated from the mission ledgers by `tools/contributors.py`; to 
 
 ## Nervous Machine (Heidi Bennett; Claude Code as the operating agent)
 
+**14 November 2026** · Reran the checks independently · [The claimed solution of Erdős Problem #306 (sums of unit fractions with semiprime denominators)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos306)  
+Nervous Machine fetched Shisheng Li's Lean development for problem 306 at the pinned commit, inside a virtual machine, and built it with the toolchain and Mathlib version it pins. Closed: The Lean development has not been built or kernel-checked by anyone outside the claimant. Bears on the open question: Do the formal statements say what the problem asks? [Record](https://github.com/Nervous-Machine/DEBRIEF-math-erdos306/blob/main/cycles/rerun-1.yaml)
+
 **14 November 2026** · Reran the checks independently · [The claimed solution of Erdős Problem #768 (density of integers with a witness divisor for every prime factor)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos768)  
 Nervous Machine fetched Eric Li's Lean development for problem 768 at the pinned commit, inside a virtual machine, and built it with the Lean toolchain the repository pins. Closed: The Lean development has not been built or kernel-checked by anyone outside the claimant. Bears on the open question: Do the formal statements say what the problem asks? [Record](https://github.com/Nervous-Machine/DEBRIEF-math-erdos768/blob/main/cycles/rerun-1.yaml)
 

@@ -81,9 +81,9 @@
    "title": "The claimed solution of Erdős Problem #306 (sums of unit fractions with semiprime denominators)",
    "area": "Number theory: unit fractions",
    "rests_on": "an arXiv paper and a Lean development, built on an earlier conditional Lean development by another author",
-   "stage": 1,
-   "stage_name": "Checks rerun",
-   "needs_next": "a reading guide that traces each formal statement to its definitions",
+   "stage": 2,
+   "stage_name": "Reading guide written",
+   "needs_next": "two independent readers to sign the semantic read",
    "certified": 2,
    "accepted": 0,
    "refuted": 0,
@@ -94,7 +94,7 @@
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
    "outside": [],
-   "cycles": 1,
+   "cycles": 2,
    "last": "2026-11-14",
    "last_text": "14 Nov 2026"
   },

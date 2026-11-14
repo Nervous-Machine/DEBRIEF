@@ -19,7 +19,8 @@ Repositories are named `DEBRIEF-domain-regime`.
 | [`DEBRIEF-space-lunar`](https://github.com/Nervous-Machine/DEBRIEF-space-lunar) | lunar-orbit radiation learning run, reconstructed record, the Mars-to-Moon cross-check, the open surface gap |
 | `DEBRIEF-space-mars` | Mars surface radiation learning run (pending) |
 
-The current standing of every mission is in [`INDEX.md`](INDEX.md).
+The current standing of every mission is in [`INDEX.md`](INDEX.md). Who has contributed, and what, is in
+[`CONTRIBUTORS.md`](CONTRIBUTORS.md), in plain words.
 
 A mission repository holds its own `ledger.json`, pre-registrations with their hashes, checks, logs and traces. It
 pins a protocol version and calls this repository's workflow to validate on every pull request.

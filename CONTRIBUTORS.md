@@ -17,6 +17,9 @@ Nervous Machine wrote the reading guide for the one question on this record that
 **14 November 2026** · Reran the checks independently · [The claimed solution of Erdős Problem #768 (density of integers with a witness divisor for every prime factor)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos768)  
 Nervous Machine fetched Eric Li's Lean development for problem 768 at the pinned commit, inside a virtual machine, and built it with the Lean toolchain the repository pins. Closed: The Lean development has not been built or kernel-checked by anyone outside the claimant. Bears on the open question: Do the formal statements say what the problem asks? [Record](https://github.com/Nervous-Machine/DEBRIEF-math-erdos768/blob/main/cycles/rerun-1.yaml)
 
+**14 November 2026** · Wrote a reading guide for the formal statements · [The claimed solution of Erdős Problem #768 (density of integers with a witness divisor for every prime factor)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos768)  
+Nervous Machine wrote the reading guide for the one question on this record that a machine cannot settle: whether the claimant's formal statement of problem 768 says what Erdős asked. Bears on the open question: Do the formal statements say what the problem asks? [Record](https://github.com/Nervous-Machine/DEBRIEF-math-erdos768/blob/main/cycles/trace-2.yaml)
+
 **8 November 2026** · Wrote a reading guide for the formal statements · [The claim that primes come within 186 of each other infinitely often](https://github.com/Nervous-Machine/DEBRIEF-math-primegaps)  
 On November eighth, Nervous Machine prepared a reading guide for the one open input that no machine can settle: whether the formal statements say what the paper claims. Bears on the open question: Do the formal statements say what a mathematician means? [Record](https://github.com/Nervous-Machine/DEBRIEF-math-primegaps/blob/main/SCORECARD.md)
 

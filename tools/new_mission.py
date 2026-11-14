@@ -139,7 +139,7 @@ def prereg_template(C):
     for a in leans:
         lines += [f"  - id: R1", f"    what: \"fetch github.com/{a['repo']} at {a['commit']}; confirm the tree matches\"", "    prediction: \"commit present; tree unchanged\"",
                   "  - id: R2", "    what: \"lake exe cache get (if Mathlib) and lake build; record wall time and peak memory\"", "    prediction: \"exit 0, 0 errors; <your predicted time and memory>\"",
-                  "  - id: R3", "    what: \"grep for sorry, admit, native_decide and custom axioms across the development\"", "    prediction: \"none\"",
+                  "  - id: R3", "    what: \"scan every .lean file of the development (excluding .lake and vendored dependencies) for sorry, admit, native_decide, axiom declarations, implemented_by and extern; list each hit by file and line\"", "    prediction: \"no hit in any file of the default build target's import closure; a hit in a file outside that closure (a statement-only or test file) is listed but is not a miss\"",
                   "  - id: R4", "    what: \"#print axioms on the main theorem\"", "    prediction: \"propext, Classical.choice, Quot.sound only\""]
         if C["problem"].get("formal_statement"):
             f = C["problem"]["formal_statement"]

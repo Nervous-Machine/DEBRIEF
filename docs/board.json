@@ -1,0 +1,60 @@
+{
+ "generated": "2026-11-14",
+ "stages": [
+  "Registered",
+  "Checks rerun",
+  "Reading guide written",
+  "Read independently",
+  "Claim rule met"
+ ],
+ "claims": [
+  {
+   "repo": "DEBRIEF-math-primegaps",
+   "url": "https://github.com/Nervous-Machine/DEBRIEF-math-primegaps",
+   "label": "Prime gaps ≤ 186 (OpenAI)",
+   "title": "The claim that primes come within 186 of each other infinitely often",
+   "area": "Number theory: gaps between primes",
+   "rests_on": "a Lean formalization with three stated assumptions, a numerical certificate (Python/FLINT) and a paper",
+   "stage": 2,
+   "stage_name": "Reading guide written",
+   "needs_next": "two independent readers to sign the semantic read",
+   "certified": 5,
+   "accepted": 5,
+   "refuted": 0,
+   "open_gaps": 3,
+   "first_ask": "Do the formal statements say what a mathematician means?",
+   "first_ask_what": "a number theorist reads the definitional trace against the formal file and the paper and signs its checklist",
+   "people": [
+    "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
+   ],
+   "outside": [],
+   "cycles": 3,
+   "last": "2026-11-08",
+   "last_text": "8 Nov 2026"
+  },
+  {
+   "repo": "DEBRIEF-math-zhang240",
+   "url": "https://github.com/Nervous-Machine/DEBRIEF-math-zhang240",
+   "label": "Prime gaps ≤ 240 (Zhang)",
+   "title": "The claim that primes come within 240 of each other infinitely often (Zhang)",
+   "area": "Number theory: gaps between primes",
+   "rests_on": "an exact arithmetic certificate (Python) and a paper",
+   "stage": 1,
+   "stage_name": "Checks rerun",
+   "needs_next": "a reading guide that traces each formal statement to its definitions",
+   "certified": 3,
+   "accepted": 1,
+   "refuted": 0,
+   "open_gaps": 3,
+   "first_ask": "The analytic argument has no formal deduction and no referee report",
+   "first_ask_what": "a referee report or an independent expert read of the analytic sections",
+   "people": [
+    "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
+   ],
+   "outside": [],
+   "cycles": 1,
+   "last": "2026-11-08",
+   "last_text": "8 Nov 2026"
+  }
+ ]
+}

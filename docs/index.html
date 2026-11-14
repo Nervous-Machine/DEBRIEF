@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEBRIEF Claims Board</title>
+<meta name="description" content="Mathematical claims under independent checking: how far each is from meeting its rule, who has looked, and what would close it.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:#12121a;--border:#2a2a3a;--text:#e0e0e0;--muted:#888;--dim:#666;--cyan:#00d4ff;--purple:#7b2ff7;--green:#00d464;--yellow:#ffd700}
+:root:not([data-theme="dark"]) {}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}
+.container{max-width:1100px;margin:0 auto;padding:0 16px}
+header{padding:28px 0 16px;border-bottom:1px solid var(--border)}
+header .brand{font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,#00d4ff,#7b2ff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.5px}
+header .by{font-size:.8rem;color:var(--muted)}
+.hero{padding:40px 0 28px}.hero h2{font-size:2rem;line-height:1.15;font-weight:700;letter-spacing:-.5px;max-width:860px;margin-bottom:14px}
+.hero .lede{font-size:1.08rem;color:#c0c0c0;max-width:760px}
+section.block{padding:34px 0;border-top:1px solid var(--border)}
+.eyebrow{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
+h3{font-size:1.35rem;margin-bottom:8px}.lede2{color:var(--muted);max-width:760px;margin-bottom:18px}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}
+thead th{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.lab a{font-weight:600;color:var(--text)}.sub{font-size:.8rem;color:var(--muted);margin-top:3px}.dim{color:var(--dim)}
+table.map th[scope=row]{white-space:nowrap;color:#cfd6de;font-weight:500}
+table.map td.cell{min-width:140px;background:rgba(255,255,255,.015)}
+.chip{display:inline-block;margin:2px 4px 2px 0;padding:5px 9px;border-radius:5px;font-size:.72rem;color:#cfd6de;background:rgba(0,212,255,.05)}
+.chip.dashed{border:1.5px dashed rgba(255,215,0,.55);color:var(--yellow)}.chip.solid{border:1px solid rgba(0,212,100,.6);color:var(--green);background:rgba(0,212,100,.08)}
+.chip:hover{text-decoration:none;transform:scale(1.05)}.empty{color:var(--dim)}
+.stage{display:inline-block;padding:3px 9px;border-radius:999px;font-size:.72rem;letter-spacing:.3px;border:1px solid var(--border);color:#cfd6de;white-space:nowrap}
+.stage.s0{border-color:rgba(255,255,255,.2)}.stage.s1{border-color:rgba(0,212,255,.5);color:var(--cyan)}.stage.s2{border-color:rgba(123,47,247,.6);color:#b58cff}
+.stage.s3{border-color:rgba(0,212,100,.6);color:var(--green)}.stage.s4{background:rgba(0,212,100,.15);border-color:var(--green);color:var(--green)}
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:.8rem;color:var(--muted);margin-top:14px;align-items:center}
+.legend .chip{margin:0}
+footer{padding:30px 0 50px;border-top:1px solid var(--border);font-size:.85rem;color:var(--muted)}
+footer p{margin-bottom:6px}
+</style>
+</head>
+<body>
+<header><div class="container"><div class="brand">DEBRIEF · Claims Board</div><div class="by">by Nervous Machine · generated 2026-11-14 from the mission ledgers</div></div></header>
+<section class="hero"><div class="container">
+<h2>Where each claim stands, and what would move it.</h2>
+<p class="lede">Every claim here has a public record: what was checked, under a rule written down first, and what is still open. Position on the board is read off that record. Nothing on this page is called proved or verified; a claim that meets its rule says so, and until then the board says what is missing and who could supply it. Anyone can take an open item; the work enters the record under their own name.</p>
+</div></section>
+<section class="block" id="map"><div class="container">
+<div class="eyebrow">The map</div><h3>Claims by area and by stage</h3>
+<p class="lede2">Left to right is the road to the claim rule. A dashed chip means nobody outside the maintainer has contributed yet; a solid one has independent hands on it.</p>
+<div class="table-scroll"><table class="map"><thead><tr><th>area</th><th>Registered</th><th>Checks rerun</th><th>Reading guide written</th><th>Read independently</th><th>Claim rule met</th></tr></thead><tbody>
+<tr><th scope="row">Number theory: gaps between primes</th><td class="cell s0"><span class=empty>·</span></td><td class="cell s1"><a class="chip dashed" href="https://github.com/Nervous-Machine/DEBRIEF-math-zhang240" title="The claim that primes come within 240 of each other infinitely often (Zhang)">Prime gaps ≤ 240 (Zhang)</a></td><td class="cell s2"><a class="chip dashed" href="https://github.com/Nervous-Machine/DEBRIEF-math-primegaps" title="The claim that primes come within 186 of each other infinitely often">Prime gaps ≤ 186 (OpenAI)</a></td><td class="cell s3"><span class=empty>·</span></td><td class="cell s4"><span class=empty>·</span></td></tr>
+</tbody></table></div>
+<div class="legend"><span class="chip dashed">maintainer only</span><span class="chip solid">independent contributors</span><span>Stages: <span class="stage s0">Registered</span><span class="stage s1">Checks rerun</span><span class="stage s2">Reading guide written</span><span class="stage s3">Read independently</span><span class="stage s4">Claim rule met</span></span></div>
+</div></section>
+<section class="block" id="closest"><div class="container">
+<div class="eyebrow">Closest to closing</div><h3>Which claims are nearest their rule</h3>
+<p class="lede2">Ordered by stage, then by how many gaps remain open. "Checked" counts findings with standing; the standing words are defined by the <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/schema/SCHEMA.md">protocol</a>.</p>
+<div class="table-scroll"><table><thead><tr><th>claim</th><th>stage · checked</th><th>what it needs next</th><th>who has looked</th></tr></thead><tbody>
+<tr><td class="lab"><a href="https://github.com/Nervous-Machine/DEBRIEF-math-primegaps">Prime gaps ≤ 186 (OpenAI)</a><div class="sub">The claim that primes come within 186 of each other infinitely often</div><div class="sub dim">Rests on a Lean formalization with three stated assumptions, a numerical certificate (Python/FLINT) and a paper.</div></td><td><span class="stage s2">Reading guide written</span><div class="sub">5 certified, 5 accepted · 3 open</div></td><td>Do the formal statements say what a mathematician means?<div class="sub">a number theorist reads the definitional trace against the formal file and the paper and signs its checklist</div><div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF-math-primegaps/blob/main/ASKS.md">What would close it →</a></div></td><td>1 person (maintainer only)<div class="sub">last cycle 8 Nov 2026</div></td></tr>
+<tr><td class="lab"><a href="https://github.com/Nervous-Machine/DEBRIEF-math-zhang240">Prime gaps ≤ 240 (Zhang)</a><div class="sub">The claim that primes come within 240 of each other infinitely often (Zhang)</div><div class="sub dim">Rests on an exact arithmetic certificate (Python) and a paper.</div></td><td><span class="stage s1">Checks rerun</span><div class="sub">3 certified, 1 accepted · 3 open</div></td><td>The analytic argument has no formal deduction and no referee report<div class="sub">a referee report or an independent expert read of the analytic sections</div><div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF-math-zhang240/blob/main/ASKS.md">What would close it →</a></div></td><td>1 person (maintainer only)<div class="sub">last cycle 8 Nov 2026</div></td></tr>
+</tbody></table></div>
+</div></section>
+<section class="block" id="open"><div class="container">
+<div class="eyebrow">Nobody has looked yet</div><h3>Claims waiting for a first independent contributor</h3>
+<p class="lede2">The first contribution on each of these is open. Reruns need a machine and a few hours; a semantic read needs a mathematician and about an hour with the reading guide.</p>
+<div class="table-scroll"><table><thead><tr><th>claim</th><th>area</th><th>first thing it needs</th></tr></thead><tbody>
+<tr><td class="lab"><a href="https://github.com/Nervous-Machine/DEBRIEF-math-primegaps">Prime gaps ≤ 186 (OpenAI)</a><div class="sub">The claim that primes come within 186 of each other infinitely often</div></td><td>Number theory: gaps between primes</td><td>two independent readers to sign the semantic read<div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF-math-primegaps/blob/main/ASKS.md">Take it →</a></div></td></tr>
+<tr><td class="lab"><a href="https://github.com/Nervous-Machine/DEBRIEF-math-zhang240">Prime gaps ≤ 240 (Zhang)</a><div class="sub">The claim that primes come within 240 of each other infinitely often (Zhang)</div></td><td>Number theory: gaps between primes</td><td>a reading guide that traces each formal statement to its definitions<div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF-math-zhang240/blob/main/ASKS.md">Take it →</a></div></td></tr>
+</tbody></table></div>
+</div></section>
+<footer><div class="container">
+<p>How to contribute, and the four kinds of contribution: <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>. Who has contributed, in plain words: <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTORS.md">CONTRIBUTORS.md</a>. To put a new claim on the board, open a <a href="https://github.com/Nervous-Machine/DEBRIEF/issues/new/choose">New claim</a> issue.</p>
+<p>Data for this page: <a href="board.json">board.json</a>. Protocol: <a href="https://github.com/Nervous-Machine/DEBRIEF">github.com/Nervous-Machine/DEBRIEF</a>.</p>
+</div></footer>
+</body></html>

@@ -1,0 +1,166 @@
+#!/usr/bin/env python3
+"""The claims board. usage: board.py OUTDIR REPO_URL=LEDGER.json [REPO_URL=LEDGER.json ...]
+
+Reads every audit mission (a claim under checking) and writes OUTDIR/board.json and OUTDIR/index.html: a map strip
+(area of mathematics × stage toward the claim rule), the list of claims closest to meeting their rule, and the list
+nobody outside the maintainer has looked at yet. Stage is read off the ledger mechanically; the words are the
+protocol's. Nothing is ranked by person.
+
+Stages (0-4): registered only; checks rerun by someone; reading guide written; read independently (a signed `read`
+cycle by a non-author); claim rule met.
+"""
+import datetime, html, json, re, sys
+
+OPEN_GAP = {"proposed", "in_cycle", "immovable"}
+STAGES = ["Registered", "Checks rerun", "Reading guide written", "Read independently", "Claim rule met"]
+STAGE_NEXT = ["an independent rerun of whatever is machine-checkable", "a reading guide that traces each formal statement to its definitions",
+              "two independent readers to sign the semantic read", "the remaining open gaps, usually a referee report", "nothing; the rule is met"]
+MAINTAINER = re.compile(r"^nervous machine", re.I)
+
+
+def when(d):
+    m = re.match(r"(\d{4})-(\d{2})-(\d{2})", str(d or ""))
+    if not m:
+        return str(d or "")
+    t = datetime.date(int(m[1]), int(m[2]), int(m[3]))
+    return f"{t.day} {t.strftime('%b %Y')}"
+
+
+def claim(url, path):
+    L = json.load(open(path)); m = L["missions"][0]
+    if m.get("kind") != "audit":
+        return None
+    cyc = [c for c in L["cycles"] if c.get("kind") != "replay" and c.get("by")]
+    kinds = {c.get("kind") for c in cyc}
+    signed = any(c.get("kind") == "read" and c.get("outcome", {}).get("verdict") == "signed" and c.get("not_an_author_of_the_claim", True) for c in cyc)
+    stage = 4 if m.get("claim_rule_met") else 3 if signed else 2 if "trace" in kinds else 1 if "rerun" in kinds else 0
+    fs = [f for f in L["findings"] if f.get("audience", "briefing") == "briefing"]
+    n = {k: sum(f["standing"]["status"] == k for f in fs) for k in ("certified", "accepted", "refuted")}
+    gaps = sorted([g for g in L["gaps"] if g.get("audience", "briefing") == "briefing" and g["status"] in OPEN_GAP], key=lambda g: g["priority"])
+    people = sorted({c["by"] for c in cyc})
+    outside = [p for p in people if not MAINTAINER.match(p)]
+    dates = sorted(re.match(r"\d{4}-\d{2}-\d{2}", str(c.get("dated", ""))).group(0) for c in L["cycles"] if re.match(r"\d{4}-\d{2}-\d{2}", str(c.get("dated", ""))))
+    first_ask = gaps[0] if gaps else None
+    name = url.rstrip("/").split("/")[-1]
+    return {"repo": name, "url": url, "label": m.get("label") or name, "title": m["title"], "area": m.get("area") or "Unclassified", "rests_on": m.get("rests_on") or "",
+            "stage": stage, "stage_name": STAGES[stage], "needs_next": STAGE_NEXT[stage], "certified": n["certified"], "accepted": n["accepted"], "refuted": n["refuted"],
+            "open_gaps": len(gaps), "first_ask": (first_ask["title"] if first_ask else ""), "first_ask_what": (first_ask["closes_with"][0]["what"] if first_ask and first_ask.get("closes_with") else ""),
+            "people": people, "outside": outside, "cycles": len(cyc), "last": dates[-1] if dates else "", "last_text": when(dates[-1]) if dates else "none yet"}
+
+
+def page(claims, generated):
+    e = html.escape
+    areas = sorted({c["area"] for c in claims})
+    by_cell = {}
+    for c in claims:
+        by_cell.setdefault((c["area"], c["stage"]), []).append(c)
+    rows = []
+    for a in areas:
+        cells = []
+        for s in range(5):
+            chips = "".join(f'<a class="chip {"solid" if c["outside"] else "dashed"}" href="{e(c["url"])}" title="{e(c["title"])}">{e(c["label"])}</a>' for c in by_cell.get((a, s), []))
+            cells.append(f'<td class="cell s{s}">{chips or "<span class=empty>·</span>"}</td>')
+        rows.append(f'<tr><th scope="row">{e(a)}</th>{"".join(cells)}</tr>')
+    maprows = "\n".join(rows) if rows else '<tr><td colspan="6" class="empty">No claims registered yet.</td></tr>'
+    closest = sorted(claims, key=lambda c: (-c["stage"], c["open_gaps"], c["last"]), reverse=False)
+    closest = sorted(closest, key=lambda c: (-c["stage"], c["open_gaps"]))
+    def row(c):
+        checked = f'{c["certified"]} certified, {c["accepted"]} accepted' + (f', {c["refuted"]} refuted' if c["refuted"] else "")
+        who = f'{len(c["people"])} ' + ("person" if len(c["people"]) == 1 else "people") + (f' ({len(c["outside"])} outside the maintainer)' if c["outside"] else " (maintainer only)")
+        return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div><div class="sub dim">Rests on {e(c["rests_on"])}.</div></td>'
+                f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{e(checked)} · {c["open_gaps"]} open</div></td>'
+                f'<td>{e(c["first_ask"] or c["needs_next"])}<div class="sub">{e(c["first_ask_what"])}</div><div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">What would close it →</a></div></td>'
+                f'<td>{e(who)}<div class="sub">last cycle {e(c["last_text"])}</div></td></tr>')
+    closest_rows = "\n".join(row(c) for c in closest) or '<tr><td colspan="4" class="empty">Nothing yet.</td></tr>'
+    unlooked = [c for c in sorted(claims, key=lambda c: c["last"]) if not c["outside"]]
+    unlooked_rows = "\n".join(f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div></td><td>{e(c["area"])}</td>'
+                              f'<td>{e(c["needs_next"])}<div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">Take it →</a></div></td></tr>' for c in unlooked) \
+        or '<tr><td colspan="3" class="empty">Every claim has had someone outside the maintainer look at it.</td></tr>'
+    legend_stages = "".join(f'<span class="stage s{i}">{e(s)}</span>' for i, s in enumerate(STAGES))
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEBRIEF Claims Board</title>
+<meta name="description" content="Mathematical claims under independent checking: how far each is from meeting its rule, who has looked, and what would close it.">
+<style>
+*{{margin:0;padding:0;box-sizing:border-box}}
+:root{{--bg:#0a0a0f;--card:#12121a;--border:#2a2a3a;--text:#e0e0e0;--muted:#888;--dim:#666;--cyan:#00d4ff;--purple:#7b2ff7;--green:#00d464;--yellow:#ffd700}}
+:root:not([data-theme="dark"]) {{}}
+body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased}}
+a{{color:var(--cyan);text-decoration:none}}a:hover{{text-decoration:underline}}
+.container{{max-width:1100px;margin:0 auto;padding:0 16px}}
+header{{padding:28px 0 16px;border-bottom:1px solid var(--border)}}
+header .brand{{font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,#00d4ff,#7b2ff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.5px}}
+header .by{{font-size:.8rem;color:var(--muted)}}
+.hero{{padding:40px 0 28px}}.hero h2{{font-size:2rem;line-height:1.15;font-weight:700;letter-spacing:-.5px;max-width:860px;margin-bottom:14px}}
+.hero .lede{{font-size:1.08rem;color:#c0c0c0;max-width:760px}}
+section.block{{padding:34px 0;border-top:1px solid var(--border)}}
+.eyebrow{{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:8px}}
+h3{{font-size:1.35rem;margin-bottom:8px}}.lede2{{color:var(--muted);max-width:760px;margin-bottom:18px}}
+.table-scroll{{overflow-x:auto;-webkit-overflow-scrolling:touch}}
+table{{border-collapse:collapse;width:100%;font-size:.9rem}}th,td{{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}}
+thead th{{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:600}}
+td.lab a{{font-weight:600;color:var(--text)}}.sub{{font-size:.8rem;color:var(--muted);margin-top:3px}}.dim{{color:var(--dim)}}
+table.map th[scope=row]{{white-space:nowrap;color:#cfd6de;font-weight:500}}
+table.map td.cell{{min-width:140px;background:rgba(255,255,255,.015)}}
+.chip{{display:inline-block;margin:2px 4px 2px 0;padding:5px 9px;border-radius:5px;font-size:.72rem;color:#cfd6de;background:rgba(0,212,255,.05)}}
+.chip.dashed{{border:1.5px dashed rgba(255,215,0,.55);color:var(--yellow)}}.chip.solid{{border:1px solid rgba(0,212,100,.6);color:var(--green);background:rgba(0,212,100,.08)}}
+.chip:hover{{text-decoration:none;transform:scale(1.05)}}.empty{{color:var(--dim)}}
+.stage{{display:inline-block;padding:3px 9px;border-radius:999px;font-size:.72rem;letter-spacing:.3px;border:1px solid var(--border);color:#cfd6de;white-space:nowrap}}
+.stage.s0{{border-color:rgba(255,255,255,.2)}}.stage.s1{{border-color:rgba(0,212,255,.5);color:var(--cyan)}}.stage.s2{{border-color:rgba(123,47,247,.6);color:#b58cff}}
+.stage.s3{{border-color:rgba(0,212,100,.6);color:var(--green)}}.stage.s4{{background:rgba(0,212,100,.15);border-color:var(--green);color:var(--green)}}
+.legend{{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:.8rem;color:var(--muted);margin-top:14px;align-items:center}}
+.legend .chip{{margin:0}}
+footer{{padding:30px 0 50px;border-top:1px solid var(--border);font-size:.85rem;color:var(--muted)}}
+footer p{{margin-bottom:6px}}
+</style>
+</head>
+<body>
+<header><div class="container"><div class="brand">DEBRIEF · Claims Board</div><div class="by">by Nervous Machine · generated {e(generated)} from the mission ledgers</div></div></header>
+<section class="hero"><div class="container">
+<h2>Where each claim stands, and what would move it.</h2>
+<p class="lede">Every claim here has a public record: what was checked, under a rule written down first, and what is still open. Position on the board is read off that record. Nothing on this page is called proved or verified; a claim that meets its rule says so, and until then the board says what is missing and who could supply it. Anyone can take an open item; the work enters the record under their own name.</p>
+</div></section>
+<section class="block" id="map"><div class="container">
+<div class="eyebrow">The map</div><h3>Claims by area and by stage</h3>
+<p class="lede2">Left to right is the road to the claim rule. A dashed chip means nobody outside the maintainer has contributed yet; a solid one has independent hands on it.</p>
+<div class="table-scroll"><table class="map"><thead><tr><th>area</th>{"".join(f"<th>{e(s)}</th>" for s in STAGES)}</tr></thead><tbody>
+{maprows}
+</tbody></table></div>
+<div class="legend"><span class="chip dashed">maintainer only</span><span class="chip solid">independent contributors</span><span>Stages: {legend_stages}</span></div>
+</div></section>
+<section class="block" id="closest"><div class="container">
+<div class="eyebrow">Closest to closing</div><h3>Which claims are nearest their rule</h3>
+<p class="lede2">Ordered by stage, then by how many gaps remain open. "Checked" counts findings with standing; the standing words are defined by the <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/schema/SCHEMA.md">protocol</a>.</p>
+<div class="table-scroll"><table><thead><tr><th>claim</th><th>stage · checked</th><th>what it needs next</th><th>who has looked</th></tr></thead><tbody>
+{closest_rows}
+</tbody></table></div>
+</div></section>
+<section class="block" id="open"><div class="container">
+<div class="eyebrow">Nobody has looked yet</div><h3>Claims waiting for a first independent contributor</h3>
+<p class="lede2">The first contribution on each of these is open. Reruns need a machine and a few hours; a semantic read needs a mathematician and about an hour with the reading guide.</p>
+<div class="table-scroll"><table><thead><tr><th>claim</th><th>area</th><th>first thing it needs</th></tr></thead><tbody>
+{unlooked_rows}
+</tbody></table></div>
+</div></section>
+<footer><div class="container">
+<p>How to contribute, and the four kinds of contribution: <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>. Who has contributed, in plain words: <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTORS.md">CONTRIBUTORS.md</a>. To put a new claim on the board, open a <a href="https://github.com/Nervous-Machine/DEBRIEF/issues/new/choose">New claim</a> issue.</p>
+<p>Data for this page: <a href="board.json">board.json</a>. Protocol: <a href="https://github.com/Nervous-Machine/DEBRIEF">github.com/Nervous-Machine/DEBRIEF</a>.</p>
+</div></footer>
+</body></html>
+"""
+
+
+def main(argv):
+    out, pairs = argv[0], [a.split("=", 1) for a in argv[1:]]
+    claims = [c for c in (claim(u, p) for u, p in pairs) if c]
+    gen = datetime.date.today().isoformat()
+    import os; os.makedirs(out, exist_ok=True)
+    json.dump({"generated": gen, "stages": STAGES, "claims": claims}, open(os.path.join(out, "board.json"), "w"), indent=1, ensure_ascii=False)
+    open(os.path.join(out, "index.html"), "w").write(page(claims, gen))
+    print(f"wrote {out}/index.html and board.json: {len(claims)} claims; stages " + ", ".join(f"{c['label']}={c['stage']}" for c in claims))
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

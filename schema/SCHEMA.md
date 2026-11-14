@@ -31,7 +31,9 @@ Text meant to be read aloud is in a field called `spoken`: plain prose, no symbo
 {`rely_on[]`, `do_not_rely_on[]`, `stop[]`, `new[]`; each item {`spoken`, `finding_ids[]`}},
 `certainty_statement.spoken`, `sources[]` {`kind`, `ref`}, `protocol_version`, `claim_rule_met` (audit only;
 true only when every step is certified or accepted from refereed literature and the formal deduction has been
-rerun independently).
+rerun independently), and three optional plain-words fields for the boards: `label` (under 30 characters),
+`area` (field of the claim, e.g. "Number theory: gaps between primes") and `rests_on` (what the checkable part
+rests on, e.g. "a Lean formalization and a numerical certificate").
 
 **cycles** — `cycle` (number or label), `dated`, `by` (who did the work: a Git identity, optionally an ORCID),
 `kind` (`learning` | `rerun` | `read` | `claim` | `data` | `correction` | `trace` | `replay`), `preregistered` {`question`, `rule`,

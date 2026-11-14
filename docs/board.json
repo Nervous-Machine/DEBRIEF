@@ -249,12 +249,15 @@
    "first_ask": "Do the formal statements say what a mathematician means?",
    "first_ask_what": "a number theorist reads the definitional trace against the formal file and the paper and signs its checklist",
    "people": [
+    "Fredrik Prüzelius (with Claude Code)",
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
-   "outside": [],
-   "cycles": 3,
-   "last": "2026-11-08",
-   "last_text": "8 Nov 2026"
+   "outside": [
+    "Fredrik Prüzelius (with Claude Code)"
+   ],
+   "cycles": 4,
+   "last": "2026-11-14",
+   "last_text": "14 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-zhang240",

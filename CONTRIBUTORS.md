@@ -28,3 +28,8 @@ Nervous Machine then reran OpenAI's own checks on a Linux virtual machine, under
 
 **18 October 2026** · Ran a test written down before looking at the data · [Lunar radiation campaign (lunar orbit), built on the Mars structure](https://github.com/Nervous-Machine/DEBRIEF-space-lunar)  
 On October eighteenth, under a rule written before any 2024 solar-wind or cosmic-ray byte was read, Nervous Machine asked whether the two stream interfaces found at Mars in 2024 had also reached the Moon. Bears on the open question: Do solar-wind structures seen at Mars reach the Moon? [Record](https://github.com/Nervous-Machine/DEBRIEF-space-lunar/blob/main/SCORECARD.md)
+
+## Fredrik Prüzelius (with Claude Code) (GitHub: @pruzze)
+
+**14 November 2026** · Reran the checks independently · [The claim that primes come within 186 of each other infinitely often](https://github.com/Nervous-Machine/DEBRIEF-math-primegaps)  
+Fredrik Prüzelius, working with Claude Code, reran the whole claim on his own machine: the Lean build, both kernel checks with the six permitted axioms, the library regression, and the full numerical certificate. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-primegaps/blob/main/cycles/rerun-issue-4.yaml)

@@ -1,0 +1,35 @@
+name: erdos1061
+label: "Erdős #1061"
+title: "The claimed solution of Erdős Problem #1061 (solutions of sigma(a) + sigma(b) = sigma(a+b))"
+area: "Number theory: arithmetic functions"
+rests_on: "an arXiv paper only; no formal deduction"
+short_version: >-
+  Erdős asked how many pairs a, b with a + b at most x satisfy sigma(a) + sigma(b) = sigma(a+b), and whether the count is
+  about a constant times x. In June 2026 Eric Li posted a paper claiming the count exceeds x times any fixed power of log x,
+  which answers the dichotomy in the higher-order direction. There is no Lean development, so nothing here can be settled
+  by a rerun; the first thing owed is a formal deduction or an independent reading. Everything here is open.
+problem:
+  url: https://www.erdosproblems.com/1061
+  posed: "a question of Erdős reported as problem B15 in Guy's collection (2004)"
+  plain: >-
+    Let sigma(n) be the sum of the divisors of n. Count the pairs of positive integers a, b with a + b at most x such that
+    sigma(a) + sigma(b) = sigma(a + b). Is the count asymptotic to c times x for some constant c, or is it of higher order?
+  formal_statement: {repo: google-deepmind/formal-conjectures, path: FormalConjectures/ErdosProblems/1061.lean, commit: e028240a61822d970c933f4656f51da025cf200b, blob_sha: 54fc67ce424652d144268e7a639b793b9934ebef, size: 1764}
+claims:
+  - by: "Eric Li"
+    ai: "GPT-5.5 Pro (as listed by the claimant)"
+    submitted: "2026-07-26"
+    where: https://www.erdosproblems.com/forum/thread/1061/proof-claims
+    summary_plain: >-
+      The claim is that the count S(x) grows faster than x times any fixed power of log x, so the linear asymptotic fails
+      in the higher-order direction. The construction starts from three integers with the same abundancy index, reduces the
+      identity to two equations in six primes lying on a split quadric, parametrises the quadric rationally, and counts prime
+      points on the resulting planes with a sieve and a higher-dimensional Siegel–Walfisz theorem. The author notes that
+      Guy's phrasing asks whether the count is cx + o(x) or of higher order, so a precise asymptotic is not required.
+    artifacts:
+      - {kind: arxiv, id: 2606.25849v1, title: "A resolution of Erdős Problem 1061 on the sum-of-divisors function", published: "2026-06-24", updated: "2026-06-24"}
+record:
+  - {dated: "2026-06-24", text: "Eric Li posted the paper on arXiv; the Erdős-problems AI wiki listed it as a candidate full solution, marked unverified, on June 24."}
+  - {dated: "2026-07-26", text: "The proof claim was listed on the problem page with a link to the paper; no formalisation was linked."}
+  - {dated: "2026-11-14", text: "The problem page lists one proof claim, not marked accepted by the site. A third-party formalisation of the problem statement exists."}
+site_status: "listed as one proof claim; not marked accepted by the site"

@@ -11,7 +11,7 @@ asks:      one section per open gap with what closes it, who could act, the cont
 import json, sys
 
 OPEN_GAP = {"proposed", "in_cycle", "immovable"}
-CONTRIB = {"rerun": "rerun", "read": "read", "data_release": "data", "measurement": "data", "research": "claim or research", "decision": "decision by the named party"}
+CONTRIB = {"rerun": "rerun", "read": "read", "data_release": "data", "measurement": "data", "research": "claim or research", "decision": "decision by the named party", "trace": "trace (a reading guide)", "claim": "claim (a formalization or a new claim)"}
 
 
 def briefing(docs):

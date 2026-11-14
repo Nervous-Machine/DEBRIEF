@@ -1,0 +1,37 @@
+name: erdos1177
+label: "Erdős #1177"
+title: "The claimed solution of Erdős Problem #1177 (three statements about triple systems avoiding a fixed finite one)"
+area: "Set theory and hypergraphs: chromatic number"
+rests_on: "an arXiv paper and a Lean development shared with the claim on problem 593"
+short_version: >-
+  Erdős, Galvin and Hajnal posed three statements about the families of 3-uniform hypergraphs of a given uncountable
+  chromatic number that avoid a fixed finite one. In June 2026 Eric Li's paper on problem 593 claimed, as a consequence,
+  that the three statements have the answers yes, no and yes. The paper and Lean development are the same as for problem
+  593, so a rerun there is a rerun here. Nobody independent has reported either. Everything here is open.
+problem:
+  url: https://www.erdosproblems.com/1177
+  posed: "Erdős, Galvin and Hajnal; listed in Vaughan's problem collection (1999)"
+  plain: >-
+    For a finite 3-uniform hypergraph G and a cardinal kappa, let F(G, kappa) be the 3-uniform hypergraphs of chromatic
+    number kappa that do not contain G. Three statements: if F(G, aleph-one) is non-empty it contains one of size at most
+    two to the power two to the power aleph-null; if F(G, aleph-one) and F(H, aleph-one) are both non-empty so is their
+    intersection; and if kappa and lambda are uncountable and F(G, kappa) is non-empty then so is F(G, lambda).
+  formal_statement: {repo: google-deepmind/formal-conjectures, path: FormalConjectures/ErdosProblems/1177.lean, commit: e028240a61822d970c933f4656f51da025cf200b, blob_sha: d1d8f93315cc0689e4808cb103bb6818a0ee878b, size: 2836}
+claims:
+  - by: "Eric Li"
+    ai: "GPT-5.5 Pro (as listed by the claimant)"
+    submitted: "2026-07-17"
+    where: https://www.erdosproblems.com/forum/thread/1177/proof-claims
+    summary_plain: >-
+      The same paper that claims problem 593 claims that its characterisation of obligatory triple systems, together with
+      a construction of linear triple systems of every uncountable chromatic number with a size bound, settles the three
+      statements of problem 1177 as yes, no and yes.
+    artifacts:
+      - {kind: arxiv, id: 2606.24882v2, title: "A Resolution of Erdős Problems 593 and 1177: Obligatory Triple Systems and Exact Spectra", published: "2026-06-23", updated: "2026-07-23"}
+      - {kind: repo, repo: ericlisg/erdos-593-1177-lean, commit: 5dcb6e4906df03f2e4294b21be73b55db7736f5a, commit_date: "2026-07-23T02:41:10Z", license: Apache-2.0, lean_files: 65, lakefile: true}
+record:
+  - {dated: "2026-06-23", text: "Eric Li posted a paper on arXiv claiming to resolve problems 593 and 1177; the Erdős-problems AI wiki listed it as a candidate full solution, marked unverified."}
+  - {dated: "2026-07-17", text: "The proof claim was listed on the problem page with links to the paper and the formalisation."}
+  - {dated: "2026-07-23", text: "The Lean repository reached its current commit."}
+  - {dated: "2026-11-14", text: "The problem page lists one proof claim, not marked accepted by the site. A third-party formalisation of the problem statement exists."}
+site_status: "listed as one proof claim; not marked accepted by the site"

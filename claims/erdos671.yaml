@@ -1,0 +1,61 @@
+name: erdos671
+label: "Erdős #671"
+title: "The claimed solution of Erdős Problem #671 (Lagrange interpolation and the Lebesgue function)"
+area: "Analysis: polynomial interpolation"
+rests_on: "two written arguments and two Lean files, one pinned by hash and one a live-editor link"
+short_version: >-
+  Erdős asked whether a sequence of interpolation nodes can make the Lebesgue function blow up at a point, or everywhere,
+  while Lagrange interpolation still converges somewhere for every continuous function. Two claimed solutions were listed
+  in July 2026, both answering yes to both questions, both produced with AI systems and both with a Lean file. Nobody
+  independent has reported building either Lean file or reading either argument. Everything here is open.
+problem:
+  url: https://www.erdosproblems.com/671
+  posed: "Erdős (1982, 1997); a $250 prize problem on erdosproblems.com"
+  plain: >-
+    For each n take n nodes in [-1,1] and interpolate a continuous function f by the polynomial of degree n-1 that agrees with
+    f at those nodes. The Lebesgue function at a point x is the sum of the absolute values of the fundamental polynomials at
+    x; Bernstein showed it is unbounded at some point for every choice of nodes. Erdős asked two things. First: can the nodes
+    be chosen so that for every continuous f there is a point where the Lebesgue function is unbounded and yet the
+    interpolants converge to f? Second: can the nodes be chosen so that the Lebesgue function is unbounded at every point,
+    and yet for every continuous f the interpolants converge to f somewhere?
+claims:
+  - by: "Liam Price"
+    ai: "GPT Pro and GPT 5.5 (as listed by the claimant)"
+    submitted: "2026-07-15"
+    where: https://www.erdosproblems.com/forum/thread/671/proof-claims
+    summary_plain: >-
+      The claimant states that GPT Pro answered both questions in the affirmative, and that a Lean formalisation of the
+      argument was produced by GPT-5.5 in Codex.
+    notes_plain: >-
+      The proof-claims thread links an Overleaf read-only document and a Lean snippet in the live Lean web editor; neither is
+      a fixed, hashable file, so this record pins the links and the date only. Attribution of these two links to this claim is
+      by elimination from the thread's link list.
+    artifacts:
+      - {kind: overleaf, url: "https://www.overleaf.com/read/gqmfrhsprtqm#59ac11"}
+      - {kind: url, url: "https://live.lean-lang.org/ (Lean snippet linked from the proof-claims thread; URL carries the code)"}
+  - by: "QuietMethod"
+    ai: "OpenAI Codex (GPT-5) (as listed by the claimant)"
+    submitted: "2026-07-24"
+    where: https://www.erdosproblems.com/forum/thread/671/proof-claims
+    summary_plain: >-
+      A second claim, described by its author as an independent re-derivation and quantitative refinement of the first,
+      not claiming priority for the construction. It builds nested intervals of nodes so that the Lebesgue function exceeds
+      any bound everywhere, while a pigeonhole choice at each stage keeps the interpolation error small for a given f. The
+      author reports a Lean formalisation checked with Lean 4.33.0-rc1 and Mathlib, with no sorry or admit, and with the
+      axioms reported as propext, Classical.choice and Quot.sound.
+    artifacts:
+      - {kind: lean, url: "https://quietmethod-erdos671.gintsuta-kobo.chatgpt.site/Erdos671_square_samples.lean", sha256: 98375fe58e68a2392bfc6d24e4177e70634f9cd449d7d8bf633fd6fe313c8a00, bytes: 125059, fetched: "2026-11-14"}
+      - {kind: pdf, url: "https://quietmethod-erdos671.gintsuta-kobo.chatgpt.site/erdos-671-square-samples-proof.pdf", sha256: 99d19938ec0a0165bbf7a888ae50ba1c4852c8beff30777c9b85950890401cc6, bytes: 209054, fetched: "2026-11-14"}
+record:
+  - {dated: "2026-06-22", text: "Terence Tao's Erdős-problems AI wiki listed an AI-standalone candidate full solution with Lean for problem 671, dated June 22, 2026, marked unverified; the wiki stopped updating on June 30."}
+  - {dated: "2026-07-15", text: "Liam Price listed a proof claim on the problem page: both questions answered in the affirmative by GPT Pro, with a Lean formalisation by GPT-5.5 in Codex."}
+  - {dated: "2026-07-24", text: "QuietMethod listed a second proof claim, described as an independent re-derivation and refinement of the first, with a Lean file and a PDF write-up; this record pins both files by hash as fetched on November 14, 2026."}
+  - {dated: "2026-11-14", text: "The problem page lists two proof claims, neither marked accepted by the site, and no third-party formalisation of the problem statement."}
+site_status: "listed as two proof claims; neither marked accepted by the site"
+extra_gaps:
+  - title: "The first claim's artifacts are not fixed files"
+    spoken: "The first claim points to an Overleaf document and a live-editor Lean snippet. Neither can be pinned by hash, so a rerun of that claim has nothing fixed to rerun until the claimant publishes a file or repository."
+    what: "the claimant publishes the Lean development and write-up as fixed files or a repository at a commit"
+    who: "the claimant"
+    kind: "data_release"
+    expected_signal: "a data or claim cycle pinning the files by hash"

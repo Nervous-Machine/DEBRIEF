@@ -1,0 +1,62 @@
+name: erdos593
+label: "Erdős #593"
+title: "The claimed solutions of Erdős Problem #593 (finite triple systems forced by uncountable chromatic number)"
+area: "Set theory and hypergraphs: chromatic number"
+rests_on: "two independent arXiv or PDF write-ups and two Lean developments, one per claimant"
+short_version: >-
+  Erdős asked which finite 3-uniform hypergraphs must appear in every 3-uniform hypergraph of uncountable chromatic
+  number, a five-hundred-dollar problem. In June and July 2026 two claimants, Eric Li and Samuil Petkov, each working with
+  an AI system, listed proofs reaching the same characterisation, each with a Lean development. Two claims that agree is
+  more than one, and still nobody independent has reported building either development or reading either argument.
+  Everything here is open.
+problem:
+  url: https://www.erdosproblems.com/593
+  posed: "Erdős (1995), after Erdős, Galvin and Hajnal (1975); a $500 prize problem"
+  plain: >-
+    A 3-uniform hypergraph has chromatic number greater than aleph-null if its vertices cannot be coloured with countably
+    many colours without a monochromatic edge. Which finite 3-uniform hypergraphs appear inside every such hypergraph? For
+    ordinary graphs Erdős considered the question solved: uncountably chromatic graphs contain every finite bipartite graph
+    but need not contain any fixed odd cycle.
+  formal_statement: {repo: google-deepmind/formal-conjectures, path: FormalConjectures/ErdosProblems/593.lean, commit: e028240a61822d970c933f4656f51da025cf200b, blob_sha: 732d1dc4915bc2943419f520991cbb9cbf6e0c53, size: 10229}
+claims:
+  - by: "Samuil Petkov"
+    ai: "ChatGPT 5.6 Sol Pro (as listed by the claimant)"
+    submitted: "2026-07-15"
+    where: https://www.erdosproblems.com/forum/thread/593/proof-claims
+    summary_plain: >-
+      The claim characterises the obligatory finite triple systems: after deleting isolated vertices, exactly the linear
+      systems in which every hyperedge-node meets a bridge in the Levi graph and every Berge cycle has even length. The
+      author states that the argument was checked by AI models several times and not by an expert, and that a
+      formalisation was under way at submission; the repository now holds a Lean formalisation.
+    artifacts:
+      - {kind: repo, repo: SamPetkov/Erdos593, commit: 70675e5ce5646718df4e6fd4f93c509ef3447a77, commit_date: "2026-10-14T00:09:40Z", license: CC-BY-4.0, lean_files: 551, lakefile: false}
+      - {kind: pdf, url: "https://github.com/SamPetkov/Erdos593/blob/main/erdos593_obligatory_triple_systems.pdf (in the repository at the pinned commit)"}
+  - by: "Eric Li"
+    ai: "GPT-5.5 Pro (as listed by the claimant)"
+    submitted: "2026-07-17"
+    where: https://www.erdosproblems.com/forum/thread/593/proof-claims
+    summary_plain: >-
+      The claim resolves problems 593 and 1177 together. The obligatory finite triple systems are exactly the class generated
+      from private-vertex expansions of finite bipartite graphs by finite disjoint unions and one-point amalgamations,
+      equivalently the linear systems with a bridge at every hyperedge-node of the Levi graph and only even Berge cycles.
+      The proof uses an exact bridge-trace theorem for one-apex sequence lifts, and also constructs, for every uncountable
+      cardinal, a linear triple system of exactly that chromatic number. The author states the paper was public on arXiv on
+      June 23, 2026, before any other proof of 593 or 1177, and welcomes others to join the formalisation.
+    artifacts:
+      - {kind: arxiv, id: 2606.24882v2, title: "A Resolution of Erdős Problems 593 and 1177: Obligatory Triple Systems and Exact Spectra", published: "2026-06-23", updated: "2026-07-23"}
+      - {kind: repo, repo: ericlisg/erdos-593-1177-lean, commit: 5dcb6e4906df03f2e4294b21be73b55db7736f5a, commit_date: "2026-07-23T02:41:10Z", license: Apache-2.0, lean_files: 65, lakefile: true}
+record:
+  - {dated: "2026-06-23", text: "Eric Li posted a paper on arXiv claiming to resolve problems 593 and 1177; the Erdős-problems AI wiki listed it as a candidate full solution, marked unverified."}
+  - {dated: "2026-07-15", text: "Samuil Petkov listed a proof claim reaching the same characterisation, stating it had been checked by AI models and not by an expert."}
+  - {dated: "2026-07-17", text: "Eric Li listed his proof claim on the problem page."}
+  - {dated: "2026-07-23", text: "Eric Li's Lean repository reached its current commit."}
+  - {dated: "2026-10-14", text: "Samuil Petkov's repository reached its current commit, with a Lean formalisation under a formalization folder."}
+  - {dated: "2026-11-14", text: "The problem page lists two proof claims, neither marked accepted by the site. A third-party formalisation of the problem statement exists."}
+site_status: "listed as two proof claims; neither marked accepted by the site"
+extra_gaps:
+  - title: "Do the two claims' main theorems state the same thing?"
+    spoken: "Two claimants reached the same characterisation independently. Their Lean statements can be set side by side; if they are the same statement, each development is a check on the other. Nobody has done that comparison."
+    what: "a trace setting the two main theorem statements and the third-party formal statement side by side, with any difference named"
+    who: "anyone who can read Lean"
+    kind: "trace"
+    expected_signal: "a trace cycle stating identical, equivalent or different for each pair"

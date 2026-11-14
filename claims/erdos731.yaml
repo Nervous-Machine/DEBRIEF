@@ -1,0 +1,46 @@
+name: erdos731
+label: "Erdős #731"
+title: "The claimed solution of Erdős Problem #731 (the least non-divisor of the central binomial coefficient)"
+area: "Number theory: binomial coefficients"
+rests_on: "an arXiv paper and a Lean development, under the claimant's own formalisation of the word 'reasonable'"
+short_version: >-
+  Erdős, Graham, Ruzsa and Straus asked for a reasonable function f(n) such that, for almost all n, the least m not
+  dividing the central binomial coefficient is asymptotic to f(n). In June 2026 Eric Li posted a paper, and in July a Lean
+  development, resolving the problem under an explicit dyadic-regularity reading of 'reasonable': a best deterministic
+  scale exists for tightness in density, and no dyadically regular f gives the asymptotic equivalence asked for. Whether
+  that reading answers the problem as posed is a judgment a number theorist has to make. Everything here is open.
+problem:
+  url: https://www.erdosproblems.com/731
+  posed: "Erdős, Graham, Ruzsa and Straus (1975)"
+  plain: >-
+    For an integer n let A(n) be the least m that does not divide the central binomial coefficient (2n choose n). The
+    authors say it is not hard to show that for almost all n, A(n) is exp((log n)^(1/2 + o(1))). The problem asks for a
+    reasonable function f(n) with A(n) asymptotic to f(n) for almost all n.
+  formal_statement: {repo: google-deepmind/formal-conjectures, path: FormalConjectures/ErdosProblems/731.lean, commit: e028240a61822d970c933f4656f51da025cf200b, blob_sha: 1ca01c40151c0b9dd8c440437ab8b7663b34ad83, size: 3538}
+claims:
+  - by: "Eric Li"
+    ai: "GPT-5.5 Pro (as listed by the claimant)"
+    submitted: "2026-07-17"
+    where: https://www.erdosproblems.com/forum/thread/731/proof-claims
+    summary_plain: >-
+      The claim resolves the problem under an explicit dyadic-regularity formalisation of 'reasonable'. On each dyadic block
+      it gives a scale F and proves two-sided tail bounds in natural density around it, so that log A(n) minus the main terms
+      is tight in density, while no dyadically regular deterministic scale satisfies the requested asymptotic equivalence. The
+      author presents this as a two-part answer: F is the best possible deterministic scale, and the equivalence as literally
+      asked cannot hold for any dyadically regular f.
+    artifacts:
+      - {kind: arxiv, id: 2606.29062v2, title: "A Resolution of Erdős Problem 731 under Dyadic Regularity", published: "2026-06-27", updated: "2026-07-26"}
+      - {kind: repo, repo: ericlisg/erdos731, commit: cb1b58c88bf639bb87664dd96ffc327c305e160e, commit_date: "2026-07-26T01:54:23Z", license: Apache-2.0, lean_files: 130, lakefile: true}
+record:
+  - {dated: "2026-06-27", text: "Eric Li posted the paper on arXiv; the Erdős-problems AI wiki listed it as a candidate full solution, marked unverified, on June 27."}
+  - {dated: "2026-07-17", text: "The proof claim was listed on the problem page with links to the paper and a formalisation."}
+  - {dated: "2026-07-26", text: "The Lean repository's current commit and the paper's second version were posted the same day."}
+  - {dated: "2026-11-14", text: "The problem page lists one proof claim, not marked accepted by the site."}
+site_status: "listed as one proof claim; not marked accepted by the site"
+extra_gaps:
+  - title: "Does the chosen formalisation of 'reasonable' answer the problem as posed?"
+    spoken: "The problem asks for a reasonable function. The claim fixes what reasonable means, dyadic regularity, and resolves that version in both directions. Whether that captures what the authors meant is a judgment for a number theorist, and it is separate from whether the proofs are correct."
+    what: "a number theorist reads the problem's source and the claim's definition and says, under their name, whether the resolved statement is the problem"
+    who: "a number theorist familiar with the 1975 paper"
+    kind: "read"
+    expected_signal: "a signed or refused read cycle naming the definition"

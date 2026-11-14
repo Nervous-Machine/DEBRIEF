@@ -496,7 +496,9 @@
          "research",
          "decision",
          "rerun",
-         "read"
+         "read",
+         "trace",
+         "claim"
         ]
        },
        "external": {

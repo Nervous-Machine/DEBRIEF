@@ -1,0 +1,39 @@
+name: erdos768
+label: "Erdős #768"
+title: "The claimed solution of Erdős Problem #768 (density of integers with a witness divisor for every prime factor)"
+area: "Number theory: multiplicative structure"
+rests_on: "an arXiv paper and a Lean development that vendors two other Lean projects"
+short_version: >-
+  Erdős asked for the exact rate at which the integers n, such that every prime factor p of n has a divisor of n greater
+  than one congruent to one modulo p, thin out; the question bounds the possible orders of non-cyclic simple groups. In
+  June 2026 Eric Li posted a paper claiming the exact constant, and in July a Lean development he reports as a complete
+  formal check of the main theorem. Nobody independent has reported building it or reading the paper. Everything here is
+  open.
+problem:
+  url: https://www.erdosproblems.com/768
+  posed: "Erdős (1974)"
+  plain: >-
+    Let A be the set of positive integers n such that for every prime p dividing n there is a divisor d of n, greater than
+    one, with d congruent to one modulo p. Erdős showed the proportion of such n up to N lies between two bounds of the
+    shape exp(minus a constant times the square root of log N times log log N), and asked whether the proportion has that
+    shape with a single exact constant c. The set bounds the number of possible orders of non-cyclic simple groups.
+claims:
+  - by: "Eric Li"
+    ai: "GPT-5.5 Pro (as listed by the claimant)"
+    submitted: "2026-07-17"
+    where: https://www.erdosproblems.com/forum/thread/768/proof-claims
+    summary_plain: >-
+      The claim is that the limit exists and the constant is one over two times the square root of log 2. The lower bound
+      uses primes in disjoint logarithmic intervals with a fourth-moment argument from the multiplicative large sieve; the
+      upper bound uses canonical witness divisors, a compression map with an injective reconstruction theorem for its fibres,
+      and growing divisor moments. The author reports that the main theorem and its complete proof were checked in Lean 4.
+    artifacts:
+      - {kind: arxiv, id: 2606.24872v2, title: "A Resolution of Erdős Problem 768: the Sylow Divisor Condition", published: "2026-06-23", updated: "2026-07-13"}
+      - {kind: repo, repo: ericlisg/erdos768-lean, commit: e46ab245f1e5eb2d1f0b184874c4e32e02ad16c9, commit_date: "2026-08-02T02:57:44Z", license: Apache-2.0, lean_files: 38, lakefile: true}
+record:
+  - {dated: "2026-06-23", text: "Eric Li posted the paper on arXiv; the Erdős-problems AI wiki listed it as a candidate full solution, marked unverified."}
+  - {dated: "2026-07-12", text: "The Lean repository was created."}
+  - {dated: "2026-07-17", text: "The proof claim was listed on the problem page with links to the paper and the formalisation."}
+  - {dated: "2026-08-02", text: "The Lean repository reached its current commit; it vendors the PrimeNumberTheoremAnd and LeanArchitect projects."}
+  - {dated: "2026-11-14", text: "The problem page lists one proof claim, not marked accepted by the site, and no third-party formalisation of the problem statement."}
+site_status: "listed as one proof claim; not marked accepted by the site"

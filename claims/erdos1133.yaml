@@ -1,0 +1,38 @@
+name: erdos1133
+label: "Erdős #1133"
+title: "The claimed solution of Erdős Problem #1133 (polynomials agreeing with bounded data at most nodes)"
+area: "Analysis: polynomials"
+rests_on: "a PDF write-up in a public repository; no formal deduction"
+short_version: >-
+  Erdős conjectured that for any large set of nodes in [-1,1] one can choose bounded target values so that any
+  polynomial of slightly higher degree matching most of them must be large somewhere on the interval. In September 2026
+  Jia-Qi Yang listed a claimed proof with stronger quantitative results, as a PDF in a public repository. There is no Lean
+  development, so nothing here can be settled by a rerun. Everything here is open.
+problem:
+  url: https://www.erdosproblems.com/1133
+  posed: "Erdős (1967)"
+  plain: >-
+    Fix a bound C. The conjecture is that there is a small epsilon such that, for n large and any n nodes in [-1,1], one can
+    pick target values in [-1,1] so that every polynomial of degree below (1 + epsilon) n which hits at least (1 - epsilon) n
+    of the targets exceeds C in absolute value somewhere on [-1,1]. Erdős proved a related statement with the roles of
+    degree and node count exchanged and said he could not prove the conjectured one even when the counts are equal.
+  formal_statement: {repo: google-deepmind/formal-conjectures, path: FormalConjectures/ErdosProblems/1133.lean, commit: e028240a61822d970c933f4656f51da025cf200b, blob_sha: 3b747d71a2aead4c6f40411ccde8758ee76b376a, size: 3020}
+claims:
+  - by: "Jia-Qi Yang"
+    ai: "GPT-6 (as listed by the claimant)"
+    submitted: "2026-09-13"
+    where: https://www.erdosproblems.com/forum/thread/1133/proof-claims
+    summary_plain: >-
+      The claim proves the conjectured statement and more: the obstruction holds for sign data with any prescribed pointwise
+      tolerance below one, the optimal exponential order of the obstruction parameter is determined, and for the full
+      Chebyshev–Lobatto grids a sharp leading exponential coefficient is identified. The author cites a quantitative
+      interpolation estimate of Olevskii and Ulanovskii for the arbitrary-node case, and describes the submission as a
+      quantitative refinement of an earlier draft.
+    artifacts:
+      - {kind: repo, repo: JiaqiYang-Fdu/erdos1133, commit: 8c3b428feae8ddfb19d25a0fa76516d2c9b5d79d, commit_date: "2026-09-13T20:14:36Z", license: null, lean_files: 0, lakefile: false}
+      - {kind: pdf, url: "https://github.com/JiaqiYang-Fdu/erdos1133/blob/main/robust_polynomial_interpolation.pdf (330518 bytes, git blob 589fbd5123afeaedd50977b45778c817bff81ea2 at the pinned commit)"}
+record:
+  - {dated: "2026-04-29", text: "Terence Tao's Erdős-problems AI wiki listed a candidate full solution by Przemek Chojecki with GPT-5.5 Pro, marked unverified; no proof claim from that work appears on the problem page as of November 2026."}
+  - {dated: "2026-09-13", text: "Jia-Qi Yang published a PDF write-up in a public repository and listed the proof claim on the problem page the same day."}
+  - {dated: "2026-11-14", text: "The problem page lists one proof claim, not marked accepted by the site; the repository has no licence file. A third-party formalisation of the problem statement exists."}
+site_status: "listed as one proof claim; not marked accepted by the site"

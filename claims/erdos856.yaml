@@ -1,0 +1,45 @@
+name: erdos856
+label: "Erdős #856"
+title: "The claimed solution of Erdős Problem #856 (sets with no k elements sharing a pairwise least common multiple)"
+area: "Number theory: extremal problems"
+rests_on: "an Overleaf read-only document; no fixed file and no formal deduction"
+short_version: >-
+  Erdős asked how large the sum of reciprocals of a subset of the first N integers can be if no k of its elements share
+  the same pairwise least common multiple. In July 2026 RayYoung, Keheng Zhu and Yanping Luo listed a claimed solution
+  giving the exponent of log N exactly, as a finite extremal formula, in an Overleaf document. The authors say they checked
+  the argument themselves and did not formalise it. There is no fixed file to pin and no Lean development. Everything
+  here is open.
+problem:
+  url: https://www.erdosproblems.com/856
+  posed: "Erdős (1970)"
+  plain: >-
+    For k at least three, let f_k(N) be the largest possible sum of 1/n over a subset of the integers one to N that contains
+    no k elements with the same pairwise least common multiple. Estimate f_k(N). Erdős gave an upper bound of order log N
+    over log log N; Tang and Zhang in 2025 showed f_k(N) lies between two powers of log N with exponents strictly between
+    zero and one, exponents tied to the sunflower conjecture.
+  formal_statement: {repo: google-deepmind/formal-conjectures, path: FormalConjectures/ErdosProblems/856.lean, commit: e028240a61822d970c933f4656f51da025cf200b, blob_sha: 9f1f0161ebe0c46662d6dcda4987535dd001d6cc, size: 6106}
+claims:
+  - by: "RayYoung, Keheng Zhu and Yanping Luo"
+    ai: "GPT 5.6 Sol Pro (as listed by the claimants)"
+    submitted: "2026-07-18"
+    where: https://www.erdosproblems.com/forum/thread/856/proof-claims
+    summary_plain: >-
+      The claim is that f_k(N) equals (log N) to the power gamma_k plus o(1), where gamma_k is a supremum over finite
+      block parameters of a quantity built from the largest r-uniform family on n points with no k sets sharing the same
+      pairwise union. Matching weighted upper and lower bounds reduce the problem to that finite extremal formula. The
+      authors say the proof is short, that they checked it themselves and uploaded it after minor revisions without a Lean
+      formalisation, and that it builds on the existing literature and the problem's discussion thread.
+    artifacts:
+      - {kind: overleaf, url: "https://www.overleaf.com/read/smhxdxnrmkbs#0eb184"}
+record:
+  - {dated: "2026-04-15", text: "Terence Tao's Erdős-problems AI wiki listed a candidate full solution by Przemek Chojecki with GPT-5.4 Pro, marked unverified; no proof claim from that work appears on the problem page as of November 2026."}
+  - {dated: "2026-07-18", text: "RayYoung, Keheng Zhu and Yanping Luo listed the proof claim on the problem page with a link to an Overleaf document."}
+  - {dated: "2026-11-14", text: "The problem page lists one proof claim, not marked accepted by the site. A third-party formalisation of the problem statement exists."}
+site_status: "listed as one proof claim; not marked accepted by the site"
+extra_gaps:
+  - title: "The write-up is not a fixed file"
+    spoken: "The only artifact is an Overleaf read link, which can change without notice. Until the authors post a fixed file, a PDF or an arXiv preprint, there is nothing to pin and a reader cannot be sure of reading the same text twice."
+    what: "the authors post the write-up as a fixed file or an arXiv preprint"
+    who: "the claimants"
+    kind: "data_release"
+    expected_signal: "a data or claim cycle pinning the file by hash"

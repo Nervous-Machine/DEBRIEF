@@ -49,7 +49,7 @@ holding the outcome, used for the ordering check), `before_data` (true | false |
 
 **gaps** — `gap_id`, `title`, `spoken`, `status` (`proposed` | `in_cycle` | `resolved_learned` |
 `resolved_refuted` | `immovable`), `opened_cycle`, `history[]` {`cycle`, `hypothesis`, `before_data`, `result`,
-`by`}, `closes_with[]` {`what`, `kind` (`data_release` | `measurement` | `research` | `decision` | `rerun` |
+`by`}, `closes_with[]` {`what`, `kind` (`data_release` | `measurement` | `research` | `decision` | `trace` | `claim` | `rerun` |
 `read`), `external` (bool), `who_could_act`}, `expected_signal` (what evidence would arrive and how it would be
 recognised), `resolution_by` (an ISO date, or `"none registered"`), `ask.spoken`, `priority` (1 = first),
 `audience`.

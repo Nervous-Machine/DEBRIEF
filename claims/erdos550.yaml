@@ -1,0 +1,38 @@
+name: erdos550
+label: "Erdős #550"
+title: "The claimed solution of Erdős Problem #550 (Ramsey numbers of trees versus complete multipartite graphs)"
+area: "Graph theory: Ramsey theory"
+rests_on: "an arXiv paper and a Lean development"
+short_version: >-
+  Erdős, Faudree, Rousseau and Schelp asked for an upper bound on the Ramsey number of a large tree against a complete
+  multipartite graph in terms of the bipartite case. In June 2026 Eric Li posted a paper claiming the bound for every
+  sufficiently large tree, and in August a Lean development. Nobody independent has reported building the development or
+  reading the argument. Everything here is open.
+problem:
+  url: https://www.erdosproblems.com/550
+  posed: "Erdős, Faudree, Rousseau and Schelp (1985); problem 16 in the Ramsey section of the graphs problem collection"
+  plain: >-
+    Let T be a tree on n vertices with n large, and G the complete multipartite graph with class sizes m1 up to mk in
+    increasing order. Show that the Ramsey number of T against G is at most the chromatic number of G minus one, times the
+    Ramsey number of T against the complete bipartite graph on the two smallest classes minus one, plus m1. Chvátal's
+    classical result gives the complete-graph case exactly.
+  formal_statement: {repo: google-deepmind/formal-conjectures, path: FormalConjectures/ErdosProblems/550.lean, commit: e028240a61822d970c933f4656f51da025cf200b, blob_sha: e8bc7c0e2f3ebf14533bec096eaf600a52cb30eb, size: 2554}
+claims:
+  - by: "Eric Li"
+    ai: "GPT-5.5 Pro (as listed by the claimant)"
+    submitted: "2026-07-17"
+    where: https://www.erdosproblems.com/forum/thread/550/proof-claims
+    summary_plain: >-
+      The claim is the stated bound for every sufficiently large n and every n-vertex tree, with k minus one in place of the
+      chromatic number minus one. The proof combines an off-Turán tree-embedding theorem, obtained from Szemerédi
+      regularity and an embedding lemma of Hladký and Piguet, with a compactness-and-rounding theorem for bounded-rank
+      hypergraph obstructions using shadow hypergraphs.
+    artifacts:
+      - {kind: arxiv, id: 2606.23659v2, title: "A Resolution of Erdős Problem 550 on Tree versus Complete Multipartite Ramsey Numbers", published: "2026-06-22", updated: "2026-08-02"}
+      - {kind: repo, repo: ericlisg/erdos550-lean, commit: 6624ede70821f095eaee49865448af4e4f8c421c, commit_date: "2026-08-02T05:32:08Z", license: null, lean_files: 137, lakefile: true}
+record:
+  - {dated: "2026-06-22", text: "Eric Li posted the paper on arXiv; the Erdős-problems AI wiki listed it as a candidate full solution, marked unverified."}
+  - {dated: "2026-07-17", text: "The proof claim was listed on the problem page with links to the paper and a formalisation."}
+  - {dated: "2026-08-02", text: "The Lean repository was created and reached its current commit, and the paper's second version was posted, the same day."}
+  - {dated: "2026-11-14", text: "The problem page lists one proof claim, not marked accepted by the site; the repository has no licence file. A third-party formalisation of the problem statement exists."}
+site_status: "listed as one proof claim; not marked accepted by the site"

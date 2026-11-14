@@ -113,12 +113,21 @@ def read_cycle(a, s):
     return "\n".join(lines) + "\n"
 
 
+def prereg_is_committed(text):
+    """True only when the pre-registration answer points at something committed: a URL or a commit id, and the answer
+    does not begin with "none". Free text such as "none (written locally, not committed)" is false."""
+    t = (text or "").strip()
+    if not t or t.lower().startswith("none") or t.lower() == "_no response_":
+        return False
+    return bool(re.search(r"https?://\S+|\b[0-9a-f]{7,40}\b", t))
+
+
 def rerun_cycle(a, s):
     by = s.get("name as you want it recorded", a.author)
     pre = s.get("pre-registration", "none")
     lines = [f"# rerun cycle from issue #{a.issue}; answers copied verbatim", "kind: rerun", f"cycle: {q('rerun-' + str(a.issue))}", f"dated: {q(a.date)}",
              f"by: {q(by)}", f"github: {q(a.author)}", "preregistered:", f"  commit: {q(pre)}", "  question: \"Independent rerun of the mission's checks.\"",
-             "  rule: \"As registered in the linked pre-registration, if any.\"", f"  before_data: {'false' if pre.strip().lower() in ('none', '', '_no response_') else 'true'}",
+             "  rule: \"As registered in the linked pre-registration, if any.\"", f"  before_data: {'true' if prereg_is_committed(pre) else 'false'}",
              f"environment: {q(s.get('environment', ''))}", "outcome:", f"  verdict: {s.get('verdict', 'mixed').split()[0]}",
              f"  results_text: {q(s.get('results', ''))}", "  misses:"]
     misses = [m for m in s.get("predictions that did not hold", "").splitlines() if m.strip() and m.strip() != "_No response_"]

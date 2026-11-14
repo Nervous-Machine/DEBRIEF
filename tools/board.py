@@ -37,7 +37,10 @@ def claim(url, path):
     fs = [f for f in L["findings"] if f.get("audience", "briefing") == "briefing"]
     n = {k: sum(f["standing"]["status"] == k for f in fs) for k in ("certified", "accepted", "refuted")}
     gaps = sorted([g for g in L["gaps"] if g.get("audience", "briefing") == "briefing" and g["status"] in OPEN_GAP], key=lambda g: g["priority"])
-    people = sorted({c["by"] for c in cyc})
+    seen = []
+    for c in sorted(cyc, key=lambda c: str(c.get("dated", ""))):
+        if c["by"] not in seen: seen.append(c["by"])
+    people = seen
     outside = [p for p in people if not MAINTAINER.match(p)]
     dates = sorted(re.match(r"\d{4}-\d{2}-\d{2}", str(c.get("dated", ""))).group(0) for c in L["cycles"] if re.match(r"\d{4}-\d{2}-\d{2}", str(c.get("dated", ""))))
     first_ask = gaps[0] if gaps else None
@@ -67,9 +70,10 @@ def page(claims, generated):
     def row(c):
         checked = f'{c["certified"]} certified, {c["accepted"]} accepted' + (f', {c["refuted"]} refuted' if c["refuted"] else "")
         short = lambda p: p.split(" (")[0]
-        names = [short(p) for p in c["people"] if MAINTAINER.match(p)] + [short(p) for p in c["outside"]]
-        who = ", ".join(f'<span class="who-outside">{e(n)}</span>' if i >= len(names) - len(c["outside"]) else e(n) for i, n in enumerate(names)) if names else "nobody yet"
-        who += f'<div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTORS.md">' + (f'{len(c["outside"])} outside the maintainer' if c["outside"] else "maintainer only") + " →</a></div>"
+        first = c["outside"][0] if c["outside"] else (c["people"][0] if c["people"] else "")
+        who = (f'<span class="who-outside">{e(short(first))}</span>' if c["outside"] else e(short(first))) if first else "nobody yet"
+        others = len(c["people"]) - (1 if first else 0)
+        who += f'<div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTORS.md">' + (f"and {others} more →" if others else "all contributors →") + "</a></div>"
         return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div><div class="sub dim">Rests on {e(c["rests_on"])}.</div></td>'
                 f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{e(checked)} · {c["open_gaps"]} open</div></td>'
                 f'<td>{e(c["first_ask"] or c["needs_next"])}<div class="sub">{e(c["first_ask_what"])}</div><div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">What would close it →</a></div></td>'
@@ -85,7 +89,7 @@ def page(claims, generated):
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DEBRIEF Claims Board</title>
-<meta name="description" content="Mathematical claims under independent checking: how far each is from meeting its rule, who has looked, and what would close it.">
+<meta name="description" content="Mathematical claims under independent checking: how far each is from meeting its rule, who has contributed, and what would close it.">
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
 :root{{--bg:#0a0a0f;--card:#12121a;--border:#2a2a3a;--text:#e0e0e0;--muted:#888;--dim:#666;--cyan:#00d4ff;--purple:#7b2ff7;--green:#00d464;--yellow:#ffd700}}
@@ -137,7 +141,7 @@ footer p{{margin-bottom:6px}}
 <section class="block" id="closest"><div class="container">
 <div class="eyebrow">Closest to closing</div><h3>Which claims are nearest their rule</h3>
 <p class="lede2">Ordered by stage, then by how many gaps remain open. "Checked" counts findings with standing; the standing words are defined by the <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/schema/SCHEMA.md">protocol</a>.</p>
-<div class="table-scroll"><table><thead><tr><th>claim</th><th>stage · checked</th><th>what it needs next</th><th>who has looked</th></tr></thead><tbody>
+<div class="table-scroll"><table><thead><tr><th>claim</th><th>stage · checked</th><th>what it needs next</th><th>contributors</th></tr></thead><tbody>
 {closest_rows}
 </tbody></table></div>
 </div></section>

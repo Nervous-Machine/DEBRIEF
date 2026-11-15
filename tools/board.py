@@ -2,8 +2,8 @@
 """The claims board. usage: board.py OUTDIR REPO_URL=LEDGER.json [REPO_URL=LEDGER.json ...]
 
 Reads every audit mission (a claim under checking) and writes OUTDIR/board.json and OUTDIR/index.html: a map strip
-(area of mathematics × stage toward the claim rule), the list of claims closest to meeting their rule, and the list
-nobody outside the maintainer has looked at yet. Stage is read off the ledger mechanically; the words are the
+(area of mathematics × stage toward the claim rule) and one table of claims ordered by how close each is to its rule,
+with who has contributed and what each needs next. Stage is read off the ledger mechanically; the words are the
 protocol's. Nothing is ranked by person.
 
 Stages (0-4): registered only; checks rerun by someone; reading guide written; read independently (a signed `read`
@@ -71,19 +71,16 @@ def page(claims, generated):
         checked = f'{c["certified"]} certified, {c["accepted"]} accepted' + (f', {c["refuted"]} refuted' if c["refuted"] else "")
         short = lambda p: p.split(" (")[0]
         first = c["outside"][0] if c["outside"] else (c["people"][0] if c["people"] else "")
-        who = (f'<span class="who-outside">{e(short(first))}</span>' if c["outside"] else e(short(first))) if first else "nobody yet"
+        who = (f'<span class="who-outside">{e(short(first))}</span>' if c["outside"] else e(short(first))) if first else "no contributions"
         others = len(c["people"]) - (1 if first else 0)
-        who += f'<div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTORS.md">' + (f"and {others} more →" if others else "all contributors →") + "</a></div>"
+        # with an outside contributor, link the rest of the names; otherwise invite the first independent contribution
+        who += (f'<div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTORS.md">and {others} more →</a></div>' if c["outside"] and others
+                else f'<div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">be the first →</a></div>')
         return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div><div class="sub dim">Rests on {e(c["rests_on"])}.</div></td>'
                 f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{e(checked)} · {c["open_gaps"]} open</div></td>'
                 f'<td>{e(c["first_ask"] or c["needs_next"])}<div class="sub">{e(c["first_ask_what"])}</div><div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">What would close it →</a></div></td>'
                 f'<td>{who}<div class="sub">last cycle {e(c["last_text"])}</div></td></tr>')
     closest_rows = "\n".join(row(c) for c in closest) or '<tr><td colspan="4" class="empty">Nothing yet.</td></tr>'
-    unlooked = [c for c in sorted(claims, key=lambda c: c["last"]) if not c["outside"]]
-    unlooked_rows = "\n".join(f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div></td><td>{e(c["area"])}</td>'
-                              f'<td>{e(c["needs_next"])}<div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">Take it →</a></div></td></tr>' for c in unlooked) \
-        or '<tr><td colspan="3" class="empty">Every claim has had someone outside the maintainer look at it.</td></tr>'
-    legend_stages = "".join(f'<span class="stage s{i}">{e(s)}</span>' for i, s in enumerate(STAGES))
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -136,20 +133,13 @@ footer p{{margin-bottom:6px}}
 <div class="table-scroll"><table class="map"><thead><tr><th>area</th>{"".join(f"<th>{e(s)}</th>" for s in STAGES)}</tr></thead><tbody>
 {maprows}
 </tbody></table></div>
-<div class="legend"><span class="chip dashed">maintainer only</span><span class="chip solid">independent contributors</span><span>Stages: {legend_stages}</span></div>
+<div class="legend"><span class="chip dashed">maintainer only</span><span class="chip solid">independent contributors</span></div>
 </div></section>
 <section class="block" id="closest"><div class="container">
-<div class="eyebrow">Closest to closing</div><h3>Which claims are nearest their rule</h3>
-<p class="lede2">Ordered by stage, then by how many gaps remain open. "Checked" counts findings with standing; the standing words are defined by the <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/schema/SCHEMA.md">protocol</a>.</p>
+<h3>Individual claims and contributions</h3>
+<p class="lede2">Ordered by stage, then by how many gaps remain open. Status words are defined by the <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/schema/SCHEMA.md">protocol</a>.</p>
 <div class="table-scroll"><table><thead><tr><th>claim</th><th>stage · checked</th><th>what it needs next</th><th>contributors</th></tr></thead><tbody>
 {closest_rows}
-</tbody></table></div>
-</div></section>
-<section class="block" id="open"><div class="container">
-<div class="eyebrow">Nobody has looked yet</div><h3>Claims waiting for a first independent contributor</h3>
-<p class="lede2">The first contribution on each of these is open. Reruns need a machine and a few hours; a semantic read needs a mathematician and about an hour with the reading guide.</p>
-<div class="table-scroll"><table><thead><tr><th>claim</th><th>area</th><th>first thing it needs</th></tr></thead><tbody>
-{unlooked_rows}
 </tbody></table></div>
 </div></section>
 <footer><div class="container">

@@ -1,7 +1,7 @@
 # Who has contributed
 
 Every entry here is a piece of checking work that is now part of a public record: someone ran a computation again on
-their own machine, read a proof's formal statements against the paper, supplied data, or ran a test they had written
+their own machine, read a proof's formal statements against the paper, supplied public data, registered a hypothesis that was then tested, or ran a test they had written
 down before looking. Each entry links to the record it belongs to. Names appear exactly as the contributor asked.
 
 Newest first. Generated from the mission ledgers by `tools/contributors.py`; to be added, contribute a cycle (see `CONTRIBUTING.md`).

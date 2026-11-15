@@ -60,7 +60,9 @@ def claim(url, path):
 
 def page(claims, generated):
     e = html.escape
-    T = COPY
+    T = {k: v for k, v in COPY.items() if v not in (None, "")}  # a deleted or blank line in board_copy.yaml drops the element
+    def opt(key, before, after, escape=False):
+        return (before + (e(T[key]) if escape else str(T[key])) + after) if key in T else ""
     areas = sorted({c["area"] for c in claims})
     by_cell = {}
     for c in claims:
@@ -79,22 +81,22 @@ def page(claims, generated):
         checked = f'{c["certified"]} certified, {c["accepted"]} accepted' + (f', {c["refuted"]} refuted' if c["refuted"] else "")
         short = lambda p: p.split(" (")[0]
         first = c["outside"][0] if c["outside"] else (c["people"][0] if c["people"] else "")
-        who = (f'<span class="who-outside">{e(short(first))}</span>' if c["outside"] else e(short(first))) if first else e(T["no_contributions"])
+        who = (f'<span class="who-outside">{e(short(first))}</span>' if c["outside"] else e(short(first))) if first else e(T.get("no_contributions", ""))
         others = len(c["people"]) - (1 if first else 0)
         # with an outside contributor, link the rest of the names; otherwise invite the first independent contribution
-        who += (f'<div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTORS.md">{e(T["and_more"].format(n=others))}</a></div>' if c["outside"] and others
-                else f'<div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">{e(T["be_first"])}</a></div>')
+        who += (f'<div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTORS.md">{e(T.get("and_more", "and {n} more").format(n=others))}</a></div>' if c["outside"] and others
+                else f'<div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">{e(T.get("be_first", "be the first"))}</a></div>')
         return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div><div class="sub dim">Rests on {e(c["rests_on"])}.</div></td>'
                 f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{e(checked)} · {c["open_gaps"]} open</div></td>'
-                f'<td>{e(c["first_ask"] or c["needs_next"])}<div class="sub">{e(c["first_ask_what"])}</div><div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">{e(T["what_would_close"])}</a></div></td>'
+                f'<td>{e(c["first_ask"] or c["needs_next"])}<div class="sub">{e(c["first_ask_what"])}</div><div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">{e(T.get("what_would_close", "What would close it"))}</a></div></td>'
                 f'<td>{who}<div class="sub">last cycle {e(c["last_text"])}</div></td></tr>')
     closest_rows = "\n".join(row(c) for c in closest) or '<tr><td colspan="4" class="empty">Nothing yet.</td></tr>'
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{e(T['title'])}</title>
-<meta name="description" content="{e(T['meta_description'])}">
+<title>{e(T.get('title', 'Claims Board'))}</title>
+{opt('meta_description', '<meta name="description" content="', '">', True)}
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
 :root{{--bg:#0a0a0f;--card:#12121a;--border:#2a2a3a;--text:#e0e0e0;--muted:#888;--dim:#666;--cyan:#00d4ff;--purple:#7b2ff7;--green:#00d464;--yellow:#ffd700}}
@@ -130,30 +132,22 @@ footer p{{margin-bottom:6px}}
 </style>
 </head>
 <body>
-<header><div class="container"><div class="brand">{e(T['brand'])}</div><div class="by">{e(T['byline'].format(generated=generated))}</div></div></header>
-<section class="hero"><div class="container">
-<h2>{T['hero_heading']}</h2>
-<p class="lede">{T['hero_lede']}</p>
-</div></section>
+<header><div class="container">{opt('brand', '<div class="brand">', '</div>', True)}{('<div class="by">' + e(T['byline'].format(generated=generated)) + '</div>') if 'byline' in T else ''}</div></header>
+{('<section class="hero"><div class="container">' + opt('hero_heading', '<h2>', '</h2>') + opt('hero_lede', '<p class="lede">', '</p>') + '</div></section>') if 'hero_heading' in T or 'hero_lede' in T else ''}
 <section class="block" id="map"><div class="container">
-<div class="eyebrow">{T['map_eyebrow']}</div><h3>{T['map_heading']}</h3>
-<p class="lede2">{T['map_lede']}</p>
+{opt('map_eyebrow', '<div class="eyebrow">', '</div>')}{opt('map_heading', '<h3>', '</h3>')}{opt('map_lede', '<p class="lede2">', '</p>')}
 <div class="table-scroll"><table class="map"><thead><tr><th>area</th>{"".join(f"<th>{e(s)}</th>" for s in STAGES)}</tr></thead><tbody>
 {maprows}
 </tbody></table></div>
-<div class="legend"><span class="chip dashed">{e(T['legend_dashed'])}</span><span class="chip solid">{e(T['legend_solid'])}</span></div>
+{('<div class="legend">' + opt('legend_dashed', '<span class="chip dashed">', '</span>', True) + opt('legend_solid', '<span class="chip solid">', '</span>', True) + '</div>') if 'legend_dashed' in T or 'legend_solid' in T else ''}
 </div></section>
 <section class="block" id="closest"><div class="container">
-<h3>{T['claims_heading']}</h3>
-<p class="lede2">{T['claims_lede']}</p>
-<div class="table-scroll"><table><thead><tr><th>{e(T['col_claim'])}</th><th>{e(T['col_stage'])}</th><th>{e(T['col_needs'])}</th><th>{e(T['col_contributors'])}</th></tr></thead><tbody>
+{opt('claims_eyebrow', '<div class="eyebrow">', '</div>')}{opt('claims_heading', '<h3>', '</h3>')}{opt('claims_lede', '<p class="lede2">', '</p>')}
+<div class="table-scroll"><table><thead><tr><th>{e(T.get('col_claim', ''))}</th><th>{e(T.get('col_stage', ''))}</th><th>{e(T.get('col_needs', ''))}</th><th>{e(T.get('col_contributors', ''))}</th></tr></thead><tbody>
 {closest_rows}
 </tbody></table></div>
 </div></section>
-<footer><div class="container">
-<p>{T['footer_1']}</p>
-<p>{T['footer_2']}</p>
-</div></footer>
+{('<footer><div class="container">' + opt('footer_1', '<p>', '</p>') + opt('footer_2', '<p>', '</p>') + '</div></footer>') if 'footer_1' in T or 'footer_2' in T else ''}
 </body></html>
 """
 

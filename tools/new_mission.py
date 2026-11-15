@@ -109,6 +109,7 @@ def readme(C, L, repo):
     m = L["missions"][0]; p = C["problem"]
     lines = [f"# {repo}", "", f"A DEBRIEF mission record (protocol https://github.com/Nervous-Machine/DEBRIEF) for **{m['title']}**.", "",
              "**Standing.** Certified 0. Accepted 0. Refuted 0. Open gaps " + str(len(L["gaps"])) + ". This record is at tier zero: the claim and its public artifacts are pinned, the checks still owed are listed, and nothing has been run or read yet. The first contribution is open.", "",
+             "This claim is on the public claims board, https://math-board.nervousmachine.com, which shows its stage, who has contributed, and what it needs next.", "",
              "## The problem", "", p["plain"], "", f"Source: {p['url']} (posed: {p.get('posed', 'see the problem page')}).", ""]
     if p.get("formal_statement"):
         f = p["formal_statement"]; lines += [f"A third-party formalization of the problem statement exists: `{f['path']}` in github.com/{f['repo']} at commit `{f['commit']}` (blob `{f.get('blob_sha', '')}`). It is the natural reference for whether a claimant's Lean theorem states this problem.", ""]

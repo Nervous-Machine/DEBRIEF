@@ -21,8 +21,8 @@ Repositories are named `DEBRIEF-domain-regime`.
 | `DEBRIEF-math-erdos<N>` (ten, opened 2026-11-14) | tier-zero records of claimed AI-assisted solutions to Erdős problems 306, 550, 593, 671, 731, 768, 856, 1061, 1133 and 1177: artifacts pinned, gaps drawn, nothing run yet; all listed in `INDEX.md` |
 
 The current standing of every mission is in [`INDEX.md`](INDEX.md). Who has contributed, and what, is in
-[`CONTRIBUTORS.md`](CONTRIBUTORS.md), in plain words. The claims board, which places every claim by area and by stage toward its rule, is
-generated into `docs/` (served by GitHub Pages once enabled). To open a new claim at tier zero, write a `claims/<name>.yaml` from
+[`CONTRIBUTORS.md`](CONTRIBUTORS.md), in plain words. The claims board, which places every claim by area and by stage toward its rule, is at
+https://math-board.nervousmachine.com (generated into `docs/` by `tools/regen.sh`). To open a new claim at tier zero, write a `claims/<name>.yaml` from
 `templates/claim.yaml` and run `tools/new_mission.py`.
 
 A mission repository holds its own `ledger.json`, pre-registrations with their hashes, checks, logs and traces. It

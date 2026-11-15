@@ -2,29 +2,23 @@
 # Plain text; links may be written as HTML <a href="...">...</a>. Table contents come from the ledgers, not from here.
 
 title: DEBRIEF Claims Board
-meta_description: "Mathematical claims under independent checking: how far each is from meeting its rule, who has contributed, and what would close it."
+meta_description: "Crowd Sourced Checking of Mathematical Claims"
 brand: DEBRIEF · Claims Board
 byline: by Nervous Machine · generated {generated} from the mission ledgers
 
 hero_heading: Where each claim stands, and what would move it.
 hero_lede: >-
-  Every claim here has a public record: what was checked, under a rule written down first, and what is still open.
-  Position on the board is read off that record. Nothing on this page is called proved or verified; a claim that meets
-  its rule says so, and until then the board says what is missing and who could supply it. Anyone can take an open
-  item; the work enters the record under their own name.
+  Every claim has a public record that shows what has been independently checked, and what is still open.
+  People can make contributions directly through the individual claim repos via the contribute links on the bottom table. The main repo with protocol schema can be found at:  can be found at: https://github.com/Nervous-Machine/DEBRIEF.
 
-map_eyebrow: The map
-map_heading: Claims by area and by stage
-map_lede: >-
-  Left to right is the road to the claim rule. A dashed chip means nobody outside the maintainer has contributed yet;
-  a solid one has independent hands on it.
+map_heading: Claims by Classification
+
 legend_dashed: maintainer only
 legend_solid: independent contributors
 
 claims_heading: Individual claims and contributions
 claims_lede: >-
-  Ordered by stage, then by how many gaps remain open. Status words are defined by the
-  <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/schema/SCHEMA.md">protocol</a>.
+  Each claim has its own repo. Status is defined in the main <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/schema/SCHEMA.md">protocol</a>.
 col_claim: claim
 col_stage: stage · checked
 col_needs: what it needs next
@@ -35,9 +29,9 @@ and_more: and {n} more →
 what_would_close: What would close it →
 
 footer_1: >-
-  How to contribute, and the four kinds of contribution:
+  How to contribute:
   <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.
-  Who has contributed, in plain words:
+  Who has contributed:
   <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTORS.md">CONTRIBUTORS.md</a>.
   To put a new claim on the board, open a
   <a href="https://github.com/Nervous-Machine/DEBRIEF/issues/new/choose">New claim</a> issue.

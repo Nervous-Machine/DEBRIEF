@@ -1,10 +1,11 @@
-# Contribution: dataset. One cycle. The three fields marked REQUIRED are confirmed with the supplier before the
-# credit line is written.
+# Contribution: dataset. One cycle. The dataset must be public at the endpoint given. The fields marked REQUIRED are
+# confirmed with the supplier before the credit line is written.
 kind: data
 cycle: "<number or label>"
 dated: "<YYYY-MM-DD>"
 by: "<how the supplier wants to be named>"           # REQUIRED, confirmed with supplier
-institution: "<as confirmed by the supplier>"        # REQUIRED, confirmed with supplier
+institution: "<optional, as the supplier wants it written>"
+endpoint: "<public URL where the dataset can be fetched>"  # REQUIRED; the dataset must be public
 licence: "<licence or data-use terms>"               # REQUIRED, confirmed with supplier
 dataset:
   description: "<instrument, quantity, cadence>"

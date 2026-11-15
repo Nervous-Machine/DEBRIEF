@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Turn a completed issue form into a cycle file.
 
-usage: issue_to_cycle.py --kind read|rerun|data --issue N --author HANDLE --body FILE --out DIR [--date YYYY-MM-DD]
+usage: issue_to_cycle.py --kind read|rerun|data|hypothesis --issue N --author HANDLE --body FILE --out DIR [--date YYYY-MM-DD]
                          [--repo DIR]
 
 Reads the issue body as GitHub renders a form ("### Label" headings followed by the answer), writes
@@ -16,7 +16,7 @@ checklist. The verdict is `signed` only if every item of that checklist is signe
 checklist cannot be compared with the trace, so an unrefused read is written as `mixed` for a maintainer to settle.
 A form that fails these checks writes nothing, prints each problem, and exits 2.
 """
-import argparse, datetime, json, re, subprocess, sys
+import hashlib, argparse, datetime, json, re, subprocess, sys
 
 TRACE = "trace/DEFINITIONAL-TRACE.md"
 
@@ -33,7 +33,8 @@ def sections(body):
             cur = m.group(1).strip().lower(); out[cur] = []
         elif cur is not None:
             out[cur].append(line)
-    return {k: "\n".join(v).strip() for k, v in out.items()}
+    vals = {k: "\n".join(v).strip() for k, v in out.items()}
+    return {k: ("" if v == "_No response_" else v) for k, v in vals.items()}  # GitHub writes _No response_ for an empty optional field
 
 
 def q(s):
@@ -152,26 +153,57 @@ def first_sentence(text, limit=200):
 def data_cycle(a, s):
     by = s.get("supplier, as they want to be named", a.author)
     gids = gap_ids_in(s.get("mission repository and gap id", ""))
+    endpoint = s.get("public endpoint", "")
+    if not re.search(r"https?://", endpoint):
+        raise FormProblem("the dataset must be public: give the URL of the endpoint where it can be fetched")
     lines = [f"# data cycle from issue #{a.issue}; answers copied verbatim; terms to be confirmed with the supplier before merge", "kind: data",
              f"cycle: {q('data-' + str(a.issue))}", f"dated: {q(a.date)}", f"by: {q(by)}", f"github: {q(a.author)}",
-             f"institution: {q(s.get('institution, as confirmed by the supplier', ''))}", f"licence: {q(s.get('licence or data-use terms', ''))}",
-             f"dataset: {q(s.get('dataset', ''))}", f"addresses_gap: {q(s.get('mission repository and gap id', ''))}", "preregistered:",
+             f"institution: {q(s.get('institution (optional)', s.get('institution, as confirmed by the supplier', '')))}", f"licence: {q(s.get('licence or data-use terms', ''))}",
+             f"endpoint: {q(endpoint)}", f"dataset: {q(s.get('dataset', ''))}", f"addresses_gap: {q(s.get('mission repository and gap id', ''))}", "preregistered:",
              f"  question: {q('What the data allows: ' + first_sentence(s.get('dataset', '')))}", f"  rule: {q(s.get('what will be done with it first', ''))}", "  before_data: true",
              "outcome:", "  verdict: admitted", f"spoken: {q('A dataset arrived from ' + by + '.')}", "finding_ids: []",
              "gap_ids: [" + ", ".join(q(g) for g in gids) + "]"]
     return "\n".join(lines) + "\n"
 
 
+def hypothesis_cycle(a, s):
+    hyp = s.get("hypothesis", "")
+    if not hyp.strip():
+        raise FormProblem("the hypothesis is empty")
+    signals = s.get("signals that would validate or refute it", "")
+    if not signals.strip():
+        raise FormProblem("name the signals that would validate or refute the hypothesis")
+    endpoints = s.get("public endpoints for those signals", "")
+    needed = s.get("measurements needed that do not exist yet", "")
+    bears = s.get("mission repository and the gaps or edges it bears on", "")
+    by = s.get("name as you want it recorded", "") or a.author
+    canon = "\n".join(x.strip() for x in (hyp, signals, endpoints, needed))
+    sha = hashlib.sha256(canon.encode("utf-8")).hexdigest()
+    has_ep = bool(re.search(r"https?://", endpoints))
+    gids = gap_ids_in(bears)
+    spoken = by + " registered a hypothesis: " + first_sentence(hyp) + (" Its signals are public, so a cycle can be run on it." if has_ep else " The measurement it needs does not exist yet, so it waits, pinned, for that measurement.")
+    lines = [f"# hypothesis cycle from issue #{a.issue}; answers copied verbatim and hashed; the hash is the submitter's pin", "kind: hypothesis",
+             f"cycle: {q('hyp-' + str(a.issue))}", f"dated: {q(a.date)}", f"by: {q(by)}", f"github: {q(a.author)}",
+             f"hypothesis: {q(hyp)}", f"signals: {q(signals)}", f"endpoints: {q(endpoints)}", f"measurements_needed: {q(needed)}", f"bears_on: {q(bears)}",
+             "pinned:", f"  sha256: {q(sha)}", "  over: \"hypothesis, signals, endpoints, measurements_needed; each stripped, joined by newlines, UTF-8\"",
+             f"  issue_url: {q(a.issue_url or '')}", f"  submitted_at: {q(a.submitted or '')}",
+             "preregistered:", f"  question: {q(first_sentence(hyp))}", f"  rule: {q('the signals named by the submitter: ' + first_sentence(signals))}", "  before_data: true",
+             "outcome:", "  verdict: admitted", f"  numbers: {{signals_have_public_endpoint: {'true' if has_ep else 'false'}}}",
+             f"spoken: {q(spoken)}", "finding_ids: []", "gap_ids: [" + ", ".join(q(g) for g in gids) + "]"]
+    return "\n".join(lines) + "\n"
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--kind", required=True, choices=["read", "rerun", "data"]); ap.add_argument("--issue", required=True, type=int)
+    ap.add_argument("--kind", required=True, choices=["read", "rerun", "data", "hypothesis"]); ap.add_argument("--issue", required=True, type=int)
+    ap.add_argument("--issue-url", dest="issue_url", default=""); ap.add_argument("--submitted", default="")
     ap.add_argument("--author", required=True); ap.add_argument("--body", required=True); ap.add_argument("--out", required=True)
     ap.add_argument("--date", default=datetime.date.today().isoformat())
     ap.add_argument("--repo", help="mission repository with full history; a read's trace commit and checklist are checked against it")
     a = ap.parse_args()
     s = sections(open(a.body, encoding="utf-8").read())
     try:
-        text = {"read": read_cycle, "rerun": rerun_cycle, "data": data_cycle}[a.kind](a, s)
+        text = {"read": read_cycle, "rerun": rerun_cycle, "data": data_cycle, "hypothesis": hypothesis_cycle}[a.kind](a, s)
     except FormProblem as e:
         print(e)
         sys.exit(2)

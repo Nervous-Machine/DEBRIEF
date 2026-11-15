@@ -1,0 +1,25 @@
+# Contribution: hypothesis. One cycle. The issue form writes this for you and computes the pin; by hand, compute
+# pinned.sha256 over hypothesis, signals, endpoints, measurements_needed (each stripped, newline-joined, UTF-8).
+kind: hypothesis
+cycle: "<number or label>"
+dated: "<YYYY-MM-DD>"
+by: "<your name as you want it recorded; ORCID optional>"
+hypothesis: "<one claim about the system, falsifiable>"
+signals: "<what observation would validate or refute it, with direction and threshold if you can>"
+endpoints: "<public URLs where those signals can be fetched; empty if none exist>"
+measurements_needed: "<the measurement that does not exist yet, if any>"
+bears_on: "<mission repository and the gap ids or edges it bears on>"
+pinned:
+  sha256: "<hash>"
+  issue_url: "<issue URL, if submitted by form>"
+  submitted_at: "<UTC timestamp>"
+preregistered:
+  question: "<the hypothesis in one sentence>"
+  rule: "<the signals named above>"
+  before_data: true
+outcome:
+  verdict: admitted
+  numbers: {signals_have_public_endpoint: true}
+spoken: "<two sentences: who registered what, and whether a cycle can be run on it now>"
+finding_ids: []
+gap_ids: []

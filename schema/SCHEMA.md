@@ -36,7 +36,7 @@ rerun independently), and three optional plain-words fields for the boards: `lab
 rests on, e.g. "a Lean formalization and a numerical certificate").
 
 **cycles** — `cycle` (number or label), `dated`, `by` (who did the work: a Git identity, optionally an ORCID),
-`kind` (`learning` | `rerun` | `read` | `claim` | `data` | `correction` | `trace` | `replay`), `preregistered` {`question`, `rule`,
+`kind` (`learning` | `rerun` | `read` | `claim` | `data` | `hypothesis` | `correction` | `trace` | `replay`), `preregistered` {`question`, `rule`,
 `predictions[]`, `commit` (path to the pre-registration file, or a commit id), `results[]` (paths to the files
 holding the outcome, used for the ordering check), `before_data` (true | false | unknown)}, `outcome` {`verdict`,
 `numbers{}`, `misses[]`}, `spoken`, `finding_ids[]`, `gap_ids[]`, `audience`.
@@ -96,7 +96,10 @@ misses. Nothing else enters the ledger.
 | `read` | a person reading a definitional trace | a signed or refused checklist, with comments | by name; a refusal names the item and why; a signature may be withdrawn by a later cycle, never deleted |
 | `claim` | anyone | source pin (repo, commit, file hashes), pre-registration, steps graph, first checks | the claim's author may open it but may not sign its own read |
 | `trace` | the keeper or a contributor | a definitional trace prepared for human review, with its pre-registration | renderings are marked as the tracer's; a trace changes no standing |
-| `data` | a data supplier | source, licence, hashes, collection dates, the gap it addresses, how to be named | the gap's history records the contributor; the gap moves `immovable` → `in_cycle` on receipt |
+| `data` | a data supplier | a **public endpoint** for the dataset, licence or terms, what it measures, the gap it addresses, how to be named | the dataset must be public at the endpoint given; the gap's history records the contributor; the gap moves `immovable` → `in_cycle` on receipt; cycles later run on the data carry `credits[]` naming the supplier |
+| `hypothesis` | anyone | a hypothesis, the signals that would validate or refute it, public endpoints for those signals if they exist, or the measurement that does not exist yet | the submission is hashed (`pinned.sha256` over the verbatim answers) and pinned to the issue; it opens a gap `HG<n>` credited to the submitter (`proposed` if the signals are public, `immovable` if the measurement does not exist); every later cycle run on it carries `credits[]`, and all certainty and certification gained on it is credited to the submitter |
+
+**Credits.** A `learning` cycle run on a contributed dataset or hypothesis carries `credits: [{by, cycle, sha256, for}]` naming the contributor and the cycle that registered the contribution; a finding that such a cycle produces carries the same list under `evidence.credits`. The contribution board lists the credited person on every such cycle. In a learning mission the kernel runs on the keeper's side; an outside contributor supplies the data or the hypothesis, and independent confirmation of a finding against public data strengthens `accepted` (recorded under `evidence.confirmed_by`), while `certified` requires the registered learning cycle to have run.
 
 Closing a semantic gap (proposed, 0.1.0): two independent `signed` cycles by people who are not authors of the
 claim, with no standing `refused` cycle. One refusal reopens the gap.

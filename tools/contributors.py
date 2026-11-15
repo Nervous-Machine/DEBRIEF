@@ -10,7 +10,9 @@ import datetime, json, re, sys
 
 KIND = {"rerun": "Reran the checks independently", "read": "Read the formal statements against the paper", "data": "Supplied data",
         "claim": "Opened a claim for checking", "learning": "Ran a test written down before looking at the data",
-        "trace": "Wrote a reading guide for the formal statements", "correction": "Corrected the record"}
+        "trace": "Wrote a reading guide for the formal statements", "correction": "Corrected the record",
+        "hypothesis": "Registered a hypothesis and the signals that would test it"}
+CREDIT = {"hypothesis": "A cycle was run on their hypothesis", "data": "A cycle was run on their data"}
 
 
 def when(d):
@@ -32,14 +34,19 @@ def entries(url, path):
     gaps = {g["gap_id"]: g for g in L["gaps"]}
     out = []
     for c in L["cycles"]:
+        for cr in c.get("credits", []) or []:
+            if cr.get("by"):
+                key = re.match(r"\d{4}-\d{2}-\d{2}", str(c.get("dated", "")))
+                out.append({"by": cr["by"], "github": cr.get("github"), "sort": key[0] if key else "", "date": when(c.get("dated")), "mission": m["title"], "url": url,
+                            "kind": CREDIT.get(cr.get("for"), "A cycle was run on their contribution"), "what": first_sentences(c.get("spoken", ""), 1), "bore": [], "link": f"{url}/blob/main/SCORECARD.md"})
         by = c.get("by")
         if not by:
             continue
         bore = []
         for gid in c.get("gap_ids", []):
             g = gaps.get(gid)
-            if not g or g.get("audience", "briefing") != "briefing":
-                continue
+            if not g or g.get("audience", "briefing") != "briefing" or str((g.get("credit") or {}).get("cycle")) == str(c.get("cycle")):
+                continue  # a gap the cycle itself opened is not a question it bore on
             t = g["title"].rstrip(".")
             bore.append(f"Closed: {t}." if str(g["status"]).startswith("resolved") else f"Bears on the open question: {t}" + ("" if t.endswith("?") else "."))
         src = (c.get("provenance") or {}).get("source", "")
@@ -59,7 +66,7 @@ def main(argv):
         people.setdefault(e["by"], []).append(e)
     text = ["# Who has contributed", "",
             "Every entry here is a piece of checking work that is now part of a public record: someone ran a computation again on",
-            "their own machine, read a proof's formal statements against the paper, supplied data, or ran a test they had written",
+            "their own machine, read a proof's formal statements against the paper, supplied public data, registered a hypothesis that was then tested, or ran a test they had written",
             "down before looking. Each entry links to the record it belongs to. Names appear exactly as the contributor asked.", "",
             "Newest first. Generated from the mission ledgers by `tools/contributors.py`; to be added, contribute a cycle (see `CONTRIBUTING.md`).", ""]
     for by, es in sorted(people.items(), key=lambda kv: max(e["sort"] for e in kv[1]), reverse=True):

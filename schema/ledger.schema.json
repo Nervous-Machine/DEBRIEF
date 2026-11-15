@@ -249,7 +249,8 @@
       "data",
       "correction",
       "trace",
-      "replay"
+      "replay",
+      "hypothesis"
      ]
     },
     "preregistered": {

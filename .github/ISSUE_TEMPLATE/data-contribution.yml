@@ -1,5 +1,5 @@
 name: Data contribution
-description: Offer a dataset that addresses an open gap. Becomes a `data` cycle under the supplier's name once terms are confirmed.
+description: Offer a public dataset that addresses an open gap. Becomes a `data` cycle under the supplier's name; every cycle run on it credits you.
 title: "Data: <gap> in <mission>"
 labels: ["data"]
 body:
@@ -18,7 +18,12 @@ body:
   - type: input
     id: institution
     attributes:
-      label: Institution, as confirmed by the supplier
+      label: Institution (optional)
+  - type: input
+    id: endpoint
+    attributes:
+      label: Public endpoint
+      description: The URL where the dataset can be fetched. It must be public; the cycle records this link, its provenance and your terms.
     validations:
       required: true
   - type: input

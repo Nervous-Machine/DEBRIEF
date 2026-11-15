@@ -1,7 +1,7 @@
 # Contributing
 
 Every contribution to a DEBRIEF mission is one **cycle** in that mission's ledger, dated, under your own name.
-There are four kinds. Pick the one that fits, follow its rule, and your name goes into the ledger, the mission's
+There are five kinds. Pick the one that fits, follow its rule, and your name goes into the ledger, the mission's
 `CITATION.cff` and the next release's author list.
 
 You never edit `ledger.json` by hand. You add a file under `cycles/` (or fill in an issue form, which does that
@@ -48,9 +48,30 @@ issue on this repository and a maintainer will create it, or fork a mission repo
 
 ## A dataset
 
-Copy `templates/cycle-data.yaml`. Three fields are confirmed with the supplier before anything is written: how
-they want to be named, their institution, and the licence or data-use terms. State which gap the data addresses.
-On receipt that gap moves from `immovable` to `in_cycle` and the supplier's name enters its history.
+Offer a **public** dataset that bears on an open gap or on a low-certainty relationship in a learning mission. Open
+the **Data contribution** issue form: the public endpoint where the data can be fetched, what it measures, its
+licence or terms, the gap it addresses, and how you want to be named. The data is not uploaded here; the cycle
+records the link, the provenance and your terms, and your terms govern every use. On merge the gap moves from
+`immovable` to `in_cycle` with your name in its history. The mission keeper then runs learning cycles on the data
+against the outstanding gaps and low-certainty relationships; each such cycle carries `credits` naming you, and so
+does every finding it produces.
+
+## A hypothesis
+
+Register a hypothesis and the signals that would test it, with the **Hypothesis** issue form: one falsifiable
+claim, what observation would count for or against it, public endpoints for those signals if they exist, and the
+measurement that does not exist yet if they do not. Your answers are copied verbatim into a `hypothesis` cycle and
+hashed; the hash and the issue are your pin. The ledger opens a gap in your name. If the signals are public, the
+keeper runs a learning cycle against them under your registered rule, and the cycle cites you. If the measurement
+does not exist, the gap waits as `immovable` with your name on it until someone makes it. All certainty and
+certification later gained on the hypothesis is credited to you.
+
+## Learning missions and the kernel
+
+In a learning mission (Mars, lunar) the learning cycles run through the keeper's kernel. An outside contributor
+supplies data or a hypothesis and is credited on every cycle run on it. Anyone can also confirm or refute a
+finding against the public data under its registered rule; that is recorded as independent confirmation and
+strengthens `accepted`. `certified` requires the registered learning cycle to have run.
 
 ## What goes in the record
 

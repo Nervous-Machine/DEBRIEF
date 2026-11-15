@@ -1,0 +1,50 @@
+name: Hypothesis
+description: Register a hypothesis and the signals that would test it. Hashed and pinned to you; every cycle run on it credits you.
+title: "Hypothesis: <one line> in <mission>"
+labels: ["hypothesis"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Your answers are copied verbatim into one `hypothesis` cycle under your name and hashed; the hash and this issue
+        are the pin that credits you with every bit of certainty or certification later gained on it. If the signals you
+        name are public, the mission keeper runs a learning cycle against them and the cycle cites you. If the measurement
+        does not exist yet, the hypothesis waits in the ledger as an open gap in your name until someone makes it.
+  - type: input
+    id: mission
+    attributes:
+      label: Mission repository and the gaps or edges it bears on
+      description: e.g. DEBRIEF-space-mars, G3 (the two dust-season bumps)
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Name as you want it recorded
+      description: Optional ORCID after a comma. No institution is required.
+    validations:
+      required: true
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Hypothesis
+      description: One falsifiable claim about the system, in plain words.
+    validations:
+      required: true
+  - type: textarea
+    id: signals
+    attributes:
+      label: Signals that would validate or refute it
+      description: What observation, with what direction and threshold, would count for or against it.
+    validations:
+      required: true
+  - type: textarea
+    id: endpoints
+    attributes:
+      label: Public endpoints for those signals
+      description: URLs where the signals can be fetched today. Leave empty if none exist.
+  - type: textarea
+    id: needed
+    attributes:
+      label: Measurements needed that do not exist yet
+      description: If the test needs an instrument, mission or dataset that does not exist, say what it is.

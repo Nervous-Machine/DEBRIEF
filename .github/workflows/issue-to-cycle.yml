@@ -1,4 +1,4 @@
-# Reusable: a mission repository calls this on `issues: [opened, edited]`. For an issue labelled read, rerun or data,
+# Reusable: a mission repository calls this on `issues: [opened, edited]`. For an issue labelled read, rerun, data or hypothesis,
 # it writes cycles/<kind>-issue-<n>.yaml from the form answers, verbatim, and opens a pull request under the
 # submitter's handle for a maintainer to merge after validation. A form that cannot be read (for a read: an empty or
 # malformed checklist, an unknown trace commit, an item the trace does not have) writes nothing; the submitter is
@@ -16,7 +16,7 @@ on:
         default: ledger/ledger.json
 jobs:
   cycle:
-    if: contains(github.event.issue.labels.*.name, 'read') || contains(github.event.issue.labels.*.name, 'rerun') || contains(github.event.issue.labels.*.name, 'data')
+    if: contains(github.event.issue.labels.*.name, 'read') || contains(github.event.issue.labels.*.name, 'rerun') || contains(github.event.issue.labels.*.name, 'data') || contains(github.event.issue.labels.*.name, 'hypothesis')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -35,7 +35,7 @@ jobs:
         id: kind
         run: |
           labels='${{ join(github.event.issue.labels.*.name, ',') }}'
-          for k in read rerun data; do case ",$labels," in *",$k,"*) echo "kind=$k" >> "$GITHUB_OUTPUT";; esac; done
+          for k in read rerun data hypothesis; do case ",$labels," in *",$k,"*) echo "kind=$k" >> "$GITHUB_OUTPUT";; esac; done
       - name: Write the cycle file from the form
         id: write
         env:
@@ -44,7 +44,8 @@ jobs:
           printf '%s' "$BODY" > /tmp/issue_body.md
           rc=0
           python3 .debrief-protocol/tools/issue_to_cycle.py --kind "${{ steps.kind.outputs.kind }}" --issue "${{ github.event.issue.number }}" \
-            --author "${{ github.event.issue.user.login }}" --body /tmp/issue_body.md --out cycles --repo . > /tmp/issue_to_cycle.out || rc=$?
+            --author "${{ github.event.issue.user.login }}" --body /tmp/issue_body.md --out cycles --repo . \
+            --issue-url "${{ github.event.issue.html_url }}" --submitted "${{ github.event.issue.created_at }}" > /tmp/issue_to_cycle.out || rc=$?
           cat /tmp/issue_to_cycle.out
           if [ "$rc" = 0 ]; then echo "ok=true" >> "$GITHUB_OUTPUT"
           elif [ "$rc" = 2 ]; then echo "ok=false" >> "$GITHUB_OUTPUT"

@@ -318,6 +318,9 @@
       },
       "misses": {
        "type": "array"
+      },
+      "position": {
+       "type": "string"
       }
      }
     },

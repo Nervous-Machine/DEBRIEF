@@ -18,6 +18,7 @@ checklist:
 outcome:
   verdict: signed | refused
   misses: ["<any rendering in the trace you found wrong, even if harmless>"]
+  position: "<optional: your position in your own words: reservations, conditions, what you did not check>"
 spoken: "<one or two sentences: who read what, and whether they signed>"
 finding_ids: []
 gap_ids: ["<the semantic gap id>"]

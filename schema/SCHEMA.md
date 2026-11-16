@@ -39,7 +39,7 @@ rests on, e.g. "a Lean formalization and a numerical certificate").
 `kind` (`learning` | `rerun` | `read` | `claim` | `data` | `hypothesis` | `correction` | `trace` | `replay`), `preregistered` {`question`, `rule`,
 `predictions[]`, `commit` (path to the pre-registration file, or a commit id), `results[]` (paths to the files
 holding the outcome, used for the ordering check), `before_data` (true | false | unknown)}, `outcome` {`verdict`,
-`numbers{}`, `misses[]`}, `spoken`, `finding_ids[]`, `gap_ids[]`, `audience`.
+`numbers{}`, `misses[]`, `position` (a reader's own words, verbatim; read cycles only)}, `spoken`, `finding_ids[]`, `gap_ids[]`, `audience`.
 `verdict` ∈ `admitted`, `not_admitted`, `confirmed`, `refuted`, `unavailable`, `corrected`, `withdrawn`,
 `classified`, `learned`, `mixed`, `signed`, `refused`.
 

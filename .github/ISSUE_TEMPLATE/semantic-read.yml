@@ -56,6 +56,11 @@ body:
     attributes:
       label: Renderings you found wrong, even if harmless
       description: Quote the trace line and say what it should say. Leave empty if none.
+  - type: textarea
+    id: position
+    attributes:
+      label: Your position, in your own words
+      description: Optional. Anything a sign or refuse cannot hold, such as a reservation, a condition, what you did not check, or how sure you are. Recorded exactly as written.
   - type: dropdown
     id: verdict
     attributes:

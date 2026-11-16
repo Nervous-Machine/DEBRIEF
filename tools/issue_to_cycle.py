@@ -14,6 +14,7 @@ must exist and contain trace/DEFINITIONAL-TRACE.md, and every answered item must
 checklist. The verdict is `signed` only if every item of that checklist is signed, `refused` if any is refused, and
 `mixed` if some items are signed and the rest unanswered; only `signed` counts as a signature. Without --repo the
 checklist cannot be compared with the trace, so an unrefused read is written as `mixed` for a maintainer to settle.
+A read's free-text position, if given, is copied verbatim into outcome.position.
 A form that fails these checks writes nothing, prints each problem, and exits 2.
 """
 import hashlib, argparse, datetime, json, re, subprocess, sys
@@ -101,6 +102,9 @@ def read_cycle(a, s):
              "checklist:"] + [f"  - {{item: {q(i['item'])}, signed: {'true' if i['signed'] else 'false'}, note: {q(i['note'])}}}" for i in items]
     misses = [m for m in s.get("renderings you found wrong, even if harmless", "").splitlines() if m.strip() and m.strip() != "_No response_"]
     lines += ["outcome:", f"  verdict: {verdict}", "  misses:" + (" []" if not misses else "")] + [f"    - {q(m)}" for m in misses]
+    position = s.get("your position, in your own words", "")
+    if position:
+        lines.append(f"  position: {q(position)}")
     n_s, n_r = sum(i["signed"] for i in items), len(refused)
     if verdict == "signed":
         spoken = f"{by} read the definitional trace and signed every item of its checklist."

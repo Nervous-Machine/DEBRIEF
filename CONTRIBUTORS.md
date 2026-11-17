@@ -50,6 +50,11 @@ Nervous Machine then reran OpenAI's own checks on a Linux virtual machine, under
 **18 October 2026** · Ran a test written down before looking at the data · [Lunar radiation campaign (lunar orbit), built on the Mars structure](https://github.com/Nervous-Machine/DEBRIEF-space-lunar)  
 On October eighteenth, under a rule written before any 2024 solar-wind or cosmic-ray byte was read, Nervous Machine asked whether the two stream interfaces found at Mars in 2024 had also reached the Moon. Bears on the open question: Do solar-wind structures seen at Mars reach the Moon? [Record](https://github.com/Nervous-Machine/DEBRIEF-space-lunar/blob/main/SCORECARD.md)
 
+## Palomar registry
+
+**16 November 2026** · Reran the checks independently · [The claimed solutions of Erdős Problem #593 (finite triple systems forced by uncountable chromatic number)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos593)  
+The Palomar registry registered Samuil Petkov's formalisation on 2026-11-16 after replaying its proof through two independent kernels (nanoda and con-ron); a language model judged the statement. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-erdos593/blob/main/SCORECARD.md)
+
 ## Heidi Bennett (Nervous Machine) (GitHub: @heidiEC)
 
 **15 November 2026** · Supplied data · [Kardashev II and III: what would need to be true](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev)  
@@ -86,3 +91,8 @@ Hypothesis 8 was registered by Heidi Bennett and pinned by hash. [Record](https:
 
 **14 November 2026** · Reran the checks independently · [The claim that primes come within 186 of each other infinitely often](https://github.com/Nervous-Machine/DEBRIEF-math-primegaps)  
 Fredrik Prüzelius, working with Claude Code, reran the whole claim on his own machine: the Lean build, both kernel checks with the six permitted axioms, the library regression, and the full numerical certificate. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-primegaps/blob/main/cycles/rerun-issue-4.yaml)
+
+## Linmiao Xu
+
+**13 October 2026** · Reran the checks independently · [The claimed solution of Erdős Problem #306 (sums of unit fractions with semiprime denominators)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos306)  
+Linmiao Xu ported the claimant's Lean development to Lean 4.35.0-rc2 and reports that it proves the formal-conjectures statement using the three standard axioms only. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-erdos306/blob/main/SCORECARD.md)

@@ -171,11 +171,15 @@
    "first_ask": "Do the formal statements say what the problem asks?",
    "first_ask_what": "a machine comparison of the claimant's main theorem with the third-party formal statement in google-deepmind/formal-conjectures, then a human read of any difference",
    "people": [
+    "Linmiao Xu",
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
-   "outside": [],
+   "outside": [
+    "Linmiao Xu"
+   ],
    "checks": {
     "rerun": [
+     "Linmiao Xu",
      "Nervous Machine"
     ],
     "trace": true,
@@ -202,7 +206,7 @@
     },
     "application": "none"
    },
-   "cycles": 2,
+   "cycles": 3,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
   },
@@ -273,11 +277,16 @@
    "first_ask": "The Lean development has not been built or kernel-checked by anyone outside the claimant",
    "first_ask_what": "a pre-registered rerun: fetch at the pinned commit, build, confirm no sorry or admit, print the axioms",
    "people": [
+    "Palomar registry",
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
-   "outside": [],
+   "outside": [
+    "Palomar registry"
+   ],
    "checks": {
-    "rerun": [],
+    "rerun": [
+     "Palomar registry"
+    ],
     "trace": true,
     "reads": 0,
     "signed": 0,
@@ -314,7 +323,7 @@
     },
     "application": "none"
    },
-   "cycles": 1,
+   "cycles": 2,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
   },
@@ -543,8 +552,8 @@
    ],
    "checks": {
     "rerun": [
-     "Fredrik Prüzelius",
-     "Nervous Machine"
+     "Nervous Machine",
+     "Fredrik Prüzelius"
     ],
     "trace": true,
     "reads": 0,

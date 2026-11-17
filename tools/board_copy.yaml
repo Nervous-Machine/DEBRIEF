@@ -10,36 +10,29 @@ byline: by Nervous Machine · generated {generated} from the mission ledgers
 
 map_heading: Claims by Classification
 
-legend_dashed: maintainer only
-legend_solid: independent contributors
+legend_dashed: checked by the maintainer only
+legend_solid: checked by someone else too
 
 claims_heading: Individual claims and contributions
 claims_lede: >-
-  Each claim has its own repo. Status is defined in the main <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/schema/SCHEMA.md">protocol</a>.
+  One row per claim. Machines have checked several of these proofs; no person has yet signed for what any of the
+  statements mean. Checks by others are credited as dated cycles in each claim's ledger, whether they were sent here
+  (Fredrik Prüzelius's rerun) or published elsewhere (the <a href="https://palomar-registry.org/about">Palomar registry</a>,
+  which replays proofs through independent kernels and has a language model judge the statement; Linmiao Xu's port of #306).
+  DeepMind <a href="https://github.com/google-deepmind/formal-conjectures">formal-conjectures</a> and erdosproblems.com statuses
+  were read on 17 Nov 2026. Stages are defined in the <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/schema/SCHEMA.md">protocol</a>;
+  engineering use is our assessment, argued in <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/APPLICATIONS.md">APPLICATIONS.md</a>.
 col_claim: claim
-col_stage: stage · checked
+col_stage: stage
+col_proof: proof checked by
+col_elsewhere: elsewhere
+col_meaning: what it means
+col_use: engineering use
 col_needs: what it needs next
-col_contributors: contributors
 no_contributions: no contributions
 be_first: be the first →
 and_more: and {n} more →
 what_would_close: What would close it →
-
-stack_heading: Who has checked what
-stack_lede: >-
-  Machines have checked several of these proofs. No person has yet signed for what any of the statements mean.
-  Columns from other registries are read from their public data ({dated}) and recorded in each ledger as a dated cycle.
-  <a href="https://palomar-registry.org/about">Palomar</a> replays each registered proof through independent kernels and has a language model judge the statement.
-  <a href="https://github.com/google-deepmind/formal-conjectures">DeepMind formal-conjectures</a> reviews each formal statement when it is added.
-  Engineering use is our assessment: <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/APPLICATIONS.md">APPLICATIONS.md</a>.
-st_claim: claim
-st_rerun: independent rerun
-st_palomar: Palomar
-st_fc: DeepMind formal-conjectures
-st_ep: erdosproblems.com
-st_trace: reading guide
-st_read: named human read
-st_app: engineering use
 
 footer_1: >-
   How to contribute:

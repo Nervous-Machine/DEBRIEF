@@ -58,7 +58,7 @@ def claim(url, path):
         x = (c.get("outcome", {}).get("numbers") or {}).get("external")
         if c.get("kind") == "replay" and x:
             ext = {**x, "dated": c.get("dated")}
-    reruns = sorted({c["by"].split(" (")[0] for c in cyc if c.get("kind") == "rerun"})
+    reruns = list(dict.fromkeys(c["by"].split(" (")[0] for c in sorted(cyc, key=lambda c: str(c.get("dated", ""))) if c.get("kind") == "rerun"))
     reads = [c for c in cyc if c.get("kind") == "read" and c.get("not_an_author_of_the_claim", True)]
     check = {"rerun": reruns, "trace": "trace" in kinds, "reads": len(reads),
              "signed": sum(c.get("outcome", {}).get("verdict") == "signed" for c in reads),
@@ -95,37 +95,28 @@ def page(claims, generated):
     closest = sorted(claims, key=lambda c: (-c["stage"], c["open_gaps"], c["last"]), reverse=False)
     closest = sorted(closest, key=lambda c: (-c["stage"], c["open_gaps"]))
     def row(c):
-        checked = f'{c["certified"]} certified, {c["accepted"]} accepted' + (f', {c["refuted"]} refuted' if c["refuted"] else "")
-        short = lambda p: p.split(" (")[0]
-        first = c["outside"][0] if c["outside"] else (c["people"][0] if c["people"] else "")
-        who = (f'<span class="who-outside">{e(short(first))}</span>' if c["outside"] else e(short(first))) if first else e(T.get("no_contributions", ""))
-        others = len(c["people"]) - (1 if first else 0)
-        # with an outside contributor, link the rest of the names; otherwise invite the first independent contribution
-        who += (f'<div class="sub"><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTORS.md">{e(T.get("and_more", "and {n} more").format(n=others))}</a></div>' if c["outside"] and others
-                else f'<div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">{e(T.get("be_first", "be the first"))}</a></div>')
-        return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div><div class="sub dim">Rests on {e(c["rests_on"])}.</div></td>'
-                f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{e(checked)} · {c["open_gaps"]} open</div></td>'
-                f'<td>{e(c["first_ask"] or c["needs_next"])}<div class="sub">{e(c["first_ask_what"])}</div><div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">{e(T.get("what_would_close", "What would close it"))}</a></div></td>'
-                f'<td>{who}<div class="sub">last cycle {e(c["last_text"])}</div></td></tr>')
-    def stack(c):
         k, x = c["checks"], c["checks"]["external"]
         pal, fc, ep = x.get("palomar", {}), x.get("formal_conjectures", {}), x.get("erdosproblems", {})
-        yes = lambda s: f'<span class="yes">{s}</span>'
-        no = lambda s: f'<span class="dim">{s}</span>'
-        rerun = yes("yes") + f'<div class="sub">{e(", ".join(k["rerun"]))}</div>' if k["rerun"] else no("no")
-        p = (yes(f'<a href="{e(pal["url"])}">registered</a>') + f'<div class="sub">{e(pal.get("claimant", ""))}; statement judged by a language model</div>') if pal.get("status") == "registered" else no("none")
+        dim = lambda s: f'<span class="dim">{s}</span>'
+        nolean = "no formal deduction" in c["rests_on"] or "no fixed file" in c["rests_on"]
+        names = [(f'<span class="who-outside">{e(n)}</span>' if not MAINTAINER.match(n) else e(n)) for n in k["rerun"]]
+        if pal.get("status") == "registered":
+            names = [f'<a class="who-outside" href="{e(pal["url"])}">Palomar</a>' if n.endswith("Palomar registry</span>") else n for n in names]
+        proof = ", ".join(names) if names else dim("no Lean to check" if nolean else "nobody yet")
         s = fc.get("main_statement", "")
-        f = no("—") if s in ("", "not applicable") else no("no file") if s == "no file" else (f'<a href="{e(fc["url"])}">{e(s)}</a>' + ("" if fc.get("formal_proof_linked") or not s.startswith("solved") else '<div class="sub">no formal proof linked</div>'))
-        epv = ep.get("state", "")
-        ept = no("—") if epv in ("", "not applicable") else e(epv)
-        tr = yes(f'<a href="{e(c["url"])}/blob/main/trace/DEFINITIONAL-TRACE.md">yes</a>') if k["trace"] else no("no")
-        rd = (yes(f'{k["signed"]} signed') + (f', {k["refused"]} refused' if k["refused"] else "")) if k["reads"] else no("none")
-        ap = yes("candidate") if k["application"] == "candidate" else no("none foreseen")
-        return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a></td><td>{rerun}</td><td>{p}</td><td>{f}</td><td>{ept}</td><td>{tr}</td><td>{rd}</td>'
-                f'<td><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/APPLICATIONS.md">{ap}</a></td></tr>')
-    stack_rows = "\n".join(stack(c) for c in sorted(claims, key=label_order))
-    stack_dates = sorted({c["checks"]["external"].get("dated", "") for c in claims} - {""})
-    closest_rows = "\n".join(row(c) for c in closest) or '<tr><td colspan="4" class="empty">Nothing yet.</td></tr>'
+        dm = "" if s in ("", "not applicable") else (dim("DeepMind: no file") if s == "no file" else f'DeepMind: <a href="{e(fc["url"])}">{e(s)}</a>' + ("" if fc.get("formal_proof_linked") or not s.startswith("solved") else dim(", no proof linked")))
+        site = "" if ep.get("state", "") in ("", "not applicable") else f'<div class="sub">erdosproblems.com: {e(ep["state"])}</div>'
+        elsewhere = (dm + site) if (dm or site) else dim("—")
+        guide = f'<a href="{e(c["url"])}/blob/main/trace/DEFINITIONAL-TRACE.md">reading guide</a>' if k["trace"] else dim("no reading guide")
+        reads = (f'<div class="sub who-outside">{k["signed"]} signed' + (f', {k["refused"]} refused' if k["refused"] else "") + '</div>') if k["reads"] else '<div class="sub">not yet read</div>'
+        use = '<span class="who-outside">candidate</span>' if k["application"] == "candidate" else dim("none foreseen")
+        return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div></td>'
+                f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{c["certified"]} certified · {c["open_gaps"]} open</div></td>'
+                f'<td>{proof}</td><td>{elsewhere}</td><td>{guide}{reads}</td>'
+                f'<td><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/APPLICATIONS.md">{use}</a></td>'
+                f'<td>{e(c["first_ask"] or c["needs_next"])}<div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">{e(T.get("what_would_close", "What would close it"))}</a></div></td></tr>')
+    head = "".join(f"<th>{e(T.get(k, ''))}</th>" for k in ("col_claim", "col_stage", "col_proof", "col_elsewhere", "col_meaning", "col_use", "col_needs"))
+    closest_rows = "\n".join(row(c) for c in closest) or '<tr><td colspan="7" class="empty">Nothing yet.</td></tr>'
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,14 +170,8 @@ footer p{{margin-bottom:6px}}
 </div></section>
 <section class="block" id="closest"><div class="container">
 {opt('claims_eyebrow', '<div class="eyebrow">', '</div>')}{opt('claims_heading', '<h3>', '</h3>')}{opt('claims_lede', '<p class="lede2">', '</p>')}
-<div class="table-scroll"><table><thead><tr><th>{e(T.get('col_claim', ''))}</th><th>{e(T.get('col_stage', ''))}</th><th>{e(T.get('col_needs', ''))}</th><th>{e(T.get('col_contributors', ''))}</th></tr></thead><tbody>
+<div class="table-scroll"><table><thead><tr>{head}</tr></thead><tbody>
 {closest_rows}
-</tbody></table></div>
-</div></section>
-<section class="block" id="stack"><div class="container">
-{opt('stack_eyebrow', '<div class="eyebrow">', '</div>')}{opt('stack_heading', '<h3>', '</h3>')}{('<p class="lede2">' + T['stack_lede'].format(dated=", ".join(when(d) for d in stack_dates) or "not yet") + '</p>') if 'stack_lede' in T else ''}
-<div class="table-scroll"><table class="stack"><thead><tr><th>{e(T.get('st_claim', 'claim'))}</th><th>{e(T.get('st_rerun', 'independent rerun'))}</th><th>{e(T.get('st_palomar', 'Palomar'))}</th><th>{e(T.get('st_fc', 'DeepMind formal-conjectures'))}</th><th>{e(T.get('st_ep', 'erdosproblems.com'))}</th><th>{e(T.get('st_trace', 'reading guide'))}</th><th>{e(T.get('st_read', 'named human read'))}</th><th>{e(T.get('st_app', 'engineering use'))}</th></tr></thead><tbody>
-{stack_rows}
 </tbody></table></div>
 </div></section>
 {('<footer><div class="container">' + opt('footer_1', '<p>', '</p>') + opt('footer_2', '<p>', '</p>') + '</div></footer>') if 'footer_1' in T or 'footer_2' in T else ''}

@@ -55,38 +55,6 @@ On October eighteenth, under a rule written before any 2024 solar-wind or cosmic
 **16 November 2026** · Reran the checks independently · [The claimed solutions of Erdős Problem #593 (finite triple systems forced by uncountable chromatic number)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos593)  
 The Palomar registry registered Samuil Petkov's formalisation on 2026-11-16 after replaying its proof through two independent kernels (nanoda and con-ron); a language model judged the statement. Bears on the open question: Eric Li's Lean development has not been built or kernel-checked by anyone outside the claimant. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-erdos593/blob/main/SCORECARD.md)
 
-## Heidi Bennett (Nervous Machine) (GitHub: @heidiEC)
-
-**15 November 2026** · Supplied data · [Kardashev II and III: what would need to be true](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev)  
-The survey record was admitted on the fifteenth of November, twenty twenty-six: twenty-one published searches and follow-ups, from the two thousand nine infrared scan through the Hephaistos follow-ups of twenty twenty-six, together with the public catalogs they used. Closed: Warm, near-complete spheres around one star in ten thousand nearby. Closed: Galaxy-wide heat capture in one galaxy in a hundred. Bears on the open question: Partial, cooler structures around a few stars in a million. Bears on the open question: Cold, small, distributed survivors below every survey's reach. Bears on the open question: Fast builders collapse before a stable structure forms. Bears on the open question: Intermittent energy use that single-epoch surveys miss. [Record](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev/blob/main/SCORECARD.md)
-
-**15 November 2026** · Supplied data · [Kardashev II and III: what would need to be true](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev)  
-The terrestrial and planetary record was admitted the same day: Earth's own timeline from first life to radio, the Kepler planet statistics, the ages of Earth-like planets, the dated collapses of past societies, the world energy series, and the light-travel geometry. Bears on the open question: Cold, small, distributed survivors below every survey's reach. Bears on the open question: Fast builders collapse before a stable structure forms. [Record](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev/blob/main/SCORECARD.md)
-
-**15 November 2026** · Registered a hypothesis and the signals that would test it · [Kardashev II and III: what would need to be true](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev)  
-Hypothesis 1 was registered by Heidi Bennett and pinned by hash. [Record](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev/blob/main/SCORECARD.md)
-
-**15 November 2026** · Registered a hypothesis and the signals that would test it · [Kardashev II and III: what would need to be true](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev)  
-Hypothesis 2 was registered by Heidi Bennett and pinned by hash. [Record](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev/blob/main/SCORECARD.md)
-
-**15 November 2026** · Registered a hypothesis and the signals that would test it · [Kardashev II and III: what would need to be true](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev)  
-Hypothesis 3 was registered by Heidi Bennett and pinned by hash. [Record](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev/blob/main/SCORECARD.md)
-
-**15 November 2026** · Registered a hypothesis and the signals that would test it · [Kardashev II and III: what would need to be true](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev)  
-Hypothesis 4 was registered by Heidi Bennett and pinned by hash. [Record](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev/blob/main/SCORECARD.md)
-
-**15 November 2026** · Registered a hypothesis and the signals that would test it · [Kardashev II and III: what would need to be true](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev)  
-Hypothesis 5 was registered by Heidi Bennett and pinned by hash. [Record](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev/blob/main/SCORECARD.md)
-
-**15 November 2026** · Registered a hypothesis and the signals that would test it · [Kardashev II and III: what would need to be true](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev)  
-Hypothesis 6 was registered by Heidi Bennett and pinned by hash. [Record](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev/blob/main/SCORECARD.md)
-
-**15 November 2026** · Registered a hypothesis and the signals that would test it · [Kardashev II and III: what would need to be true](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev)  
-Hypothesis 7 was registered by Heidi Bennett and pinned by hash. [Record](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev/blob/main/SCORECARD.md)
-
-**15 November 2026** · Registered a hypothesis and the signals that would test it · [Kardashev II and III: what would need to be true](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev)  
-Hypothesis 8 was registered by Heidi Bennett and pinned by hash. [Record](https://github.com/Nervous-Machine/DEBRIEF-space-kardashev/blob/main/SCORECARD.md)
-
 ## Fredrik Prüzelius (with Claude Code) (GitHub: @pruzze)
 
 **14 November 2026** · Reran the checks independently · [The claim that primes come within 186 of each other infinitely often](https://github.com/Nervous-Machine/DEBRIEF-math-primegaps)  

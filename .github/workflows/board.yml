@@ -1,0 +1,37 @@
+# Daily: regenerate INDEX.md, CONTRIBUTORS.md and the claims board (docs/) from every DEBRIEF-* repository's main
+# branch, and open (or update) one pull request if anything changed. Merging it publishes the board.
+name: Claims board refresh
+on:
+  schedule: [{cron: "47 7 * * *"}]
+  workflow_dispatch:
+jobs:
+  board:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: DEBRIEF
+      - run: python3 -m pip install --quiet pyyaml
+      - name: Fetch every mission repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for r in $(gh repo list Nervous-Machine --limit 200 --visibility public --json name -q '.[].name' | grep '^DEBRIEF-'); do
+            git clone --quiet --depth 1 "https://github.com/Nervous-Machine/$r.git" "$r"
+          done
+      - name: Regenerate
+        run: cd DEBRIEF && DEBRIEF_ASSUME_PUBLIC=1 sh tools/regen.sh .. && echo "date=$(date -u +%F)" >> "$GITHUB_ENV"
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          path: DEBRIEF
+          branch: board/refresh
+          title: "Claims board refresh (${{ env.date }})"
+          body: "Regenerated from the main branch of every DEBRIEF-* repository by tools/regen.sh. Merge to publish."
+          commit-message: "Regenerate INDEX, CONTRIBUTORS and the claims board (${{ env.date }})"
+          add-paths: |
+            INDEX.md
+            CONTRIBUTORS.md
+            docs/

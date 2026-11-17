@@ -1,0 +1,68 @@
+# Reusable workflow. A mission repository calls it on a daily schedule:
+#
+#   on:
+#     schedule: [{cron: "17 6 * * *"}]
+#     workflow_dispatch:
+#   jobs:
+#     watch:
+#       uses: Nervous-Machine/DEBRIEF/.github/workflows/watch.yml@main
+#       with:
+#         ledger: ledger/<name>.json
+#       permissions: {contents: write, pull-requests: write}
+#
+# It reads the Palomar registry, DeepMind formal-conjectures and the erdosproblems.com database for this claim
+# (tools/watch_external.py). If a reading changed, it appends the dated cycles, re-renders SCORECARD.md and ASKS.md,
+# validates the ledger, and opens (or updates) one pull request for a maintainer to merge. Nothing lands on main
+# without a merge. No change, no pull request.
+name: DEBRIEF watch other registries
+on:
+  workflow_call:
+    inputs:
+      ledger:
+        type: string
+        default: ledger/ledger.json
+      protocol_ref:
+        type: string
+        default: main
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          repository: Nervous-Machine/DEBRIEF
+          ref: ${{ inputs.protocol_ref }}
+          path: .debrief-protocol
+      - run: python3 -m pip install --quiet jsonschema pyyaml
+      - name: Read the other registries and record any change
+        id: watch
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 .debrief-protocol/tools/watch_external.py --repo . --ledger "${{ inputs.ledger }}" --write --summary /tmp/watch.md
+          if head -1 /tmp/watch.md | grep -q '^Change'; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
+          echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+      - name: Re-render and validate
+        if: steps.watch.outputs.changed == 'true'
+        run: |
+          python3 .debrief-protocol/tools/render.py "${{ inputs.ledger }}" --scorecard SCORECARD.md
+          python3 .debrief-protocol/tools/render.py "${{ inputs.ledger }}" --asks ASKS.md
+          python3 .debrief-protocol/tools/validate.py "${{ inputs.ledger }}" --repo .
+      - name: Open or update the pull request
+        if: steps.watch.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: watch/other-registries
+          title: "Other registries changed (${{ steps.watch.outputs.date }})"
+          body-path: /tmp/watch.md
+          commit-message: "Record what other registries show (${{ steps.watch.outputs.date }}), read by watch_external.py"
+          add-paths: |
+            ledger/
+            SCORECARD.md
+            ASKS.md

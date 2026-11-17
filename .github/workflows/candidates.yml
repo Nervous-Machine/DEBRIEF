@@ -1,0 +1,31 @@
+# Weekly: list Erdős claims that other registries show but DEBRIEF does not track (tools/watch_candidates.py), as
+# one issue for a maintainer to triage. Nothing is opened automatically.
+name: Untracked claims
+on:
+  schedule: [{cron: "23 8 * * 1"}]
+  workflow_dispatch:
+jobs:
+  candidates:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install --quiet pyyaml
+      - name: List untracked claims
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          tracked=$(gh repo list Nervous-Machine --limit 200 --json name -q '.[].name' | grep -oE 'DEBRIEF-math-erdos[0-9]+' | grep -oE '[0-9]+$' | tr '\n' ',')
+          python3 tools/watch_candidates.py --tracked "$tracked" --days 7 --out /tmp/candidates.md
+      - name: Open the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -s /tmp/candidates.md ]; then
+            gh issue create --repo "${{ github.repository }}" --title "Untracked claims, week of $(date -u +%F)" --body-file /tmp/candidates.md
+          else
+            echo "nothing new this week"
+          fi

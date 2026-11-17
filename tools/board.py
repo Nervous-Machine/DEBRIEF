@@ -182,7 +182,7 @@ footer p{{margin-bottom:6px}}
 def main(argv):
     out, pairs = argv[0], [a.split("=", 1) for a in argv[1:]]
     claims = [c for c in (claim(u, p) for u, p in pairs) if c]
-    gen = datetime.date.today().isoformat()
+    gen = max((c["last"] for c in claims if c["last"]), default=datetime.date.today().isoformat())  # newest ledger date, so an unchanged board regenerates identically
     import os; os.makedirs(out, exist_ok=True)
     json.dump({"generated": gen, "stages": STAGES, "claims": claims}, open(os.path.join(out, "board.json"), "w"), indent=1, ensure_ascii=False)
     open(os.path.join(out, "index.html"), "w").write(page(claims, gen))

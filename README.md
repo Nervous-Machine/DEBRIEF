@@ -30,6 +30,23 @@ https://math-board.nervousmachine.com (generated into `docs/` by `tools/regen.sh
 A mission repository holds its own `ledger.json`, pre-registrations with their hashes, checks, logs and traces. It
 pins a protocol version and calls this repository's workflow to validate on every pull request.
 
+## Automation
+
+The register keeps itself current from public sources. Every change arrives as a pull request for a maintainer to merge.
+
+| when | what | where |
+|---|---|---|
+| daily, per claim | reads the [Palomar registry](https://palomar-registry.org), DeepMind formal-conjectures and the erdosproblems.com database; on any change, records a dated cycle, credits a new Palomar check as a rerun, and opens a pull request | `tools/watch_external.py`, `.github/workflows/watch.yml` (called by each claim's `debrief.yml`) |
+| daily | regenerates `INDEX.md`, `CONTRIBUTORS.md` and the claims board from every public claim repository; opens a pull request if anything changed | `tools/regen.sh`, `.github/workflows/board.yml` |
+| weekly | lists Erdős claims those registries show that are not tracked here, as one issue to triage; nothing is opened automatically | `tools/watch_candidates.py`, `.github/workflows/candidates.yml` |
+
+DEBRIEF defers to Palomar for machine checks: when Palomar has checked every Lean development pinned in a record, the
+record's build gap is resolved by that check, and DEBRIEF's own reruns go where Palomar has nothing. A rerun run here
+follows Palomar's form (a `Challenge.lean` statement, Comparator, a second kernel), so results line up across the two.
+What only DEBRIEF records stays by hand: pre-registrations, named human readings of what a statement means, and use.
+Only public repositories feed the public pages; `regen.sh` asks GitHub for each repository's visibility and leaves
+out anything else.
+
 ## What the protocol gives you
 
 - **Standing words that mean the same thing everywhere.** `certified`, `accepted`, `refuted`; and `open` for a gap.

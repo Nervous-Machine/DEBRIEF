@@ -16,6 +16,7 @@ try:
 except ImportError:
     sys.exit("board.py needs PyYAML (pip install pyyaml)")
 
+APPS = yaml.safe_load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "applications.yaml"), encoding="utf-8")) or {}
 COPY = yaml.safe_load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "board_copy.yaml"), encoding="utf-8"))
 
 OPEN_GAP = {"proposed", "in_cycle", "immovable"}
@@ -52,10 +53,26 @@ def claim(url, path):
     dates = sorted(re.match(r"\d{4}-\d{2}-\d{2}", str(c.get("dated", ""))).group(0) for c in L["cycles"] if re.match(r"\d{4}-\d{2}-\d{2}", str(c.get("dated", ""))))
     first_ask = gaps[0] if gaps else None
     name = url.rstrip("/").split("/")[-1]
+    ext = {}
+    for c in L["cycles"]:  # the latest external-status snapshot (a replay cycle; no new checking)
+        x = (c.get("outcome", {}).get("numbers") or {}).get("external")
+        if c.get("kind") == "replay" and x:
+            ext = {**x, "dated": c.get("dated")}
+    reruns = sorted({c["by"].split(" (")[0] for c in cyc if c.get("kind") == "rerun"})
+    reads = [c for c in cyc if c.get("kind") == "read" and c.get("not_an_author_of_the_claim", True)]
+    check = {"rerun": reruns, "trace": "trace" in kinds, "reads": len(reads),
+             "signed": sum(c.get("outcome", {}).get("verdict") == "signed" for c in reads),
+             "refused": sum(c.get("outcome", {}).get("verdict") == "refused" for c in reads),
+             "external": ext, "application": APPS.get(name, "none")}
     return {"repo": name, "url": url, "label": m.get("label") or name, "title": m["title"], "area": m.get("area") or "Unclassified", "rests_on": m.get("rests_on") or "",
             "stage": stage, "stage_name": STAGES[stage], "needs_next": STAGE_NEXT[stage], "certified": n["certified"], "accepted": n["accepted"], "refuted": n["refuted"],
             "open_gaps": len(gaps), "first_ask": (first_ask["title"] if first_ask else ""), "first_ask_what": (first_ask["closes_with"][0]["what"] if first_ask and first_ask.get("closes_with") else ""),
-            "people": people, "outside": outside, "cycles": len(cyc), "last": dates[-1] if dates else "", "last_text": when(dates[-1]) if dates else "none yet"}
+            "people": people, "outside": outside, "checks": check, "cycles": len(cyc), "last": dates[-1] if dates else "", "last_text": when(dates[-1]) if dates else "none yet"}
+
+
+def label_order(c):
+    m = re.search(r"#(\d+)", c["label"])
+    return (0, int(m[1]), "") if m else (1, 0, c["label"])
 
 
 def page(claims, generated):
@@ -90,6 +107,24 @@ def page(claims, generated):
                 f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{e(checked)} · {c["open_gaps"]} open</div></td>'
                 f'<td>{e(c["first_ask"] or c["needs_next"])}<div class="sub">{e(c["first_ask_what"])}</div><div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">{e(T.get("what_would_close", "What would close it"))}</a></div></td>'
                 f'<td>{who}<div class="sub">last cycle {e(c["last_text"])}</div></td></tr>')
+    def stack(c):
+        k, x = c["checks"], c["checks"]["external"]
+        pal, fc, ep = x.get("palomar", {}), x.get("formal_conjectures", {}), x.get("erdosproblems", {})
+        yes = lambda s: f'<span class="yes">{s}</span>'
+        no = lambda s: f'<span class="dim">{s}</span>'
+        rerun = yes("yes") + f'<div class="sub">{e(", ".join(k["rerun"]))}</div>' if k["rerun"] else no("no")
+        p = (yes(f'<a href="{e(pal["url"])}">registered</a>') + f'<div class="sub">{e(pal.get("claimant", ""))}; statement judged by a language model</div>') if pal.get("status") == "registered" else no("none")
+        s = fc.get("main_statement", "")
+        f = no("—") if s in ("", "not applicable") else no("no file") if s == "no file" else (f'<a href="{e(fc["url"])}">{e(s)}</a>' + ("" if fc.get("formal_proof_linked") or not s.startswith("solved") else '<div class="sub">no formal proof linked</div>'))
+        epv = ep.get("state", "")
+        ept = no("—") if epv in ("", "not applicable") else e(epv)
+        tr = yes(f'<a href="{e(c["url"])}/blob/main/trace/DEFINITIONAL-TRACE.md">yes</a>') if k["trace"] else no("no")
+        rd = (yes(f'{k["signed"]} signed') + (f', {k["refused"]} refused' if k["refused"] else "")) if k["reads"] else no("none")
+        ap = yes("candidate") if k["application"] == "candidate" else no("none foreseen")
+        return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a></td><td>{rerun}</td><td>{p}</td><td>{f}</td><td>{ept}</td><td>{tr}</td><td>{rd}</td>'
+                f'<td><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/APPLICATIONS.md">{ap}</a></td></tr>')
+    stack_rows = "\n".join(stack(c) for c in sorted(claims, key=label_order))
+    stack_dates = sorted({c["checks"]["external"].get("dated", "") for c in claims} - {""})
     closest_rows = "\n".join(row(c) for c in closest) or '<tr><td colspan="4" class="empty">Nothing yet.</td></tr>'
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -127,6 +162,7 @@ table.map td.cell{{min-width:140px;background:rgba(255,255,255,.015)}}
 .legend{{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:.8rem;color:var(--muted);margin-top:14px;align-items:center}}
 .legend .chip{{margin:0}}
 .who-outside{{color:var(--green)}}
+.yes{{color:var(--green)}}table.stack td{{white-space:nowrap}}table.stack td .sub{{white-space:normal;max-width:220px}}
 footer{{padding:30px 0 50px;border-top:1px solid var(--border);font-size:.85rem;color:var(--muted)}}
 footer p{{margin-bottom:6px}}
 </style>
@@ -145,6 +181,12 @@ footer p{{margin-bottom:6px}}
 {opt('claims_eyebrow', '<div class="eyebrow">', '</div>')}{opt('claims_heading', '<h3>', '</h3>')}{opt('claims_lede', '<p class="lede2">', '</p>')}
 <div class="table-scroll"><table><thead><tr><th>{e(T.get('col_claim', ''))}</th><th>{e(T.get('col_stage', ''))}</th><th>{e(T.get('col_needs', ''))}</th><th>{e(T.get('col_contributors', ''))}</th></tr></thead><tbody>
 {closest_rows}
+</tbody></table></div>
+</div></section>
+<section class="block" id="stack"><div class="container">
+{opt('stack_eyebrow', '<div class="eyebrow">', '</div>')}{opt('stack_heading', '<h3>', '</h3>')}{('<p class="lede2">' + T['stack_lede'].format(dated=", ".join(when(d) for d in stack_dates) or "not yet") + '</p>') if 'stack_lede' in T else ''}
+<div class="table-scroll"><table class="stack"><thead><tr><th>{e(T.get('st_claim', 'claim'))}</th><th>{e(T.get('st_rerun', 'independent rerun'))}</th><th>{e(T.get('st_palomar', 'Palomar'))}</th><th>{e(T.get('st_fc', 'DeepMind formal-conjectures'))}</th><th>{e(T.get('st_ep', 'erdosproblems.com'))}</th><th>{e(T.get('st_trace', 'reading guide'))}</th><th>{e(T.get('st_read', 'named human read'))}</th><th>{e(T.get('st_app', 'engineering use'))}</th></tr></thead><tbody>
+{stack_rows}
 </tbody></table></div>
 </div></section>
 {('<footer><div class="container">' + opt('footer_1', '<p>', '</p>') + opt('footer_2', '<p>', '</p>') + '</div></footer>') if 'footer_1' in T or 'footer_2' in T else ''}

@@ -25,6 +25,22 @@ be_first: be the first →
 and_more: and {n} more →
 what_would_close: What would close it →
 
+stack_heading: Who has checked what
+stack_lede: >-
+  Machines have checked several of these proofs. No person has yet signed for what any of the statements mean.
+  Columns from other registries are read from their public data ({dated}) and recorded in each ledger as a dated cycle.
+  <a href="https://palomar-registry.org/about">Palomar</a> replays each registered proof through independent kernels and has a language model judge the statement.
+  <a href="https://github.com/google-deepmind/formal-conjectures">DeepMind formal-conjectures</a> reviews each formal statement when it is added.
+  Engineering use is our assessment: <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/APPLICATIONS.md">APPLICATIONS.md</a>.
+st_claim: claim
+st_rerun: independent rerun
+st_palomar: Palomar
+st_fc: DeepMind formal-conjectures
+st_ep: erdosproblems.com
+st_trace: reading guide
+st_read: named human read
+st_app: engineering use
+
 footer_1: >-
   How to contribute:
   <a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.

@@ -18,12 +18,14 @@ Repositories are named `DEBRIEF-domain-regime`.
 | [`DEBRIEF-math-zhang240`](https://github.com/Nervous-Machine/DEBRIEF-math-zhang240) | pre-registered rerun of Hanxin Zhang's exact certificate for ≤ 240 |
 | [`DEBRIEF-space-lunar`](https://github.com/Nervous-Machine/DEBRIEF-space-lunar) | lunar-orbit radiation learning run, reconstructed record, the Mars-to-Moon cross-check, the open surface gap |
 | `DEBRIEF-space-mars` | Mars surface radiation learning run (pending) |
-| `DEBRIEF-math-erdos<N>` (ten, opened 2026-11-14) | tier-zero records of claimed AI-assisted solutions to Erdős problems 306, 550, 593, 671, 731, 768, 856, 1061, 1133 and 1177: artifacts pinned, gaps drawn, nothing run yet; all listed in `INDEX.md` |
+| `DEBRIEF-math-erdos<N>` (ten, opened 2026-11-14) | records of claimed AI-assisted solutions to Erdős problems 306, 550, 593, 671, 731, 768, 856, 1061, 1133 and 1177: artifacts pinned, gaps drawn; two Lean reruns and seven reading guides so far; standing of each in `INDEX.md` and on the board |
 
 The current standing of every mission is in [`INDEX.md`](INDEX.md). Who has contributed, and what, is in
 [`CONTRIBUTORS.md`](CONTRIBUTORS.md), in plain words. The claims board, which places every claim by area and by stage toward its rule, is at
 https://math-board.nervousmachine.com (generated into `docs/` by `tools/regen.sh`). To open a new claim at tier zero, write a `claims/<name>.yaml` from
 `templates/claim.yaml` and run `tools/new_mission.py`.
+
+**Other registries.** The [Palomar registry](https://palomar-registry.org/about) records machine-checked Lean proofs: it replays each proof through independent kernels and has a language model judge the statement. [DeepMind's formal-conjectures](https://github.com/google-deepmind/formal-conjectures) collects human-reviewed formal statements and marks which are solved. DEBRIEF does not duplicate either. It records their status in each ledger as a dated cycle, and it holds what they do not: pre-registered checks, named human readings of what a statement means, and learning runs on physical systems, where the error signal comes from the world. The board's "Who has checked what" table puts all of these side by side.
 
 A mission repository holds its own `ledger.json`, pre-registrations with their hashes, checks, logs and traces. It
 pins a protocol version and calls this repository's workflow to validate on every pull request.

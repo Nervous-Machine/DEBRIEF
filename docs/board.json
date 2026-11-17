@@ -26,9 +26,35 @@
    "first_ask_what": "a Lean formalization of the main theorem, by the claimant or anyone else, with the statement written by a third party",
    "people": [],
    "outside": [],
+   "checks": {
+    "rerun": [],
+    "trace": false,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "none found",
+      "searched": "data.palomar-registry.org/api/v1/results by problem, claimant repository and topic, 2026-11-17"
+     },
+     "formal_conjectures": {
+      "main_statement": "open",
+      "formal_proof_linked": null,
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/1061.lean",
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "open",
+      "source": "https://github.com/teorth/erdosproblems/blob/641a78e3debdcbb2d53b936d3c4c7d9528c55a90/data/problems.yaml",
+      "commit": "641a78e3debdcbb2d53b936d3c4c7d9528c55a90"
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "none"
+   },
    "cycles": 0,
-   "last": "2026-06-24",
-   "last_text": "24 Jun 2026"
+   "last": "2026-11-17",
+   "last_text": "17 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-erdos1133",
@@ -48,9 +74,35 @@
    "first_ask_what": "a Lean formalization of the main theorem, by the claimant or anyone else, with the statement written by a third party",
    "people": [],
    "outside": [],
+   "checks": {
+    "rerun": [],
+    "trace": false,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "none found",
+      "searched": "data.palomar-registry.org/api/v1/results by problem, claimant repository and topic, 2026-11-17"
+     },
+     "formal_conjectures": {
+      "main_statement": "solved",
+      "formal_proof_linked": null,
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/1133.lean",
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "open",
+      "source": "https://github.com/teorth/erdosproblems/blob/641a78e3debdcbb2d53b936d3c4c7d9528c55a90/data/problems.yaml",
+      "commit": "641a78e3debdcbb2d53b936d3c4c7d9528c55a90"
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "candidate"
+   },
    "cycles": 0,
-   "last": "2026-04-29",
-   "last_text": "29 Apr 2026"
+   "last": "2026-11-17",
+   "last_text": "17 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-erdos1177",
@@ -72,6 +124,32 @@
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
    "outside": [],
+   "checks": {
+    "rerun": [],
+    "trace": true,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "none found",
+      "searched": "data.palomar-registry.org/api/v1/results by problem, claimant repository and topic, 2026-11-17"
+     },
+     "formal_conjectures": {
+      "main_statement": "solved",
+      "formal_proof_linked": null,
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/1177.lean",
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "open",
+      "source": "https://github.com/teorth/erdosproblems/blob/641a78e3debdcbb2d53b936d3c4c7d9528c55a90/data/problems.yaml",
+      "commit": "641a78e3debdcbb2d53b936d3c4c7d9528c55a90"
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "none"
+   },
    "cycles": 1,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -96,9 +174,37 @@
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
    "outside": [],
+   "checks": {
+    "rerun": [
+     "Nervous Machine"
+    ],
+    "trace": true,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "none found",
+      "searched": "data.palomar-registry.org/api/v1/results by problem, claimant repository and topic, 2026-11-17"
+     },
+     "formal_conjectures": {
+      "main_statement": "solved",
+      "formal_proof_linked": "https://github.com/linrock/math-proofs/blob/e1a5e2a3317007f0e31b98bf2e80383187b31238/erdos-306/Solution.lean#L34",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/306.lean",
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "open",
+      "source": "https://github.com/teorth/erdosproblems/blob/641a78e3debdcbb2d53b936d3c4c7d9528c55a90/data/problems.yaml",
+      "commit": "641a78e3debdcbb2d53b936d3c4c7d9528c55a90"
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "none"
+   },
    "cycles": 2,
-   "last": "2026-11-14",
-   "last_text": "14 Nov 2026"
+   "last": "2026-11-17",
+   "last_text": "17 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-erdos550",
@@ -120,6 +226,32 @@
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
    "outside": [],
+   "checks": {
+    "rerun": [],
+    "trace": true,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "none found",
+      "searched": "data.palomar-registry.org/api/v1/results by problem, claimant repository and topic, 2026-11-17"
+     },
+     "formal_conjectures": {
+      "main_statement": "solved",
+      "formal_proof_linked": "https://github.com/plby/lean-proofs/blob/8822f7ddef30fadbd92e1c6ab4ed897af356af5e/src/latest/ErdosProblems/Erdos550/Main.lean#L80",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/550.lean",
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "open (Lean)",
+      "source": "https://github.com/teorth/erdosproblems/blob/641a78e3debdcbb2d53b936d3c4c7d9528c55a90/data/problems.yaml",
+      "commit": "641a78e3debdcbb2d53b936d3c4c7d9528c55a90"
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "none"
+   },
    "cycles": 1,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -144,6 +276,44 @@
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
    "outside": [],
+   "checks": {
+    "rerun": [],
+    "trace": true,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "registered",
+      "id": "PALOMAR-2026-11-16-000018",
+      "url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-16-000018",
+      "registered_at": "2026-11-16T14:05:21Z",
+      "repository": "SamPetkov/Erdos593-formalization",
+      "commit": "ea81bf26158876b457845f7998277fe47aa0fd02",
+      "claimant": "Samuil Petkov",
+      "trust_level": "high",
+      "kernels": [
+       "nanoda",
+       "con-ron"
+      ],
+      "statement_check": "language model (codex:gpt-6-sol), outcome neutral",
+      "note": "a repository separate from the one pinned in this record (SamPetkov/Erdos593 at 70675e5)"
+     },
+     "formal_conjectures": {
+      "main_statement": "open; variants solved",
+      "formal_proof_linked": null,
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/593.lean",
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "open",
+      "source": "https://github.com/teorth/erdosproblems/blob/641a78e3debdcbb2d53b936d3c4c7d9528c55a90/data/problems.yaml",
+      "commit": "641a78e3debdcbb2d53b936d3c4c7d9528c55a90"
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "none"
+   },
    "cycles": 1,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -168,6 +338,32 @@
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
    "outside": [],
+   "checks": {
+    "rerun": [],
+    "trace": true,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "none found",
+      "searched": "data.palomar-registry.org/api/v1/results by problem, claimant repository and topic, 2026-11-17"
+     },
+     "formal_conjectures": {
+      "main_statement": "no file",
+      "formal_proof_linked": null,
+      "url": null,
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "open",
+      "source": "https://github.com/teorth/erdosproblems/blob/641a78e3debdcbb2d53b936d3c4c7d9528c55a90/data/problems.yaml",
+      "commit": "641a78e3debdcbb2d53b936d3c4c7d9528c55a90"
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "candidate"
+   },
    "cycles": 1,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -192,6 +388,32 @@
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
    "outside": [],
+   "checks": {
+    "rerun": [],
+    "trace": true,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "none found",
+      "searched": "data.palomar-registry.org/api/v1/results by problem, claimant repository and topic, 2026-11-17"
+     },
+     "formal_conjectures": {
+      "main_statement": "open; 1975 variant solved",
+      "formal_proof_linked": null,
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/731.lean",
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "open",
+      "source": "https://github.com/teorth/erdosproblems/blob/641a78e3debdcbb2d53b936d3c4c7d9528c55a90/data/problems.yaml",
+      "commit": "641a78e3debdcbb2d53b936d3c4c7d9528c55a90"
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "none"
+   },
    "cycles": 1,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -216,9 +438,37 @@
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
    "outside": [],
+   "checks": {
+    "rerun": [
+     "Nervous Machine"
+    ],
+    "trace": true,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "none found",
+      "searched": "data.palomar-registry.org/api/v1/results by problem, claimant repository and topic, 2026-11-17"
+     },
+     "formal_conjectures": {
+      "main_statement": "no file",
+      "formal_proof_linked": null,
+      "url": null,
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "open",
+      "source": "https://github.com/teorth/erdosproblems/blob/641a78e3debdcbb2d53b936d3c4c7d9528c55a90/data/problems.yaml",
+      "commit": "641a78e3debdcbb2d53b936d3c4c7d9528c55a90"
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "none"
+   },
    "cycles": 2,
-   "last": "2026-11-14",
-   "last_text": "14 Nov 2026"
+   "last": "2026-11-17",
+   "last_text": "17 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-erdos856",
@@ -238,9 +488,35 @@
    "first_ask_what": "a Lean formalization of the main theorem, by the claimant or anyone else, with the statement written by a third party",
    "people": [],
    "outside": [],
+   "checks": {
+    "rerun": [],
+    "trace": false,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "none found",
+      "searched": "data.palomar-registry.org/api/v1/results by problem, claimant repository and topic, 2026-11-17"
+     },
+     "formal_conjectures": {
+      "main_statement": "open; variants solved",
+      "formal_proof_linked": null,
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/856.lean",
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "open",
+      "source": "https://github.com/teorth/erdosproblems/blob/641a78e3debdcbb2d53b936d3c4c7d9528c55a90/data/problems.yaml",
+      "commit": "641a78e3debdcbb2d53b936d3c4c7d9528c55a90"
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "none"
+   },
    "cycles": 0,
-   "last": "2026-04-15",
-   "last_text": "15 Apr 2026"
+   "last": "2026-11-17",
+   "last_text": "17 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-primegaps",
@@ -265,9 +541,38 @@
    "outside": [
     "Fredrik Prüzelius (with Claude Code)"
    ],
+   "checks": {
+    "rerun": [
+     "Fredrik Prüzelius",
+     "Nervous Machine"
+    ],
+    "trace": true,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "none found",
+      "searched": "data.palomar-registry.org/api/v1/results by problem, claimant repository and topic, 2026-11-17"
+     },
+     "formal_conjectures": {
+      "main_statement": "not applicable",
+      "formal_proof_linked": null,
+      "url": null,
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "not applicable",
+      "source": null,
+      "commit": null
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "none"
+   },
    "cycles": 4,
-   "last": "2026-11-14",
-   "last_text": "14 Nov 2026"
+   "last": "2026-11-17",
+   "last_text": "17 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-zhang240",
@@ -289,9 +594,37 @@
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"
    ],
    "outside": [],
+   "checks": {
+    "rerun": [
+     "Nervous Machine"
+    ],
+    "trace": false,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {
+     "palomar": {
+      "status": "none found",
+      "searched": "data.palomar-registry.org/api/v1/results by problem, claimant repository and topic, 2026-11-17"
+     },
+     "formal_conjectures": {
+      "main_statement": "not applicable",
+      "formal_proof_linked": null,
+      "url": null,
+      "commit": "6751c0f043985ac6647db28a45a63afdf21acffe"
+     },
+     "erdosproblems": {
+      "state": "not applicable",
+      "source": null,
+      "commit": null
+     },
+     "dated": "2026-11-17"
+    },
+    "application": "none"
+   },
    "cycles": 1,
-   "last": "2026-11-08",
-   "last_text": "8 Nov 2026"
+   "last": "2026-11-17",
+   "last_text": "17 Nov 2026"
   }
  ]
 }

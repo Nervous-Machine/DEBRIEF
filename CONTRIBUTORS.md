@@ -53,7 +53,7 @@ On October eighteenth, under a rule written before any 2024 solar-wind or cosmic
 ## Palomar registry
 
 **16 November 2026** · Reran the checks independently · [The claimed solutions of Erdős Problem #593 (finite triple systems forced by uncountable chromatic number)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos593)  
-The Palomar registry registered Samuil Petkov's formalisation on 2026-11-16 after replaying its proof through two independent kernels (nanoda and con-ron); a language model judged the statement. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-erdos593/blob/main/SCORECARD.md)
+The Palomar registry registered Samuil Petkov's formalisation on 2026-11-16 after replaying its proof through two independent kernels (nanoda and con-ron); a language model judged the statement. Bears on the open question: Eric Li's Lean development has not been built or kernel-checked by anyone outside the claimant. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-erdos593/blob/main/SCORECARD.md)
 
 ## Heidi Bennett (Nervous Machine) (GitHub: @heidiEC)
 

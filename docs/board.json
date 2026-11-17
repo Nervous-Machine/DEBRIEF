@@ -274,8 +274,8 @@
    "accepted": 0,
    "refuted": 0,
    "open_gaps": 4,
-   "first_ask": "The Lean development has not been built or kernel-checked by anyone outside the claimant",
-   "first_ask_what": "a pre-registered rerun: fetch at the pinned commit, build, confirm no sorry or admit, print the axioms",
+   "first_ask": "Eric Li's Lean development has not been built or kernel-checked by anyone outside the claimant",
+   "first_ask_what": "a pre-registered rerun of Eric Li's development (ericlisg/erdos-593-1177-lean at 5dcb6e4): fetch at the pinned commit, build, confirm no sorry or admit, print the axioms",
    "people": [
     "Palomar registry",
     "Nervous Machine (Heidi Bennett; Claude Code as the operating agent)"

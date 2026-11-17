@@ -11,7 +11,8 @@ Standard library only; the output is YAML written by hand so it needs no depende
 A read is written only if its checklist can be read: at least one line of the form `A1: signed` or
 `A1: refused — reason`, no item answered twice. With --repo (the mission repository, full history), the trace commit
 must exist and contain trace/DEFINITIONAL-TRACE.md, and every answered item must be on that trace's sign-off
-checklist. The verdict is `signed` only if every item of that checklist is signed, `refused` if any is refused, and
+checklist. The verdict is `signed` only if every required item of that checklist is signed (items marked
+"(optional" may be left out), `refused` if any is refused, and
 `mixed` if some items are signed and the rest unanswered; only `signed` counts as a signature. Without --repo the
 checklist cannot be compared with the trace, so an unrefused read is written as `mixed` for a maintainer to settle.
 A read's free-text position, if given, is copied verbatim into outcome.position.
@@ -64,12 +65,15 @@ def trace_items(repo, commit):
     r = subprocess.run(["git", "-C", repo, "show", f"{commit}:{TRACE}"], capture_output=True, text=True)
     if r.returncode != 0:
         raise FormProblem(f"Trace commit: `{commit}` is not a commit of this repository that contains `{TRACE}`.")
-    part = re.split(r"^##\s+(?:Part\s+)?E\b.*$", r.stdout, maxsplit=1, flags=re.M)
-    ids = re.findall(r"^\s*[-*]\s*\[[ xX]\]\s*([A-Za-z]\d*)\b", part[1] if len(part) == 2 else "", flags=re.M)
-    ids = list(dict.fromkeys(i.upper() for i in ids))
-    if not ids:
-        raise FormProblem(f"The trace at `{commit}` has no sign-off checklist (Part E) to sign.")
-    return ids
+    # The checklist sits under a "Sign-off checklist" heading (older traces: everything after "Part E").
+    part = re.split(r"^##\s+.*\bsign-off checklist\b.*$", r.stdout, maxsplit=1, flags=re.M | re.I)
+    if len(part) != 2:
+        part = re.split(r"^##\s+(?:Part\s+)?E\b.*$", r.stdout, maxsplit=1, flags=re.M)
+    found = re.findall(r"^\s*[-*]\s*\[[ xX]\]\s*([A-Za-z]\d*)\b\s*(\(optional)?", part[1] if len(part) == 2 else "", flags=re.M | re.I)
+    ids = list(dict.fromkeys(i.upper() for i, opt in found if not opt))  # items marked "(optional" are not required
+    if not found:
+        raise FormProblem(f"The trace at `{commit}` has no sign-off checklist to sign.")
+    return ids, list(dict.fromkeys(i.upper() for i, opt in found if opt))
 
 
 def read_cycle(a, s):
@@ -82,8 +86,8 @@ def read_cycle(a, s):
     required = None
     if a.repo:
         try:
-            required = trace_items(a.repo, s.get("trace commit", "").strip())
-            problems += [f"Checklist: item {x} is not on the trace's checklist, whose items are {', '.join(required)}." for x in dict.fromkeys(seen) if x not in required]
+            required, optional = trace_items(a.repo, s.get("trace commit", "").strip())
+            problems += [f"Checklist: item {x} is not on the trace's checklist, whose items are {', '.join(required + optional)}." for x in dict.fromkeys(seen) if x not in required + optional]
         except FormProblem as e:
             problems.append(str(e))
     refused = [i for i in items if not i["signed"]]
@@ -107,7 +111,7 @@ def read_cycle(a, s):
         lines.append(f"  position: {q(position)}")
     n_s, n_r = sum(i["signed"] for i in items), len(refused)
     if verdict == "signed":
-        spoken = f"{by} read the definitional trace and signed every item of its checklist."
+        spoken = f"{by} read the definitional trace and signed every required item of its checklist."
     elif verdict == "refused":
         spoken = f"{by} read the definitional trace and signed {n_s} and refused {n_r} of its checklist."
     elif unanswered is None:

@@ -12,7 +12,8 @@ Two stages, committed separately so git history shows the pre-registration came 
           writes prereg_review.yaml naming the model, the inputs and their hashes, and the rules. Registered with
           tools/prereg.py. Nothing is reviewed yet.
   review  refuses unless the inputs still hash as registered, asks the model for a structured list of differences
-          (Claude via the Anthropic API; needs ANTHROPIC_API_KEY), and writes:
+          (by default through the local Claude Code login, `claude -p`, so no API key is needed; `--via api` uses
+          the Anthropic API and ANTHROPIC_API_KEY instead), and writes:
             trace/DEFINITIONAL-TRACE.md  if the record has no reading guide yet (the lean form, with a checklist), or
             trace/SECOND-REVIEW.md       beside an existing guide (differences only; the guide's checklist stays),
           plus one `trace` cycle in the ledger. A difference the model marks as possibly changing the meaning is
@@ -135,6 +136,7 @@ def cmd_prereg(a):
         "by": f"Nervous Machine (automated second review, {a.model})",
         "question": "Does each formal statement say what the problem asks? A second reading beside Palomar's model judgement, not a human reading.",
         "model": a.model,
+        "via": "Claude Code (claude -p, local login, no tools)" if a.via == "claude-code" else "Anthropic API",
         "inputs": input_hashes(inp),
         "sources": {"problem": inp["problem"]["source"], **{s["name"]: s["url"] for s in inp["statements"]}},
         "problem_text_verbatim": inp["problem"]["verbatim"],
@@ -154,12 +156,40 @@ def cmd_prereg(a):
     print(p)
 
 
-def review_model(inp, model):
-    import anthropic
-    client = anthropic.Anthropic()
+def review_claude_code(inp, model):
+    """The same review through the local Claude Code login: no tools, no settings, no session saved."""
+    import tempfile
+    prompt = "\n\n---\n\n".join(review_parts(inp))
+    import shutil
+    exe = os.environ.get("DEBRIEF_CLAUDE") or shutil.which("claude") or next(
+        (x for x in ("/opt/homebrew/bin/claude", "/usr/local/bin/claude", os.path.expanduser("~/.local/bin/claude"), os.path.expanduser("~/.claude/local/claude")) if os.path.exists(x)), None)
+    if not exe:
+        sys.exit("the claude command was not found; set DEBRIEF_CLAUDE to its path")
+    cmd = [exe, "-p", "--model", model, "--output-format", "json", "--json-schema", json.dumps(SCHEMA),
+           "--system-prompt", SYSTEM, "--tools", "", "--no-session-persistence", "--effort", "high", "--setting-sources", ""]
+    with tempfile.TemporaryDirectory() as d:  # an empty folder, so no project instructions are picked up
+        p = subprocess.run(cmd, input=prompt, capture_output=True, text=True, cwd=d, timeout=1800)
+    try:
+        out = json.loads(p.stdout)
+    except json.JSONDecodeError:
+        sys.exit(f"claude -p failed: {p.stderr.strip() or p.stdout[:500]}")
+    if out.get("is_error") or not out.get("structured_output"):
+        sys.exit(f"claude -p returned no review: {out.get('subtype')} {str(out.get('result'))[:500]}")
+    served = next(iter(out.get("modelUsage") or {model: 0}))
+    return out["structured_output"], f"{served} via Claude Code", f"session {out.get('session_id')}"
+
+
+def review_parts(inp):
     parts = [f"Problem as posed ({inp['problem']['source']}{'' if inp['problem']['verbatim'] else '; a summary, not verbatim'}):\n\n{inp['problem']['text']}"]
     for s in inp["statements"]:
         parts.append(f"Formal statement: {s['name']} at {s['commit']}\n\n```lean\n{s['text']}\n```")
+    return parts
+
+
+def review_model(inp, model):
+    import anthropic
+    client = anthropic.Anthropic()
+    parts = review_parts(inp)
     resp = client.beta.messages.create(
         model=model, max_tokens=16000, system=SYSTEM,
         betas=["server-side-fallback-2026-07-01"], fallbacks="default",
@@ -205,7 +235,7 @@ def cmd_review(a):
     if not all(h in registered for h in now.values()):
         sys.exit("inputs changed since the pre-registration; run `prereg` again (it records an amendment)")
     model = reg["model"]
-    r, served, req = review_model(inp, model)
+    r, served, req = (review_model if reg.get("via") == "Anthropic API" else review_claude_code)(inp, model)
     tdir = os.path.join(a.repo, "trace"); os.makedirs(tdir, exist_ok=True)
     first = not os.path.exists(os.path.join(tdir, "DEFINITIONAL-TRACE.md"))
     out = os.path.join(tdir, "DEFINITIONAL-TRACE.md" if first else "SECOND-REVIEW.md")
@@ -253,6 +283,7 @@ def main():
     ap.add_argument("stage", choices=["prereg", "review", "needed"])
     ap.add_argument("--repo", required=True); ap.add_argument("--ledger", required=True)
     ap.add_argument("--model", default=DEFAULT_MODEL); ap.add_argument("--summary")
+    ap.add_argument("--via", choices=["claude-code", "api"], default="claude-code")
     a = ap.parse_args()
     {"prereg": cmd_prereg, "review": cmd_review, "needed": cmd_needed}[a.stage](a)
 

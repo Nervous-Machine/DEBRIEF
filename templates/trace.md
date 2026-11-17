@@ -1,52 +1,47 @@
-# Definitional trace — <claim>
+# Reading guide: <claim>
 
-A reading guide for a human semantic review. It traces each formal statement to its definitions, gives a
-rendering in ordinary mathematical language, and points at where the paper makes the same statement. The
-renderings are the tracer's; a signature has to be a person's. This document changes no standing.
+The one question a machine cannot settle: does the formal statement say what the problem asks? This guide sets the
+problem as posed beside each formal statement and lists every difference between them, harmless or not, then asks a
+reader to sign or refuse a short checklist. It does not trace every Lean symbol to Mathlib: where the statement is
+registered with Palomar, its rendered page explains each term on hover. It changes no standing.
 
-Rules followed (also in prereg): R1 every formal statement is quoted verbatim with file and line. R2 every
-rendering is marked as the tracer's. R3 every discrepancy is recorded, harmless or not. R4 the truth of axioms is
-not judged here.
+Written after a pre-registration (`prereg_review.yaml`, hashed and committed first). The differences are the
+reviewer's reading, marked with who or what reviewed. Leave your own reasoning with the **Reasoning note** form.
 
-## 0. Conventions that change meaning
+## A. The problem as posed
 
-| convention | in the formal library | consequence for reading |
-|---|---|---|
-| <e.g. division by zero> | <definition and location> | <what a reader must keep in mind> |
+Source: <url>, as of <date>. Verbatim:
 
-## A. Goals
+> <statement>
 
-### A1. <formal name> ↔ <paper location>
+## B. The formal statements
 
-Formal text (<file>:<lines>):
+### B1. <name> (<repo> <path> at <commit>)
+
+```lean
+<verbatim statement>
 ```
-<verbatim>
-```
-Depends on: <definitions, each with file and line>
-Rendering (tracer's): <plain statement>
-Paper: <theorem/corollary number and its statement>
-Discrepancies: <none | list>
 
-## B. Axioms or inputs taken on trust
+Rendered with term explanations: <Palomar entry link, if registered; otherwise "not registered with Palomar">
 
-### B1. <formal name> ↔ <paper location>
-(same structure; include a term-by-term table if the statement has several parts)
+## C. Differences
 
-## C. Numerical inputs
+| id | where | the problem says | the formal statement says | kind | could it change the meaning? | why |
+|---|---|---|---|---|---|---|
+| D1 | | | | convention / encoding / strength / boundary / type / wording / scope | yes / no / uncertain | |
 
-C1 shape; C2 data table and how it was compared mechanically; C3 meaning chain.
+A difference marked **yes** or **uncertain** is opened as an anomaly in the ledger and sent upstream (to the
+statement's maintainers) as an issue.
 
-## D. Discrepancies found
+## D. What this review did not check
 
-| id | where | what | harmless? |
-|---|---|---|---|
+- <e.g. the original 1967 source; the proof; definitions behind a name the statement imports>
 
-## E. Sign-off checklist
+## Sign-off checklist
 
-A reader signs or refuses each item by name. Submit through the "Semantic read" issue form or a `read` cycle.
+Sign or refuse each item with the **Semantic read** form. Items marked optional may be left out.
 
-- [ ] A1 The rendering of <goal 1> is what the paper states.
-- [ ] A2 ...
-- [ ] B1 The rendering of <axiom 1> is the classical statement the paper cites.
-- [ ] B2 ...
-- [ ] D The discrepancies listed are the only ones I found, or I have added mine above.
+- [ ] A1: <the formal statement's hypotheses are the problem's hypotheses (D…)>
+- [ ] A2: <its conclusion is the problem's conclusion (D…)>
+- [ ] A3: <each difference above is harmless as stated, or I name the one that is not>
+- [ ] A0 (optional, needs the original source): <the problem page's wording is the original problem>

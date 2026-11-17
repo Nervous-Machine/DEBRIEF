@@ -36,7 +36,7 @@ rerun independently), and three optional plain-words fields for the boards: `lab
 rests on, e.g. "a Lean formalization and a numerical certificate").
 
 **cycles** — `cycle` (number or label), `dated`, `by` (who did the work: a Git identity, optionally an ORCID),
-`kind` (`learning` | `rerun` | `read` | `claim` | `data` | `hypothesis` | `correction` | `trace` | `replay`), `preregistered` {`question`, `rule`,
+`kind` (`learning` | `rerun` | `read` | `claim` | `data` | `hypothesis` | `note` | `correction` | `trace` | `replay`), `preregistered` {`question`, `rule`,
 `predictions[]`, `commit` (path to the pre-registration file, or a commit id), `results[]` (paths to the files
 holding the outcome, used for the ordering check), `before_data` (true | false | unknown)}, `outcome` {`verdict`,
 `numbers{}`, `misses[]`, `position` (a reader's own words, verbatim; read cycles only)}, `spoken`, `finding_ids[]`, `gap_ids[]`, `audience`.
@@ -94,6 +94,7 @@ misses. Nothing else enters the ledger.
 |---|---|---|---|
 | `rerun` | anyone with hardware | pre-registration with predictions, then logs and results | the pre-registration commit precedes the results commit; predictions are compared and misses recorded |
 | `read` | a person reading a definitional trace | a signed or refused checklist, with comments | by name; a refusal names the item and why; a signature may be withdrawn by a later cycle, never deleted |
+| `note` | anyone, including authors (who say so) | free-text reasoning about any part of the claim, with a stance and an optional pointer (gap, difference, checklist item, file and line) | by name, verbatim, pinned by a hash over the answers; never edited, only followed by a later note; changes no standing by itself |
 | `claim` | anyone | source pin (repo, commit, file hashes), pre-registration, steps graph, first checks | the claim's author may open it but may not sign its own read |
 | `trace` | the keeper or a contributor | a definitional trace prepared for human review, with its pre-registration | renderings are marked as the tracer's; a trace changes no standing |
 | `data` | a data supplier | a **public endpoint** for the dataset, licence or terms, what it measures, the gap it addresses, how to be named | the dataset must be public at the endpoint given; the gap's history records the contributor; the gap moves `immovable` → `in_cycle` on receipt; cycles later run on the data carry `credits[]` naming the supplier |

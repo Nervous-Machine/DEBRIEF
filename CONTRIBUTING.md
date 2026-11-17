@@ -1,11 +1,27 @@
 # Contributing
 
 Every contribution to a DEBRIEF mission is one **cycle** in that mission's ledger, dated, under your own name.
-There are five kinds. Pick the one that fits, follow its rule, and your name goes into the ledger, the mission's
+There are six kinds. Pick the one that fits, follow its rule, and your name goes into the ledger, the mission's
 `CITATION.cff` and the next release's author list.
 
 You never edit `ledger.json` by hand. You add a file under `cycles/` (or fill in an issue form, which does that
 for you) and the protocol tools merge it.
+
+## The ten-minute path: a reasoning note
+
+For anything you think about a claim that a sign or refuse cannot hold: a doubt, a question, a missing step, how a
+definition should be read, context the record lacks, or a use you know of.
+
+1. Open the **Reasoning note** issue form in the mission repository (or follow "leave your reasoning" on the
+   [claims board](https://math-board.nervousmachine.com)).
+2. Say what it is about, point at the exact place if you can (a gap id, a difference such as D1, a checklist item,
+   a file and line), pick a stance (supports, doubts, question, context, correction), and write your reasoning.
+   Markdown and LaTeX are kept as written.
+3. Submit. A workflow turns it into a `note` cycle under your name, copied verbatim and pinned by a hash, and opens
+   a pull request. A note changes no standing by itself; every later cycle that acts on it cites it. To revise it,
+   leave a later note. Nothing is edited or deleted.
+
+Authors of the claim may leave notes too; the form asks you to say so.
 
 ## The one-hour path: a semantic read
 

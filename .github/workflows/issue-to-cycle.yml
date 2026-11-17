@@ -35,7 +35,7 @@ jobs:
         id: kind
         run: |
           labels='${{ join(github.event.issue.labels.*.name, ',') }}'
-          for k in read rerun data hypothesis; do case ",$labels," in *",$k,"*) echo "kind=$k" >> "$GITHUB_OUTPUT";; esac; done
+          for k in read rerun data hypothesis note; do case ",$labels," in *",$k,"*) echo "kind=$k" >> "$GITHUB_OUTPUT";; esac; done
       - name: Write the cycle file from the form
         id: write
         env:

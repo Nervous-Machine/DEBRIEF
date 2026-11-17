@@ -11,7 +11,8 @@ import datetime, json, re, sys
 KIND = {"rerun": "Reran the checks independently", "read": "Read the formal statements against the paper", "data": "Supplied data",
         "claim": "Opened a claim for checking", "learning": "Ran a test written down before looking at the data",
         "trace": "Wrote a reading guide for the formal statements", "correction": "Corrected the record",
-        "hypothesis": "Registered a hypothesis and the signals that would test it"}
+        "hypothesis": "Registered a hypothesis and the signals that would test it",
+        "note": "Left reasoning on the record"}
 CREDIT = {"hypothesis": "A cycle was run on their hypothesis", "data": "A cycle was run on their data"}
 
 

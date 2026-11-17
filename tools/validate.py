@@ -114,10 +114,10 @@ def rules(L, errs, warns):
             errs.append(f"cycle {c['cycle']}: unknown verdict {c['outcome']['verdict']}")
         errs += [f"cycle {c['cycle']}: unknown finding {x}" for x in c.get("finding_ids", []) if x not in fids]
         errs += [f"cycle {c['cycle']}: unknown gap {x}" for x in c.get("gap_ids", []) if x not in gids]
-        if c.get("kind") in ("rerun", "read", "claim", "data", "trace", "hypothesis") and not c.get("by"):
+        if c.get("kind") in ("rerun", "read", "claim", "data", "trace", "hypothesis", "note") and not c.get("by"):
             errs.append(f"cycle {c['cycle']}: contribution cycle without `by`")
-        if c.get("kind") == "hypothesis" and not re.fullmatch(r"[0-9a-f]{64}", str((c.get("pinned") or {}).get("sha256", ""))):
-            errs.append(f"cycle {c['cycle']}: hypothesis cycle without `pinned.sha256`")
+        if c.get("kind") in ("hypothesis", "note") and not re.fullmatch(r"[0-9a-f]{64}", str((c.get("pinned") or {}).get("sha256", ""))):
+            errs.append(f"cycle {c['cycle']}: {c['kind']} cycle without `pinned.sha256`")
         if c.get("kind") == "data" and not re.search(r"https?://", str(c.get("endpoint", ""))):
             warns.append(f"cycle {c['cycle']}: data cycle without a public endpoint URL")
         if c["outcome"]["verdict"] in ("signed", "refused") and c.get("kind") != "read":

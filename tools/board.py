@@ -63,7 +63,8 @@ def claim(url, path):
     check = {"rerun": reruns, "trace": "trace" in kinds, "reads": len(reads),
              "signed": sum(c.get("outcome", {}).get("verdict") == "signed" for c in reads),
              "refused": sum(c.get("outcome", {}).get("verdict") == "refused" for c in reads),
-             "external": ext, "application": APPS.get(name, "none")}
+             "external": ext, "application": APPS.get(name, "none"),
+             "notes": sum(c.get("kind") == "note" for c in cyc)}
     return {"repo": name, "url": url, "label": m.get("label") or name, "title": m["title"], "area": m.get("area") or "Unclassified", "rests_on": m.get("rests_on") or "",
             "stage": stage, "stage_name": STAGES[stage], "needs_next": STAGE_NEXT[stage], "certified": n["certified"], "accepted": n["accepted"], "refuted": n["refuted"],
             "open_gaps": len(gaps), "first_ask": (first_ask["title"] if first_ask else ""), "first_ask_what": (first_ask["closes_with"][0]["what"] if first_ask and first_ask.get("closes_with") else ""),
@@ -109,6 +110,8 @@ def page(claims, generated):
         elsewhere = (dm + site) if (dm or site) else dim("—")
         guide = f'<a href="{e(c["url"])}/blob/main/trace/DEFINITIONAL-TRACE.md">reading guide</a>' if k["trace"] else dim("no reading guide")
         reads = (f'<div class="sub who-outside">{k["signed"]} signed' + (f', {k["refused"]} refused' if k["refused"] else "") + '</div>') if k["reads"] else '<div class="sub">not yet read</div>'
+        notes = (f'<div class="sub who-outside">{k["notes"]} note' + ("s" if k["notes"] != 1 else "") + '</div>') if k["notes"] else ""
+        reads += notes + f'<div class="sub"><a href="{e(c["url"])}/issues/new?template=reasoning-note.yml">{e(T.get("leave_reasoning", "leave your reasoning →"))}</a></div>'
         use = '<span class="who-outside">candidate</span>' if k["application"] == "candidate" else dim("none foreseen")
         return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div></td>'
                 f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{c["certified"]} certified · {c["open_gaps"]} open</div></td>'

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Turn a completed issue form into a cycle file.
 
-usage: issue_to_cycle.py --kind read|rerun|data|hypothesis --issue N --author HANDLE --body FILE --out DIR [--date YYYY-MM-DD]
+usage: issue_to_cycle.py --kind read|rerun|data|hypothesis|note --issue N --author HANDLE --body FILE --out DIR [--date YYYY-MM-DD]
                          [--repo DIR]
 
 Reads the issue body as GitHub renders a form ("### Label" headings followed by the answer), writes
@@ -201,9 +201,32 @@ def hypothesis_cycle(a, s):
     return "\n".join(lines) + "\n"
 
 
+def note_cycle(a, s):
+    reasoning = s.get("your reasoning", "")
+    if not reasoning.strip():
+        raise FormProblem("the reasoning is empty")
+    about, ref, stance = s.get("what it is about", ""), s.get("exactly where (optional)", ""), s.get("stance", "")
+    change = s.get("what would change your mind (optional)", "")
+    relation = s.get("your relation to the claim", "none")
+    by = s.get("name as you want it recorded", "") or a.author
+    canon = "\n".join(x.strip() for x in (about, ref, stance, reasoning, change))
+    sha = hashlib.sha256(canon.encode("utf-8")).hexdigest()
+    gids = gap_ids_in(ref)
+    spoken = f"{by} left a note ({stance or 'no stance'}) on {about or 'the claim'}" + (f", at {ref}" if ref else "") + ": " + first_sentence(reasoning)
+    lines = [f"# note cycle from issue #{a.issue}; answers copied verbatim and hashed; the hash is the writer's pin", "kind: note",
+             f"cycle: {q('note-' + str(a.issue))}", f"dated: {q(a.date)}", f"by: {q(by)}", f"github: {q(a.author)}",
+             f"about: {q(about)}", f"reference: {q(ref)}", f"stance: {q(stance)}", f"reasoning: {q(reasoning)}", f"would_change_mind: {q(change)}",
+             f"relation_to_claim: {q(relation)}", f"not_an_author_of_the_claim: {'false' if 'author of the claim' in relation else 'true'}",
+             "pinned:", f"  sha256: {q(sha)}", "  over: \"about, reference, stance, reasoning, would_change_mind; each stripped, joined by newlines, UTF-8\"",
+             f"  issue_url: {q(a.issue_url or '')}", f"  submitted_at: {q(a.submitted or '')}",
+             "preregistered:", "  question: \"What does this reader think, and why?\"", "  rule: \"recorded verbatim; no standing changes by itself\"", "  before_data: false",
+             "outcome:", "  verdict: admitted", f"spoken: {q(spoken)}", "finding_ids: []", "gap_ids: [" + ", ".join(q(g) for g in gids) + "]"]
+    return "\n".join(lines) + "\n"
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--kind", required=True, choices=["read", "rerun", "data", "hypothesis"]); ap.add_argument("--issue", required=True, type=int)
+    ap.add_argument("--kind", required=True, choices=["read", "rerun", "data", "hypothesis", "note"]); ap.add_argument("--issue", required=True, type=int)
     ap.add_argument("--issue-url", dest="issue_url", default=""); ap.add_argument("--submitted", default="")
     ap.add_argument("--author", required=True); ap.add_argument("--body", required=True); ap.add_argument("--out", required=True)
     ap.add_argument("--date", default=datetime.date.today().isoformat())
@@ -211,7 +234,7 @@ def main():
     a = ap.parse_args()
     s = sections(open(a.body, encoding="utf-8").read())
     try:
-        text = {"read": read_cycle, "rerun": rerun_cycle, "data": data_cycle, "hypothesis": hypothesis_cycle}[a.kind](a, s)
+        text = {"read": read_cycle, "rerun": rerun_cycle, "data": data_cycle, "hypothesis": hypothesis_cycle, "note": note_cycle}[a.kind](a, s)
     except FormProblem as e:
         print(e)
         sys.exit(2)

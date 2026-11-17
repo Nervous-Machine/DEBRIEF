@@ -250,7 +250,8 @@
       "correction",
       "trace",
       "replay",
-      "hypothesis"
+      "hypothesis",
+       "note"
      ]
     },
     "preregistered": {

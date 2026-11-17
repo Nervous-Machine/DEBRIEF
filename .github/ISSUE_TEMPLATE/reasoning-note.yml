@@ -1,0 +1,80 @@
+name: Reasoning note
+description: Leave your reasoning on the record, about any part of this claim. Copied verbatim, hashed and pinned under your name.
+title: "Note: <one line>"
+labels: ["note"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Sign or refuse is not the only useful answer. Use this form for what you think and why: a doubt, a question, a
+        missing step, a reading of a definition, context the record lacks, or a use you know of. Your answers become one
+        `note` cycle under your name, copied exactly as written and pinned by a hash. Nothing is edited, nothing is
+        deleted; you can add a later note that revises this one. A note does not change the claim's standing by itself,
+        but every later cycle that acts on it cites it.
+  - type: input
+    id: mission
+    attributes:
+      label: Mission repository
+      description: e.g. DEBRIEF-math-erdos1177
+    validations:
+      required: true
+  - type: dropdown
+    id: about
+    attributes:
+      label: What it is about
+      options:
+        - the claim as a whole
+        - a formal statement (does it say what was asked?)
+        - a step of the proof
+        - an item in the reading guide (a difference or checklist line)
+        - an application or use of the result
+        - the record itself (something missing or wrong here)
+    validations:
+      required: true
+  - type: input
+    id: reference
+    attributes:
+      label: Exactly where (optional)
+      description: A gap id (EG2), a difference (D1), a checklist item (A3), a file and line, or a page of the paper.
+  - type: dropdown
+    id: stance
+    attributes:
+      label: Stance
+      options:
+        - supports
+        - doubts
+        - question
+        - context
+        - correction
+    validations:
+      required: true
+  - type: textarea
+    id: reasoning
+    attributes:
+      label: Your reasoning
+      description: As long or short as it needs to be. Markdown and LaTeX are kept as written.
+    validations:
+      required: true
+  - type: textarea
+    id: change_mind
+    attributes:
+      label: What would change your mind (optional)
+      description: The observation, argument or check that would move you.
+  - type: input
+    id: name
+    attributes:
+      label: Name as you want it recorded
+      description: Optional ORCID or affiliation after a comma. Neither is required.
+    validations:
+      required: true
+  - type: dropdown
+    id: relation
+    attributes:
+      label: Your relation to the claim
+      options:
+        - none
+        - I am an author of the claim
+        - I collaborate with an author
+        - other (say in the reasoning)
+    validations:
+      required: true

@@ -7,8 +7,9 @@ Tier 0 means: the claim and its public artifacts are pinned (URLs, commits, hash
 open gaps with what would close each, and nothing has been run. The result validates under protocol 0.1.0 and goes
 on the claims board at stage "Registered". The first rerun, read or trace is a contribution like any other.
 
-CLAIM.yaml fields (see templates/claim.yaml): name, label, title, area, rests_on, problem{url, posed, plain,
-formal_statement?}, claims[]{by, ai, submitted, where, summary_plain, notes_plain?, artifacts[]}, record[]{dated,
+CLAIM.yaml fields (see templates/claim.yaml): name, label, title, area, rests_on, problem{url, posed, plain, name?,
+formal_statement?{repo, path, commit, blob_sha, size, symbol?}} (problem.name is the display name for problems not on erdosproblems.com; artifacts
+may be kind lean with url, sha256, bytes for an archive), claims[]{by, ai, submitted, where, summary_plain, notes_plain?, artifacts[]}, record[]{dated,
 text}, site_status, extra_gaps[]?{title, spoken, what, who, kind, expected_signal}.
 
 Words: nothing here may call the claim proved, verified or a theorem. The validator checks that; this tool writes
@@ -50,6 +51,7 @@ def build(C):
     claims = C["claims"]
     has_lean = any(a.get("kind") in ("lean", "repo") and (a.get("kind") == "lean" or a.get("lean_files")) for c in claims for a in c["artifacts"])
     has_formal_stmt = bool(C["problem"].get("formal_statement"))
+    erdos = "erdosproblems.com" in C["problem"]["url"]
     gaps = []
     pri = 1
     if has_lean:
@@ -59,9 +61,9 @@ def build(C):
                         ask={"spoken": "A rerun of the Lean build on an independent machine, written down first."},
                         expected_signal="a rerun cycle reporting build exit status, the sorry/admit scan and the axiom list for the main theorem", resolution_by="none registered")); pri += 1
         gaps.append(doc(gap_id="EG2", title="Do the formal statements say what the problem asks?", status="proposed", opened_cycle=0, priority=pri, history=[],
-                        closes_with=([{"what": "a machine comparison of the claimant's main theorem with the third-party formal statement in google-deepmind/formal-conjectures, then a human read of any difference", "kind": "trace", "external": True, "who_could_act": "anyone who can read Lean; the two statements are public"}] if has_formal_stmt else []) +
+                        closes_with=([{"what": f"a machine comparison of the claimant's main theorem with the third-party formal statement {C['problem']['formal_statement'].get('symbol', '')} in {C['problem']['formal_statement']['repo']}, then a human read of any difference".replace("  ", " "), "kind": "trace", "external": True, "who_could_act": "anyone who can read Lean; the two statements are public"}] if has_formal_stmt else []) +
                                     [{"what": "two independent mathematicians read the formal statement against the problem as posed and sign, or refuse", "kind": "read", "external": True, "who_could_act": "a mathematician in the problem's area, about an hour with a reading guide"}],
-                        spoken="A Lean check establishes that the formal statement follows from its hypotheses. Whether that formal statement is the problem Erdős posed is a separate question that a person has to answer." + (" A third-party formalization of the problem statement exists, so part of this can be compared by machine." if has_formal_stmt else " No third-party formalization of the problem statement is recorded, so the comparison is entirely a human read."),
+                        spoken="A Lean check establishes that the formal statement follows from its hypotheses. Whether that formal statement is the problem " + ("Erdős posed" if erdos else "as posed") + " is a separate question that a person has to answer." + (" A third-party formalization of the problem statement exists, so part of this can be compared by machine." if has_formal_stmt else " No third-party formalization of the problem statement is recorded, so the comparison is entirely a human read."),
                         ask={"spoken": "A reading of the formal statement against the problem as posed, by someone who did not write it."},
                         expected_signal="a trace cycle and two signed read cycles, or a refusal naming the difference", resolution_by="none registered")); pri += 1
     else:
@@ -73,7 +75,8 @@ def build(C):
     gaps.append(doc(gap_id=f"EG{pri}", title="No independent mathematician has reported reading the proof, and there is no referee report", status="proposed", opened_cycle=0, priority=pri, history=[],
                     closes_with=[{"what": "a read cycle by a mathematician in the area who is not an author, signing or refusing each main step", "kind": "read", "external": True, "who_could_act": "a mathematician in the problem's area"},
                                  {"what": "a referee report or journal acceptance, recorded by date", "kind": "measurement", "external": True, "who_could_act": "a journal; the record notes the date when it happens"}],
-                    spoken="The claim is listed on the problem's page, which states that appearing there is no guarantee of correctness and that nobody associated with the site has examined it." + (" The site has since marked this proof as accepted." if C.get("site_status", "").startswith("accepted") else "") + " No independent reading is on the public record" + (" beyond that." if C.get("site_status", "").startswith("accepted") else "."),
+                    spoken=(("The claim is listed on the problem's page, which states that appearing there is no guarantee of correctness and that nobody associated with the site has examined it." + (" The site has since marked this proof as accepted." if C.get("site_status", "").startswith("accepted") else "") + " No independent reading is on the public record" + (" beyond that." if C.get("site_status", "").startswith("accepted") else ".")) if erdos
+                            else "The claim was announced by its author on the author's own site. No independent reading, referee report or journal submission is on the public record."),
                     ask={"spoken": "Someone in the field reads it and says, under their name, what holds and what does not."},
                     expected_signal="a signed or refused read cycle; a dated referee report", resolution_by="none registered")); pri += 1
     for g in C.get("extra_gaps", []):
@@ -86,8 +89,9 @@ def build(C):
     spoken0 = " ".join(r["text"].strip() for r in rec)
     cycle0 = doc(cycle=0, dated=dated, kind="replay", preregistered={"question": "What is on the public record about this claim?", "rule": "no look-ahead; each event dated by its first public posting; artifacts pinned by commit or hash", "predictions": [], "commit": None, "before_data": False},
                  outcome={"verdict": "admitted", "numbers": {"claims": len(claims), "artifacts": sum(len(c["artifacts"]) for c in claims)}}, spoken=spoken0, finding_ids=[], gap_ids=gids)
-    background = [doc(term=f"Erdős Problem {label.replace('Erdős ', '')}", spoken=C["problem"]["plain"], source=C["problem"]["url"]),
-                  doc(term="Proof claims on erdosproblems.com", spoken="The site lets anyone list a claimed proof. Its own text says that appearing there is no guarantee of correctness and does not mean anyone associated with the site has examined it. A listed claim is where checking starts, not where it ends.", source=C["claims"][0]["where"])]
+    background = [doc(term=C["problem"].get("name", f"Erdős Problem {label.replace('Erdős ', '')}"), spoken=C["problem"]["plain"], source=C["problem"]["url"])]
+    if erdos:
+        background.append(doc(term="Proof claims on erdosproblems.com", spoken="The site lets anyone list a claimed proof. Its own text says that appearing there is no guarantee of correctness and does not mean anyone associated with the site has examined it. A listed claim is where checking starts, not where it ends.", source=C["claims"][0]["where"]))
     for c in claims:
         background.append(doc(term=f"The claim by {c['by']}", spoken=c["summary_plain"] + (" " + c["notes_plain"] if c.get("notes_plain") else ""), source=c["where"]))
     rests = C["rests_on"]
@@ -95,7 +99,7 @@ def build(C):
                   record_quality="full_ledger", record_note="Opened at tier zero: the claim and its artifacts are pinned, the gaps are drawn, nothing has been run or read by Nervous Machine.",
                   record_limits=["Nothing in this record has been checked by Nervous Machine or by anyone independent of the claimants; every item is an open gap."],
                   scope_limits=["Nervous Machine keeps score of the checks; it does not check the mathematics line by line.", f"Public record through {TODAY}."],
-                  opening={"spoken": f"This record covers the claimed solution of {label.replace('Erdős', 'Erdős problem')}: what has been claimed, what it rests on, and what would have to be checked by whom."},
+                  opening={"spoken": f"This record covers the claimed solution of {C['problem'].get('name', label.replace('Erdős', 'Erdős problem'))}: what has been claimed, what it rests on, and what would have to be checked by whom."},
                   short_version={"spoken": C["short_version"]},
                   what_happened={"spoken": "The claim was pinned from the public record: the problem page, the proof-claims thread, and every artifact the claimants made public, by commit or hash. Nothing was run. The gaps that follow are the checks still owed."},
                   implications={"rely_on": [], "do_not_rely_on": [{"spoken": "the claimed solution as settled; nothing in it has standing yet", "finding_ids": []}], "stop": [], "new": []},
@@ -131,20 +135,22 @@ def readme(C, L, repo):
 
 
 def prereg_template(C):
-    leans = [a for c in C["claims"] for a in c["artifacts"] if a.get("kind") == "repo" and a.get("lean_files")]
+    leans = [a for c in C["claims"] for a in c["artifacts"] if (a.get("kind") == "repo" and a.get("lean_files")) or a.get("kind") == "lean"]
     lines = ["# Pre-registration for the first rerun of this claim's Lean development. Fill in, then register BEFORE running:",
              "#   python3 <DEBRIEF>/tools/prereg.py register prereg_rerun.yaml   (writes prereg_rerun.yaml.sha256; commit both)",
              f"mission: DEBRIEF-math-{C['name']}", "by: \"<your name as you want it recorded>\"", f"dated: \"<YYYY-MM-DD>\"",
              "question: \"Does the claimant's Lean development build at the pinned commit on an independent machine, with no sorry or admit, and which axioms does the main theorem use?\"",
              "rule: \"All checks below pass as predicted; any miss is recorded under misses.\"", "checks:"]
-    for a in leans:
-        lines += [f"  - id: R1", f"    what: \"fetch github.com/{a['repo']} at {a['commit']}; confirm the tree matches\"", "    prediction: \"commit present; tree unchanged\"",
+    for a in leans[:1]:
+        fetch = f"fetch github.com/{a['repo']} at {a['commit']}; confirm the tree matches" if a.get("kind") == "repo" else f"fetch {a['url']}; confirm sha256 {a.get('sha256', '<pinned hash>')}"
+        lines += [f"  - id: R1", f"    what: \"{fetch}\"", "    prediction: \"" + ("commit present; tree unchanged" if a.get("kind") == "repo" else "hash matches the pinned value") + "\"",
                   "  - id: R2", "    what: \"lake exe cache get (if Mathlib) and lake build; record wall time and peak memory\"", "    prediction: \"exit 0, 0 errors; <your predicted time and memory>\"",
                   "  - id: R3", "    what: \"scan every .lean file of the development (excluding .lake and vendored dependencies) for sorry, admit, native_decide, axiom declarations, implemented_by and extern; list each hit by file and line\"", "    prediction: \"no hit in any file of the default build target's import closure; a hit in a file outside that closure (a statement-only or test file) is listed but is not a miss\"",
                   "  - id: R4", "    what: \"#print axioms on the main theorem\"", "    prediction: \"propext, Classical.choice, Quot.sound only\""]
         if C["problem"].get("formal_statement"):
             f = C["problem"]["formal_statement"]
-            lines += ["  - id: R5", f"    what: \"compare the main theorem statement with FormalConjectures/{f['path'].split('/', 1)[-1]} at {f['commit']}; state identical, equivalent (with proof), or different\"", "    prediction: \"<your prediction>\""]
+            what = f"compare the main theorem statement with {f.get('symbol', '')} in {f['repo']} {f['path']} at {f['commit']}; state identical, equivalent (with proof), or different".replace("  ", " ")
+            lines += ["  - id: R5", f"    what: \"{what}\"", "    prediction: \"<your prediction>\""]
     if not leans:
         lines += ["  - id: R1", "    what: \"<there is no Lean development to rerun; a rerun cycle here would be a formalization claim; see EG1>\"", "    prediction: \"\""]
     return "\n".join(lines) + "\n"

@@ -2,7 +2,7 @@
 """The claims board. usage: board.py OUTDIR REPO_URL=LEDGER.json [REPO_URL=LEDGER.json ...]
 
 Reads every audit mission (a claim under checking) and writes OUTDIR/board.json and OUTDIR/index.html: a map strip
-(area of mathematics × stage toward the claim rule) and one table of claims ordered by how close each is to its rule,
+(area of mathematics × stage toward the claim rule) and one table of claims ordered by most recent activity, then by how close each is to its rule,
 with who has contributed and what each needs next. Stage is read off the ledger mechanically; the words are the
 protocol's. Nothing is ranked by person. The page's own words live in tools/board_copy.yaml.
 
@@ -93,8 +93,8 @@ def page(claims, generated):
             cells.append(f'<td class="cell s{s}">{chips or "<span class=empty>·</span>"}</td>')
         rows.append(f'<tr><th scope="row">{e(a)}</th>{"".join(cells)}</tr>')
     maprows = "\n".join(rows) if rows else '<tr><td colspan="6" class="empty">No claims registered yet.</td></tr>'
-    closest = sorted(claims, key=lambda c: (-c["stage"], c["open_gaps"], c["last"]), reverse=False)
-    closest = sorted(closest, key=lambda c: (-c["stage"], c["open_gaps"]))
+    # most recent activity first; ties by stage (closest to the rule), then fewest open gaps
+    closest = sorted(claims, key=lambda c: (str(c["last"]), c["stage"], -c["open_gaps"]), reverse=True)
     def row(c):
         k, x = c["checks"], c["checks"]["external"]
         pal, fc, ep = x.get("palomar", {}), x.get("formal_conjectures", {}), x.get("erdosproblems", {})

@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-17",
+ "generated": "2026-11-20",
  "stages": [
   "Registered",
   "Checks rerun",
@@ -601,30 +601,61 @@
    "title": "The claimed proof of the Riemann Hypothesis announced by Levent Alpöge on 20 November 2026, built with Claude and released as Lean 4 code",
    "area": "Number theory: zeros of the Riemann zeta function and Dirichlet L-functions",
    "rests_on": "a four-page note and a Lean 4 development released as a 14-part archive on the claimant's website",
-   "stage": 0,
-   "stage_name": "Registered",
-   "needs_next": "an independent rerun of whatever is machine-checkable",
+   "stage": 2,
+   "stage_name": "Reading guide written",
+   "needs_next": "two independent readers to sign the semantic read",
    "certified": 0,
    "accepted": 0,
    "refuted": 0,
    "open_gaps": 4,
    "first_ask": "The Lean development has not been built or kernel-checked by anyone outside the claimant",
    "first_ask_what": "a pre-registered rerun: fetch at the pinned commit, build, confirm no sorry or admit, print the axioms",
-   "people": [],
+   "people": [
+    "Nervous Machine (Heidi Bennett; Claude Fable 5.1 as the operating agent)"
+   ],
    "outside": [],
    "checks": {
     "rerun": [],
-    "trace": false,
+    "trace": true,
     "reads": 0,
     "signed": 0,
     "refused": 0,
-    "external": {},
+    "external": {
+     "sutherland_mit": {
+      "who": "Andrew Sutherland (MIT), 'checks run with Claude Code'",
+      "archive_sha256_matches_ours": true,
+      "compile": "all 175,187 modules, Lean v4.33.1, Mathlib v4.33.1, zero errors, finished 16:43 UTC",
+      "axioms_five_statements": "propext, Classical.choice, Quot.sound only",
+      "kernel_replay": "leanchecker on every module, 175,187 of 175,187, zero rejections, about 18:17 UTC",
+      "independent_kernel": "nanoda accepts the full export, exit 0 at 19:05 UTC, 27 min 42 s on 80 threads",
+      "in_progress": "lake comparator end to end; Lean default and paranoid kernels on the export",
+      "caveats_stated": "build ran on cloud machines without a sandbox, compiled by calling lean directly rather than lake build; a 77-module sample matched a real lake build; a first attempt with a wrong module root was discarded",
+      "statement_note": "GRH here means Dirichlet L-functions only"
+     },
+     "mirrors": [
+      {
+       "repo": "Deicyde/riemann-hypothesis",
+       "note": "byte-identical to the archive plus Comparator files, per Sutherland's page; CI export sha256 bd484ac9…b2b9"
+      },
+      {
+       "repo": "CocoSgt/riemann-hypothesis-lean",
+       "created": "2026-11-20T14:59Z",
+       "note": "mirror; states no independent build or review published as of mirroring"
+      },
+      {
+       "repo": "jsmorph/rh",
+       "created": "2026-11-20T14:49Z",
+       "note": "copy; archive sha256 9631b4f0… matches ours; states the project was not built there"
+      }
+     ],
+     "dated": "2026-11-20"
+    },
     "application": "none",
     "notes": 0
    },
-   "cycles": 0,
-   "last": "2026-11-16",
-   "last_text": "16 Nov 2026"
+   "cycles": 1,
+   "last": "2026-11-20",
+   "last_text": "20 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-zhang240",

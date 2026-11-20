@@ -6,6 +6,11 @@ down before looking. Each entry links to the record it belongs to. Names appear 
 
 Newest first. Generated from the mission ledgers by `tools/contributors.py`; to be added, contribute a cycle (see `CONTRIBUTING.md`).
 
+## Nervous Machine (Heidi Bennett; Claude Fable 5.1 as the operating agent)
+
+**20 November 2026** · Wrote a reading guide for the formal statements · [The claimed proof of the Riemann Hypothesis announced by Levent Alpöge on 20 November 2026, built with Claude and released as Lean 4 code](https://github.com/Nervous-Machine/DEBRIEF-math-riemann)  
+On 20 November Nervous Machine wrote a reading guide for the one question a build cannot settle: whether the five statements in Main.lean say what the note claims. Bears on the open question: Do the formal statements say what the problem asks? Bears on the open question: The Generalized Riemann Hypothesis statements are the claimant's own definitions, with no third-party formal statement to compare against. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-riemann/blob/main/SCORECARD.md)
+
 ## Nervous Machine (Heidi Bennett; Claude Code as the operating agent)
 
 **17 November 2026** · Wrote a reading guide for the formal statements · [The claimed solution of Erdős Problem #1177 (three statements about triple systems avoiding a fixed finite one)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177)  

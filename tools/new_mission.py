@@ -8,7 +8,7 @@ open gaps with what would close each, and nothing has been run. The result valid
 on the claims board at stage "Registered". The first rerun, read or trace is a contribution like any other.
 
 CLAIM.yaml fields (see templates/claim.yaml): name, label, title, area, rests_on, problem{url, posed, plain, name?,
-formal_statement?{repo, path, commit, blob_sha, size, symbol?}} (problem.name is the display name for problems not on erdosproblems.com; artifacts
+formal_statement?{repo, path, commit, blob_sha, size, symbol?}}, announcement_plain? (one sentence on where the claim was announced, for problems not on erdosproblems.com; artifacts
 may be kind lean with url, sha256, bytes for an archive), claims[]{by, ai, submitted, where, summary_plain, notes_plain?, artifacts[]}, record[]{dated,
 text}, site_status, extra_gaps[]?{title, spoken, what, who, kind, expected_signal}.
 
@@ -76,7 +76,7 @@ def build(C):
                     closes_with=[{"what": "a read cycle by a mathematician in the area who is not an author, signing or refusing each main step", "kind": "read", "external": True, "who_could_act": "a mathematician in the problem's area"},
                                  {"what": "a referee report or journal acceptance, recorded by date", "kind": "measurement", "external": True, "who_could_act": "a journal; the record notes the date when it happens"}],
                     spoken=(("The claim is listed on the problem's page, which states that appearing there is no guarantee of correctness and that nobody associated with the site has examined it." + (" The site has since marked this proof as accepted." if C.get("site_status", "").startswith("accepted") else "") + " No independent reading is on the public record" + (" beyond that." if C.get("site_status", "").startswith("accepted") else ".")) if erdos
-                            else "The claim was announced by its author on the author's own site. No independent reading, referee report or journal submission is on the public record."),
+                            else (C.get("announcement_plain") or "The claim was announced by its author on the author's own site.") + " No independent reading, referee report or journal submission is on the public record."),
                     ask={"spoken": "Someone in the field reads it and says, under their name, what holds and what does not."},
                     expected_signal="a signed or refused read cycle; a dated referee report", resolution_by="none registered")); pri += 1
     for g in C.get("extra_gaps", []):

@@ -50,7 +50,7 @@ def claim(url, path):
         if c["by"] not in seen: seen.append(c["by"])
     people = seen
     outside = [p for p in people if not MAINTAINER.match(p)]
-    dates = sorted(re.match(r"\d{4}-\d{2}-\d{2}", str(c.get("dated", ""))).group(0) for c in L["cycles"] if re.match(r"\d{4}-\d{2}-\d{2}", str(c.get("dated", ""))))
+    dates = sorted(d for c in L["cycles"] for d in re.findall(r"\d{4}-\d{2}-\d{2}", str(c.get("dated", ""))))  # a cycle dated "A to B" counts as B
     first_ask = gaps[0] if gaps else None
     name = url.rstrip("/").split("/")[-1]
     ext = {}

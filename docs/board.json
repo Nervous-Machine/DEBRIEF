@@ -680,6 +680,15 @@
        "note": "copy; archive sha256 9631b4f0… matches ours; states the project was not built there"
       }
      ],
+     "reports": [
+      {
+       "who": "Andrew Sutherland (MIT)",
+       "url": "https://math.mit.edu/~drew/grh/",
+       "dated": "2026-11-20",
+       "operated_with": "Claude Code, as stated on the page",
+       "what": "full compile, standard axioms only, kernel replay of every module, independent kernel accepts the export; comparator and Lean kernels on the export in progress at 19:45 UTC"
+      }
+     ],
      "dated": "2026-11-20"
     },
     "application": "none",

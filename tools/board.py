@@ -103,7 +103,11 @@ def page(claims, generated):
         names = [(f'<span class="who-outside">{e(n)}</span>' if not MAINTAINER.match(n) else e(n)) for n in k["rerun"]]
         if pal.get("status") == "registered":
             names = [f'<a class="who-outside" href="{e(pal["url"])}">Palomar</a>' if n.endswith("Palomar registry</span>") else n for n in names]
+        # checks published elsewhere and recorded by a replay cycle, not filed here under the checker's name
+        reported = [f'<a class="who-outside" href="{e(r["url"])}" title="{e(r.get("what", ""))}">{e(r["who"])}</a>' for r in x.get("reports", []) if r.get("who") and r.get("url")]
         proof = ", ".join(names) if names else dim("no Lean to check" if nolean else "nobody yet")
+        if reported:
+            proof = (proof + "<div class=\"sub\">" if names else "") + ", ".join(reported) + dim(" " + e(T.get("reported_elsewhere", "reported elsewhere, not filed here"))) + ("</div>" if names else "")
         s = fc.get("main_statement", "")
         dm = "" if s in ("", "not applicable") else (dim("DeepMind: no file") if s == "no file" else f'DeepMind: <a href="{e(fc["url"])}">{e(s)}</a>' + ("" if fc.get("formal_proof_linked") or not s.startswith("solved") else dim(", no proof linked")))
         site = "" if ep.get("state", "") in ("", "not applicable") else f'<div class="sub">erdosproblems.com: {e(ep["state"])}</div>'

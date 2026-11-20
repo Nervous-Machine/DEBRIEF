@@ -595,6 +595,38 @@
    "last_text": "17 Nov 2026"
   },
   {
+   "repo": "DEBRIEF-math-riemann",
+   "url": "https://github.com/Nervous-Machine/DEBRIEF-math-riemann",
+   "label": "Riemann Hypothesis (Alpöge, with Claude)",
+   "title": "The claimed proof of the Riemann Hypothesis announced by Levent Alpöge on 20 November 2026, built with Claude and released as Lean 4 code",
+   "area": "Number theory: zeros of the Riemann zeta function and Dirichlet L-functions",
+   "rests_on": "a four-page note and a Lean 4 development released as a 14-part archive on the claimant's website",
+   "stage": 0,
+   "stage_name": "Registered",
+   "needs_next": "an independent rerun of whatever is machine-checkable",
+   "certified": 0,
+   "accepted": 0,
+   "refuted": 0,
+   "open_gaps": 4,
+   "first_ask": "The Lean development has not been built or kernel-checked by anyone outside the claimant",
+   "first_ask_what": "a pre-registered rerun: fetch at the pinned commit, build, confirm no sorry or admit, print the axioms",
+   "people": [],
+   "outside": [],
+   "checks": {
+    "rerun": [],
+    "trace": false,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "external": {},
+    "application": "none",
+    "notes": 0
+   },
+   "cycles": 0,
+   "last": "2026-11-16",
+   "last_text": "16 Nov 2026"
+  },
+  {
    "repo": "DEBRIEF-math-zhang240",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-zhang240",
    "label": "Prime gaps ≤ 240 (Zhang)",

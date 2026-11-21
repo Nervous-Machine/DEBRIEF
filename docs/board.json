@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-20",
+ "generated": "2026-11-21",
  "stages": [
   "Registered",
   "Checks rerun",
@@ -639,7 +639,7 @@
    "certified": 0,
    "accepted": 0,
    "refuted": 0,
-   "open_gaps": 4,
+   "open_gaps": 5,
    "first_ask": "The Lean development has not been built or kernel-checked by anyone outside the claimant",
    "first_ask_what": "a pre-registered rerun: fetch at the pinned commit, build, confirm no sorry or admit, print the axioms",
    "people": [
@@ -647,7 +647,9 @@
    ],
    "outside": [],
    "checks": {
-    "rerun": [],
+    "rerun": [
+     "Nervous Machine"
+    ],
     "trace": true,
     "reads": 0,
     "signed": 0,
@@ -694,9 +696,9 @@
     "application": "none",
     "notes": 0
    },
-   "cycles": 1,
-   "last": "2026-11-20",
-   "last_text": "20 Nov 2026"
+   "cycles": 2,
+   "last": "2026-11-21",
+   "last_text": "21 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-zhang240",

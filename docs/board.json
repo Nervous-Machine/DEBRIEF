@@ -1220,12 +1220,6 @@
     ],
     "registries": [
      {
-      "name": "DeepMind formal-conjectures",
-      "status": "(C) and (D) marked research solved, citing an internal OpenAI model; (A) and (B) research open",
-      "url": "https://github.com/google-deepmind/formal-conjectures/blob/2207c54d0dbe960de591d280f997b195bf3f6e28/FormalConjectures/Millennium/NavierStokes.lean",
-      "dim": false
-     },
-     {
       "name": "Clay Mathematics Institute",
       "status": "Active",
       "url": "https://www.claymath.org/millennium/navier-stokes-equation/",
@@ -1248,11 +1242,6 @@
        "what": "independent build of openai/NavierStokesAndEuler at commit f9e8bc5 on Lean v4.34.0-rc2: 816 files, no sorry, native_decide or new axiom; both Navier–Stokes statements on exactly propext, Classical.choice and Quot.sound; the sixteen definitions and both statements identical, declaration by declaration, to formal-conjectures at commit 8bf45ed; machine and wall time not stated"
       }
      ],
-     "formal_conjectures": {
-      "main_statement": "(C) and (D) marked research solved, citing an internal OpenAI model; (A) and (B) research open",
-      "url": "https://github.com/google-deepmind/formal-conjectures/blob/2207c54d0dbe960de591d280f997b195bf3f6e28/FormalConjectures/Millennium/NavierStokes.lean",
-      "formal_proof_linked": false
-     },
      "preprint_on_translation": {
       "who": "Alexander Bastounis, Fabian Circelli, Anders C. Hansen (King's College London; Cambridge)",
       "url": "https://arxiv.org/abs/2610.08144",

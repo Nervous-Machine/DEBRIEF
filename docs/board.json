@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-21",
+ "generated": "2026-11-22",
  "stages": [
   "Registered",
   "Checks rerun",
@@ -637,11 +637,11 @@
    "stage_name": "Reading guide written",
    "needs_next": "two independent readers to sign the semantic read",
    "certified": 0,
-   "accepted": 0,
+   "accepted": 1,
    "refuted": 0,
-   "open_gaps": 5,
-   "first_ask": "The Lean development has not been built or kernel-checked by anyone outside the claimant",
-   "first_ask_what": "a pre-registered rerun: fetch at the pinned commit, build, confirm no sorry or admit, print the axioms",
+   "open_gaps": 4,
+   "first_ask": "Do the formal statements say what the problem asks?",
+   "first_ask_what": "a machine comparison of the claimant's main theorem with the third-party formal statement RiemannHypothesis in leanprover-community/mathlib4, then a human read of any difference",
    "people": [
     "Nervous Machine (Heidi Bennett; Claude Fable 5.1 as the operating agent)"
    ],
@@ -688,9 +688,9 @@
     "application": "none",
     "notes": 0
    },
-   "cycles": 2,
-   "last": "2026-11-21",
-   "last_text": "21 Nov 2026"
+   "cycles": 3,
+   "last": "2026-11-22",
+   "last_text": "22 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-zhang240",

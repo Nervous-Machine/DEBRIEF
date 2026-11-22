@@ -75,7 +75,8 @@
    "related": [],
    "cycles": 0,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": []
   },
   {
    "repo": "DEBRIEF-math-erdos1133",
@@ -146,7 +147,8 @@
    "related": [],
    "cycles": 0,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": []
   },
   {
    "repo": "DEBRIEF-math-erdos1177",
@@ -261,7 +263,35 @@
    ],
    "cycles": 1,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": [
+    {
+     "label": "Erdős #593",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos593",
+     "relation": "resolved in the same paper (arXiv:2606.24882); same claimant",
+     "source": "maintainer"
+    },
+    {
+     "label": "Erdős #550, Erdős #731, Erdős #768",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos550",
+     "relation": "same claimant",
+     "source": "ledger",
+     "links": [
+      [
+       "Erdős #550",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos550"
+      ],
+      [
+       "Erdős #731",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos731"
+      ],
+      [
+       "Erdős #768",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos768"
+      ]
+     ]
+    }
+   ]
   },
   {
    "repo": "DEBRIEF-math-erdos306",
@@ -340,7 +370,8 @@
    "related": [],
    "cycles": 3,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": []
   },
   {
    "repo": "DEBRIEF-math-erdos550",
@@ -454,7 +485,33 @@
    ],
    "cycles": 1,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": [
+    {
+     "label": "Erdős #1177, Erdős #593, Erdős #731, Erdős #768",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177",
+     "relation": "same claimant",
+     "source": "ledger",
+     "links": [
+      [
+       "Erdős #1177",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177"
+      ],
+      [
+       "Erdős #593",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos593"
+      ],
+      [
+       "Erdős #731",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos731"
+      ],
+      [
+       "Erdős #768",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos768"
+      ]
+     ]
+    }
+   ]
   },
   {
    "repo": "DEBRIEF-math-erdos593",
@@ -592,7 +649,35 @@
    ],
    "cycles": 2,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": [
+    {
+     "label": "Erdős #1177",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177",
+     "relation": "resolved in the same paper (arXiv:2606.24882); same claimant",
+     "source": "maintainer"
+    },
+    {
+     "label": "Erdős #550, Erdős #731, Erdős #768",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos550",
+     "relation": "same claimant",
+     "source": "ledger",
+     "links": [
+      [
+       "Erdős #550",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos550"
+      ],
+      [
+       "Erdős #731",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos731"
+      ],
+      [
+       "Erdős #768",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos768"
+      ]
+     ]
+    }
+   ]
   },
   {
    "repo": "DEBRIEF-math-erdos671",
@@ -663,7 +748,8 @@
    "related": [],
    "cycles": 1,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": []
   },
   {
    "repo": "DEBRIEF-math-erdos731",
@@ -777,7 +863,33 @@
    ],
    "cycles": 1,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": [
+    {
+     "label": "Erdős #1177, Erdős #550, Erdős #593, Erdős #768",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177",
+     "relation": "same claimant",
+     "source": "ledger",
+     "links": [
+      [
+       "Erdős #1177",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177"
+      ],
+      [
+       "Erdős #550",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos550"
+      ],
+      [
+       "Erdős #593",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos593"
+      ],
+      [
+       "Erdős #768",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos768"
+      ]
+     ]
+    }
+   ]
   },
   {
    "repo": "DEBRIEF-math-erdos768",
@@ -893,7 +1005,33 @@
    ],
    "cycles": 2,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": [
+    {
+     "label": "Erdős #1177, Erdős #550, Erdős #593, Erdős #731",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177",
+     "relation": "same claimant",
+     "source": "ledger",
+     "links": [
+      [
+       "Erdős #1177",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177"
+      ],
+      [
+       "Erdős #550",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos550"
+      ],
+      [
+       "Erdős #593",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos593"
+      ],
+      [
+       "Erdős #731",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-erdos731"
+      ]
+     ]
+    }
+   ]
   },
   {
    "repo": "DEBRIEF-math-erdos856",
@@ -962,7 +1100,8 @@
    "related": [],
    "cycles": 0,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": []
   },
   {
    "repo": "DEBRIEF-math-grh-masullo",
@@ -1036,7 +1175,15 @@
    ],
    "cycles": 0,
    "last": "2026-11-22",
-   "last_text": "22 Nov 2026"
+   "last_text": "22 Nov 2026",
+   "related_display": [
+    {
+     "label": "Riemann Hypothesis (Alpöge, with Claude)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-riemann",
+     "relation": "a generalization of; same problem page",
+     "source": "maintainer"
+    }
+   ]
   },
   {
    "repo": "DEBRIEF-math-primegaps",
@@ -1114,7 +1261,15 @@
    ],
    "cycles": 4,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": [
+    {
+     "label": "Prime gaps ≤ 240 (Zhang)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-zhang240",
+     "relation": "the same problem, sharper bound (186 against 240)",
+     "source": "maintainer"
+    }
+   ]
   },
   {
    "repo": "DEBRIEF-math-riemann",
@@ -1306,7 +1461,15 @@
    ],
    "cycles": 3,
    "last": "2026-11-22",
-   "last_text": "22 Nov 2026"
+   "last_text": "22 Nov 2026",
+   "related_display": [
+    {
+     "label": "Generalized Riemann Hypothesis (Masullo)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-grh-masullo",
+     "relation": "a special case of; same problem page",
+     "source": "maintainer"
+    }
+   ]
   },
   {
    "repo": "DEBRIEF-math-zhang240",
@@ -1380,7 +1543,15 @@
    ],
    "cycles": 1,
    "last": "2026-11-17",
-   "last_text": "17 Nov 2026"
+   "last_text": "17 Nov 2026",
+   "related_display": [
+    {
+     "label": "Prime gaps ≤ 186 (OpenAI)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-primegaps",
+     "relation": "the same problem, weaker bound (240 against 186)",
+     "source": "maintainer"
+    }
+   ]
   }
  ]
 }

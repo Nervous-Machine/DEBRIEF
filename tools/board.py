@@ -131,6 +131,17 @@ def relate(claims):
         for m in merged.values():
             m["relation"] = "; ".join(m["relations"])
         c["related"] = sorted(merged.values(), key=lambda r: (r["source"] != "maintainer", r["label"]))
+        # for display: ledger-only relations with the same phrase collapse into one entry naming every claim
+        groups, shown = {}, []
+        for r in c["related"]:
+            if r["source"] == "ledger" and len(r["relations"]) == 1:
+                groups.setdefault(r["relation"], []).append(r)
+            else:
+                shown.append({"label": r["label"], "url": r["url"], "relation": r["relation"], "source": r["source"]})
+        for phrase, rs in groups.items():
+            shown.append({"label": ", ".join(x["label"] for x in rs), "url": rs[0]["url"], "relation": phrase, "source": "ledger",
+                          "links": [(x["label"], x["url"]) for x in rs]})
+        c["related_display"] = shown
     return claims
 
 
@@ -160,7 +171,11 @@ def page(claims, generated):
         human += f'<div class="sub">{guide}' + (f' · {k["notes"]} note{"s" if k["notes"] != 1 else ""}' if k["notes"] else "") + f' · <a href="{e(c["url"])}/issues/new?template=reasoning-note.yml">{e(T.get("leave_reasoning", "leave your reasoning →"))}</a></div>'
         regs = [f'<div class="reg{" dim" if r.get("dim") else ""}"><a href="{e(r["url"])}">{e(r["name"])}</a>: {e(r["status"])}</div>' for r in k["registries"]]
         elsewhere = "".join(regs) if regs else dim("—")
-        chips = "".join(f'<a class="rel" href="{e(r["url"])}" title="{e(r["relation"])}{" (from the ledgers)" if r["source"] == "ledger" else ""}">{e(r["label"])} <span class="dim">{e(r["relation"])}</span></a>' for r in c["related"])
+        def chip(r):
+            if r.get("links"):
+                return f'<span class="rel" title="from the ledgers"><span class="dim">{e(r["relation"])}:</span> ' + ", ".join(f'<a href="{e(u)}">{e(l)}</a>' for l, u in r["links"]) + "</span>"
+            return f'<a class="rel" href="{e(r["url"])}" title="{e(r["relation"])}{" (from the ledgers)" if r["source"] == "ledger" else ""}">{e(r["label"])} <span class="dim">{e(r["relation"])}</span></a>'
+        chips = "".join(chip(r) for r in c["related_display"])
         use = f'<a class="chip-use" href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/APPLICATIONS.md">{e(T.get("use_candidate", "engineering use: candidate"))}</a>' if k["application"] == "candidate" else ""
         standing = " · ".join(f"{c[w]} {w}" for w in ("certified", "accepted", "refuted") if c[w]) or "nothing has standing yet"
         return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div>{("<div class=rels>" + chips + "</div>") if chips else ""}{use}</td>'
@@ -198,7 +213,7 @@ table{{border-collapse:collapse;width:100%;font-size:.9rem}}th,td{{padding:10px 
 thead th{{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:600}}
 td.lab{{min-width:220px}}td.lab a{{font-weight:600;color:var(--text)}}.sub{{font-size:.8rem;color:var(--muted);margin-top:3px}}.dim{{color:var(--dim)}}
 .sub.next{{color:#b8b8c0}}.sub.next a{{font-size:.78rem}}
-.rels{{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}}.rel{{display:inline-block;padding:2px 7px;border-radius:4px;font-size:.72rem;border:1px solid var(--border);color:#cfd6de;background:rgba(255,255,255,.02)}}.rel:hover{{text-decoration:none;border-color:var(--cyan)}}
+.rels{{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}}.rel{{display:inline-block;padding:2px 7px;border-radius:4px;font-size:.72rem;border:1px solid var(--border);color:#cfd6de;background:rgba(255,255,255,.02)}}.rel:hover{{text-decoration:none;border-color:var(--cyan)}}.rel a{{color:#cfd6de}}
 .chip-use{{display:inline-block;margin-top:6px;padding:2px 7px;border-radius:4px;font-size:.72rem;border:1px solid rgba(0,212,100,.5);color:var(--green)}}
 .reg{{font-size:.85rem}}.reg.dim,.reg.dim a{{color:var(--dim)}}
 .stage{{display:inline-block;padding:3px 9px;border-radius:999px;font-size:.72rem;letter-spacing:.3px;border:1px solid var(--border);color:#cfd6de;white-space:nowrap}}

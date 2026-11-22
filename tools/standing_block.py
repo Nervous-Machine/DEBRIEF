@@ -22,7 +22,11 @@ def block(c):
     if k["notes"]:
         human += f"; {k['notes']} reasoning note" + ("s" if k["notes"] != 1 else "")
     regs = " · ".join(f"[{r['name']}]({r['url']}): {r['status']}" for r in k["registries"]) or "—"
-    related = " · ".join(f"[{r['label']}]({r['url']}): {r['relation']}" for r in c.get("related", [])) or "—"
+    def rel(r):
+        if r.get("links"):
+            return r["relation"] + ": " + ", ".join(f"[{l}]({u})" for l, u in r["links"])
+        return f"[{r['label']}]({r['url']}): {r['relation']}"
+    related = " · ".join(rel(r) for r in c.get("related_display", c.get("related", []))) or "—"
     standing = " · ".join(f"{c[w]} {w}" for w in ("certified", "accepted", "refuted") if c[w]) or "nothing has standing yet"
     lines = [BEGIN,
              f"**Standing, {c['last_text']}.** Stage: {c['stage_name']}. Needs next: {c['first_ask'] or c['needs_next']} ([what would close it](ASKS.md)).",

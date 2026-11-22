@@ -1,5 +1,6 @@
 #!/bin/sh
-# Regenerate the cross-mission pages from the sibling mission repositories: INDEX.md, CONTRIBUTORS.md, docs/ (the board).
+# Regenerate the cross-mission pages from the sibling mission repositories: INDEX.md, CONTRIBUTORS.md, docs/ (the board),
+# and the standing block in each public mission README.
 # usage: tools/regen.sh [DIR holding the DEBRIEF-* checkouts; default ..]
 set -e
 cd "$(dirname "$0")/.."
@@ -19,3 +20,9 @@ done
 python3 tools/index.py INDEX.md $P
 python3 tools/contributors.py CONTRIBUTORS.md $P
 python3 tools/board.py docs $P
+# The standing block at the top of each public mission README is written from the board data; commit each mission
+# repository whose README changed.
+for kv in $P; do
+  name=$(basename "${kv%%=*}"); dir=$(dirname "$(dirname "${kv#*=}")")
+  [ -f "$dir/README.md" ] && python3 tools/standing_block.py "$dir/README.md" docs/board.json "$name"
+done

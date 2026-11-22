@@ -1,0 +1,19 @@
+# Relations between claims that only a person can see. The maintainer's words, not ledger facts; relations the
+# ledgers show on their own (same problem page, same claimant's repositories) are drawn by tools/board.py without
+# being listed here. `relation` reads from a to b; `reverse` reads from b to a and defaults to `relation`.
+# Each becomes a chip under the claim on the board and a line in the standing block of each mission README.
+relations:
+  - a: DEBRIEF-math-riemann
+    b: DEBRIEF-math-grh-masullo
+    relation: a special case of
+    reverse: a generalization of
+    note: >-
+      Alpöge's archive states the Riemann Hypothesis and the Generalized Riemann Hypothesis for Dirichlet L-functions
+      only; Masullo's draft claims it for Hecke L-functions, which contain the Dirichlet case.
+  - a: DEBRIEF-math-primegaps
+    b: DEBRIEF-math-zhang240
+    relation: the same problem, sharper bound (186 against 240)
+    reverse: the same problem, weaker bound (240 against 186)
+  - a: DEBRIEF-math-erdos593
+    b: DEBRIEF-math-erdos1177
+    relation: resolved in the same paper (arXiv:2606.24882)

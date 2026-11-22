@@ -32,6 +32,20 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [
+     {
+      "name": "DeepMind formal-conjectures",
+      "status": "open",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/1061.lean",
+      "dim": false
+     },
+     {
+      "name": "erdosproblems.com",
+      "status": "open",
+      "url": "https://www.erdosproblems.com/"
+     }
+    ],
     "external": {
      "palomar": {
       "status": "none found",
@@ -53,6 +67,12 @@
     "application": "none",
     "notes": 0
    },
+   "machine_checked": false,
+   "human_signed": false,
+   "no_lean": true,
+   "problem_url": "https://www.erdosproblems.com/1061",
+   "source_owners": [],
+   "related": [],
    "cycles": 0,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -81,6 +101,20 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [
+     {
+      "name": "DeepMind formal-conjectures",
+      "status": "solved",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/1133.lean",
+      "dim": false
+     },
+     {
+      "name": "erdosproblems.com",
+      "status": "open",
+      "url": "https://www.erdosproblems.com/"
+     }
+    ],
     "external": {
      "palomar": {
       "status": "none found",
@@ -102,6 +136,14 @@
     "application": "candidate",
     "notes": 0
    },
+   "machine_checked": false,
+   "human_signed": false,
+   "no_lean": true,
+   "problem_url": "https://www.erdosproblems.com/1133",
+   "source_owners": [
+    "jiaqiyang-fdu"
+   ],
+   "related": [],
    "cycles": 0,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -132,6 +174,20 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [
+     {
+      "name": "DeepMind formal-conjectures",
+      "status": "solved",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/1177.lean",
+      "dim": false
+     },
+     {
+      "name": "erdosproblems.com",
+      "status": "open",
+      "url": "https://www.erdosproblems.com/"
+     }
+    ],
     "external": {
      "palomar": {
       "status": "none found",
@@ -153,6 +209,56 @@
     "application": "none",
     "notes": 0
    },
+   "machine_checked": false,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "https://www.erdosproblems.com/1177",
+   "source_owners": [
+    "ericlisg"
+   ],
+   "related": [
+    {
+     "repo": "DEBRIEF-math-erdos593",
+     "label": "Erdős #593",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos593",
+     "relation": "resolved in the same paper (arXiv:2606.24882); same claimant",
+     "source": "maintainer",
+     "relations": [
+      "resolved in the same paper (arXiv:2606.24882)",
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos550",
+     "label": "Erdős #550",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos550",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos731",
+     "label": "Erdős #731",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos731",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos768",
+     "label": "Erdős #768",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos768",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    }
+   ],
    "cycles": 1,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -189,6 +295,20 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [
+     {
+      "name": "DeepMind formal-conjectures",
+      "status": "solved, proof linked",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/306.lean",
+      "dim": false
+     },
+     {
+      "name": "erdosproblems.com",
+      "status": "open",
+      "url": "https://www.erdosproblems.com/"
+     }
+    ],
     "external": {
      "palomar": {
       "status": "none found",
@@ -210,6 +330,14 @@
     "application": "none",
     "notes": 0
    },
+   "machine_checked": true,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "https://www.erdosproblems.com/306",
+   "source_owners": [
+    "daizisheng"
+   ],
+   "related": [],
    "cycles": 3,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -240,6 +368,20 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [
+     {
+      "name": "DeepMind formal-conjectures",
+      "status": "solved, proof linked",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/550.lean",
+      "dim": false
+     },
+     {
+      "name": "erdosproblems.com",
+      "status": "open (Lean)",
+      "url": "https://www.erdosproblems.com/"
+     }
+    ],
     "external": {
      "palomar": {
       "status": "none found",
@@ -261,6 +403,55 @@
     "application": "none",
     "notes": 0
    },
+   "machine_checked": false,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "https://www.erdosproblems.com/550",
+   "source_owners": [
+    "ericlisg"
+   ],
+   "related": [
+    {
+     "repo": "DEBRIEF-math-erdos1177",
+     "label": "Erdős #1177",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos593",
+     "label": "Erdős #593",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos593",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos731",
+     "label": "Erdős #731",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos731",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos768",
+     "label": "Erdős #768",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos768",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    }
+   ],
    "cycles": 1,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -296,6 +487,25 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [
+     {
+      "name": "Palomar registry",
+      "status": "registered",
+      "url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-16-000018"
+     },
+     {
+      "name": "DeepMind formal-conjectures",
+      "status": "open; variants solved",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/593.lean",
+      "dim": false
+     },
+     {
+      "name": "erdosproblems.com",
+      "status": "open",
+      "url": "https://www.erdosproblems.com/"
+     }
+    ],
     "external": {
      "palomar": {
       "status": "registered",
@@ -329,6 +539,57 @@
     "application": "none",
     "notes": 0
    },
+   "machine_checked": true,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "https://www.erdosproblems.com/593",
+   "source_owners": [
+    "ericlisg",
+    "sampetkov"
+   ],
+   "related": [
+    {
+     "repo": "DEBRIEF-math-erdos1177",
+     "label": "Erdős #1177",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177",
+     "relation": "resolved in the same paper (arXiv:2606.24882); same claimant",
+     "source": "maintainer",
+     "relations": [
+      "resolved in the same paper (arXiv:2606.24882)",
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos550",
+     "label": "Erdős #550",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos550",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos731",
+     "label": "Erdős #731",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos731",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos768",
+     "label": "Erdős #768",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos768",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    }
+   ],
    "cycles": 2,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -359,6 +620,20 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [
+     {
+      "name": "DeepMind formal-conjectures",
+      "status": "no file",
+      "url": "https://github.com/google-deepmind/formal-conjectures",
+      "dim": true
+     },
+     {
+      "name": "erdosproblems.com",
+      "status": "open",
+      "url": "https://www.erdosproblems.com/"
+     }
+    ],
     "external": {
      "palomar": {
       "status": "none found",
@@ -380,6 +655,12 @@
     "application": "candidate",
     "notes": 0
    },
+   "machine_checked": false,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "https://www.erdosproblems.com/671",
+   "source_owners": [],
+   "related": [],
    "cycles": 1,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -410,6 +691,20 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [
+     {
+      "name": "DeepMind formal-conjectures",
+      "status": "open; 1975 variant solved",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/731.lean",
+      "dim": false
+     },
+     {
+      "name": "erdosproblems.com",
+      "status": "open",
+      "url": "https://www.erdosproblems.com/"
+     }
+    ],
     "external": {
      "palomar": {
       "status": "none found",
@@ -431,6 +726,55 @@
     "application": "none",
     "notes": 0
    },
+   "machine_checked": false,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "https://www.erdosproblems.com/731",
+   "source_owners": [
+    "ericlisg"
+   ],
+   "related": [
+    {
+     "repo": "DEBRIEF-math-erdos1177",
+     "label": "Erdős #1177",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos550",
+     "label": "Erdős #550",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos550",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos593",
+     "label": "Erdős #593",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos593",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos768",
+     "label": "Erdős #768",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos768",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    }
+   ],
    "cycles": 1,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -463,6 +807,20 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [
+     {
+      "name": "DeepMind formal-conjectures",
+      "status": "no file",
+      "url": "https://github.com/google-deepmind/formal-conjectures",
+      "dim": true
+     },
+     {
+      "name": "erdosproblems.com",
+      "status": "open",
+      "url": "https://www.erdosproblems.com/"
+     }
+    ],
     "external": {
      "palomar": {
       "status": "none found",
@@ -484,6 +842,55 @@
     "application": "none",
     "notes": 0
    },
+   "machine_checked": true,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "https://www.erdosproblems.com/768",
+   "source_owners": [
+    "ericlisg"
+   ],
+   "related": [
+    {
+     "repo": "DEBRIEF-math-erdos1177",
+     "label": "Erdős #1177",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos550",
+     "label": "Erdős #550",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos550",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos593",
+     "label": "Erdős #593",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos593",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-erdos731",
+     "label": "Erdős #731",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos731",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    }
+   ],
    "cycles": 2,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -512,6 +919,20 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [
+     {
+      "name": "DeepMind formal-conjectures",
+      "status": "open; variants solved",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/6751c0f043985ac6647db28a45a63afdf21acffe/FormalConjectures/ErdosProblems/856.lean",
+      "dim": false
+     },
+     {
+      "name": "erdosproblems.com",
+      "status": "open",
+      "url": "https://www.erdosproblems.com/"
+     }
+    ],
     "external": {
      "palomar": {
       "status": "none found",
@@ -533,6 +954,12 @@
     "application": "none",
     "notes": 0
    },
+   "machine_checked": false,
+   "human_signed": false,
+   "no_lean": true,
+   "problem_url": "https://www.erdosproblems.com/856",
+   "source_owners": [],
+   "related": [],
    "cycles": 0,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -561,13 +988,55 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
-    "external": {},
+    "reports": [],
+    "registries": [
+     {
+      "name": "Clay Mathematics Institute",
+      "status": "Unsolved",
+      "url": "https://www.claymath.org/millennium/riemann-hypothesis/",
+      "read": "2026-11-22T18:59:20Z"
+     }
+    ],
+    "external": {
+     "pages": [
+      {
+       "name": "Clay Mathematics Institute",
+       "url": "https://www.claymath.org/millennium/riemann-hypothesis/",
+       "read": "2026-11-22T18:59:20Z",
+       "role": "problem authority (Millennium Prize rules: publication, two years, general acceptance)",
+       "sha256": "28e1327a53d5d3663b4908073b4cc4f77bb3f462da957a202a1ca918e78d5c6b",
+       "bytes": 107201,
+       "hash_of": "text",
+       "status": "Unsolved",
+       "changed": true
+      }
+     ],
+     "dated": "2026-11-22"
+    },
     "application": "none",
     "notes": 0
    },
+   "machine_checked": false,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "https://www.claymath.org/millennium/riemann-hypothesis/",
+   "source_owners": [],
+   "related": [
+    {
+     "repo": "DEBRIEF-math-riemann",
+     "label": "Riemann Hypothesis (Alpöge, with Claude)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-riemann",
+     "relation": "a generalization of; same problem page",
+     "source": "maintainer",
+     "relations": [
+      "a generalization of",
+      "same problem page"
+     ]
+    }
+   ],
    "cycles": 0,
-   "last": "2026-11-20",
-   "last_text": "20 Nov 2026"
+   "last": "2026-11-22",
+   "last_text": "22 Nov 2026"
   },
   {
    "repo": "DEBRIEF-math-primegaps",
@@ -601,6 +1070,8 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [],
     "external": {
      "palomar": {
       "status": "none found",
@@ -622,6 +1093,25 @@
     "application": "none",
     "notes": 0
    },
+   "machine_checked": true,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "",
+   "source_owners": [
+    "openai"
+   ],
+   "related": [
+    {
+     "repo": "DEBRIEF-math-zhang240",
+     "label": "Prime gaps ≤ 240 (Zhang)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-zhang240",
+     "relation": "the same problem, sharper bound (186 against 240)",
+     "source": "maintainer",
+     "relations": [
+      "the same problem, sharper bound (186 against 240)"
+     ]
+    }
+   ],
    "cycles": 4,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"
@@ -654,7 +1144,73 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [
+     {
+      "who": "Andrew Sutherland (MIT)",
+      "url": "https://math.mit.edu/~drew/grh/",
+      "dated": "2026-11-20",
+      "operated_with": "Claude Code, as stated on the page",
+      "what": "full compile, standard axioms only, kernel replay of every module, independent kernel accepts the export; comparator and Lean kernels on the export in progress at 19:45 UTC"
+     }
+    ],
+    "registries": [
+     {
+      "name": "Clay Mathematics Institute",
+      "status": "Unsolved",
+      "url": "https://www.claymath.org/millennium/riemann-hypothesis/",
+      "read": "2026-11-22T19:02:00Z"
+     },
+     {
+      "name": "Andrew Sutherland (MIT), verification page",
+      "status": "last updated 2026-11-22 16:20 UTC",
+      "url": "https://math.mit.edu/~drew/grh/",
+      "read": "2026-11-22T19:02:00Z"
+     },
+     {
+      "name": "Lean and Mathlib communities, joint statement",
+      "status": "certify the statement and the proof of RH (not GRH)",
+      "url": "https://leanprover-community.github.io/blog/posts/riemann-hypothesis/",
+      "read": "2026-11-22T19:02:00Z"
+     }
+    ],
     "external": {
+     "sutherland_mit": {
+      "who": "Andrew Sutherland (MIT), 'checks run with Claude Code'",
+      "archive_sha256_matches_ours": true,
+      "compile": "all 175,187 modules, Lean v4.33.1, Mathlib v4.33.1, zero errors, finished 16:43 UTC",
+      "axioms_five_statements": "propext, Classical.choice, Quot.sound only",
+      "kernel_replay": "leanchecker on every module, 175,187 of 175,187, zero rejections, about 18:17 UTC",
+      "independent_kernel": "nanoda accepts the full export, exit 0 at 19:05 UTC, 27 min 42 s on 80 threads",
+      "in_progress": "lake comparator end to end; Lean default and paranoid kernels on the export",
+      "caveats_stated": "build ran on cloud machines without a sandbox, compiled by calling lean directly rather than lake build; a 77-module sample matched a real lake build; a first attempt with a wrong module root was discarded",
+      "statement_note": "GRH here means Dirichlet L-functions only"
+     },
+     "mirrors": [
+      {
+       "repo": "Deicyde/riemann-hypothesis",
+       "note": "byte-identical to the archive plus Comparator files, per Sutherland's page; CI export sha256 bd484ac9…b2b9"
+      },
+      {
+       "repo": "CocoSgt/riemann-hypothesis-lean",
+       "created": "2026-11-20T14:59Z",
+       "note": "mirror; states no independent build or review published as of mirroring"
+      },
+      {
+       "repo": "jsmorph/rh",
+       "created": "2026-11-20T14:49Z",
+       "note": "copy; archive sha256 9631b4f0… matches ours; states the project was not built there"
+      }
+     ],
+     "reports": [
+      {
+       "who": "Andrew Sutherland (MIT)",
+       "url": "https://math.mit.edu/~drew/grh/",
+       "dated": "2026-11-20",
+       "operated_with": "Claude Code, as stated on the page",
+       "what": "full compile, standard axioms only, kernel replay of every module, independent kernel accepts the export; comparator and Lean kernels on the export in progress at 19:45 UTC"
+      }
+     ],
+     "dated": "2026-11-22",
      "lean_mathlib_joint_statement": {
       "who": "\"Lean and Mathlib communities\"; the page says the statement is endorsed by the Lean FRO and the Mathlib Initiative; no individual is named",
       "dated": "2026-11-21 13:55",
@@ -683,11 +1239,71 @@
        "his page now names the exported proof, not the compiled files, as the artifact to compare across builds, and says it has not been examined whether the export can carry a source path"
       ]
      },
-     "dated": "2026-11-21"
+     "pages": [
+      {
+       "name": "Clay Mathematics Institute",
+       "url": "https://www.claymath.org/millennium/riemann-hypothesis/",
+       "read": "2026-11-22T19:02:00Z",
+       "role": "problem authority (Millennium Prize rules: publication, two years, general acceptance)",
+       "sha256": "28e1327a53d5d3663b4908073b4cc4f77bb3f462da957a202a1ca918e78d5c6b",
+       "bytes": 107201,
+       "hash_of": "text",
+       "status": "Unsolved",
+       "changed": true
+      },
+      {
+       "name": "Andrew Sutherland (MIT), verification page",
+       "url": "https://math.mit.edu/~drew/grh/",
+       "read": "2026-11-22T19:02:00Z",
+       "role": "independent checks, published elsewhere",
+       "sha256": "479619210550ce7bc7c5fd7fb43764bbf63ef39e4ddfa672ccc7f63a484b2f9a",
+       "bytes": 27863,
+       "hash_of": "text",
+       "status": "last updated 2026-11-22 16:20 UTC",
+       "changed": true
+      },
+      {
+       "name": "Lean and Mathlib communities, joint statement",
+       "url": "https://leanprover-community.github.io/blog/posts/riemann-hypothesis/",
+       "read": "2026-11-22T19:02:00Z",
+       "role": "statement of the formal-methods community",
+       "sha256": "fb4214a4c01faaca81c858c73402210eca6d69b49c2596e3d95c3718b7524aaa",
+       "bytes": 8501,
+       "hash_of": "text",
+       "status": "certify the statement and the proof of RH (not GRH)",
+       "changed": true
+      }
+     ],
+     "sutherland_mit_update_2": {
+      "page_updated": "2026-11-22 16:20 UTC",
+      "sandboxed_rebuild": "lake build Main on a separate machine inside a bubblewrap sandbox (no network, source read-only, archive downloaded afresh, Mathlib checked against the official cache): exit 0, zero errors, finished 2026-11-21 18:07:21 UTC; built at the same path /home/ubuntu/grh/src/lean",
+      "export_reproduced": "the export made inside the sandbox is byte-identical to the published one: 61,570,595,788 bytes, sha256 5ea74b91…244e",
+      "compiled_files_reproduced": "175,186 of 175,187 identical to his original manifest; the one exception, Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/LocModel.olean, compiles non-deterministically: six recompilations with identical inputs gave one output four times and the other twice, differing in 38 bytes, the name of a bound variable in an equation lemma Lean generates on first use, taken from whichever of two parallel theorem elaborations gets there first; bound-variable names play no part in kernel checking",
+      "con_ron_compare": "con-ron --compare (master 3f22699b): all five theorems justified by the solution; exit 0 at 2026-11-21 23:02:33 UTC",
+      "our_comparison": "his two manifests differ from each other on exactly that one file; our cycle 2 manifest equals his sandbox manifest on the same 76,968 files as his original (the path-free ones); our LocModel.olean carries our source path, so which of his two variants our build produced cannot be read from the hash"
+     }
     },
     "application": "none",
     "notes": 0
    },
+   "machine_checked": true,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "https://www.claymath.org/millennium/riemann-hypothesis/",
+   "source_owners": [],
+   "related": [
+    {
+     "repo": "DEBRIEF-math-grh-masullo",
+     "label": "Generalized Riemann Hypothesis (Masullo)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-grh-masullo",
+     "relation": "a special case of; same problem page",
+     "source": "maintainer",
+     "relations": [
+      "a special case of",
+      "same problem page"
+     ]
+    }
+   ],
    "cycles": 3,
    "last": "2026-11-22",
    "last_text": "22 Nov 2026"
@@ -720,6 +1336,8 @@
     "reads": 0,
     "signed": 0,
     "refused": 0,
+    "reports": [],
+    "registries": [],
     "external": {
      "palomar": {
       "status": "none found",
@@ -741,6 +1359,25 @@
     "application": "none",
     "notes": 0
    },
+   "machine_checked": true,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "",
+   "source_owners": [
+    "hanxinzhang"
+   ],
+   "related": [
+    {
+     "repo": "DEBRIEF-math-primegaps",
+     "label": "Prime gaps ≤ 186 (OpenAI)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-primegaps",
+     "relation": "the same problem, weaker bound (240 against 186)",
+     "source": "maintainer",
+     "relations": [
+      "the same problem, weaker bound (240 against 186)"
+     ]
+    }
+   ],
    "cycles": 1,
    "last": "2026-11-17",
    "last_text": "17 Nov 2026"

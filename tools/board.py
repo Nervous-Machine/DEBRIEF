@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """The claims board. usage: board.py OUTDIR REPO_URL=LEDGER.json [REPO_URL=LEDGER.json ...]
 
-Reads every audit mission (a claim under checking) and writes OUTDIR/board.json and OUTDIR/index.html: a map strip
-(area of mathematics × stage toward the claim rule) and one table of claims ordered by most recent activity, then by how close each is to its rule,
-with who has contributed and what each needs next. Stage is read off the ledger mechanically; the words are the
-protocol's. Nothing is ranked by person. The page's own words live in tools/board_copy.yaml.
+Reads every audit mission (a claim under checking) and writes OUTDIR/board.json and OUTDIR/index.html: three numbers
+(claims on the board, claims with an independent machine check, claims with a signed human read), a count per stage,
+and one table of claims ordered by most recent activity. Five columns: the claim, its stage and what it needs next,
+who checked it by machine, who read it as a person, and what other registries say. Stage is read off the ledger
+mechanically; the words are the protocol's. Nothing is ranked by person. The page's own words live in
+tools/board_copy.yaml; relations between claims that only a person can see live in tools/relations.yaml.
 
 Stages (0-4): registered only; checks rerun by someone; reading guide written; read independently (a signed `read`
 cycle by a non-author); claim rule met.
@@ -16,8 +18,10 @@ try:
 except ImportError:
     sys.exit("board.py needs PyYAML (pip install pyyaml)")
 
-APPS = yaml.safe_load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "applications.yaml"), encoding="utf-8")) or {}
-COPY = yaml.safe_load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "board_copy.yaml"), encoding="utf-8"))
+HERE = os.path.dirname(os.path.abspath(__file__))
+APPS = yaml.safe_load(open(os.path.join(HERE, "applications.yaml"), encoding="utf-8")) or {}
+COPY = yaml.safe_load(open(os.path.join(HERE, "board_copy.yaml"), encoding="utf-8"))
+RELATIONS = (yaml.safe_load(open(os.path.join(HERE, "relations.yaml"), encoding="utf-8")) or {}).get("relations", []) if os.path.exists(os.path.join(HERE, "relations.yaml")) else []
 
 OPEN_GAP = {"proposed", "in_cycle", "immovable"}
 STAGES = ["Registered", "Checks rerun", "Reading guide written", "Read independently", "Claim rule met"]
@@ -32,6 +36,24 @@ def when(d):
         return str(d or "")
     t = datetime.date(int(m[1]), int(m[2]), int(m[3]))
     return f"{t.day} {t.strftime('%b %Y')}"
+
+
+def registries(ext):
+    """What other registries and authorities say, as one list: name, status word, url. Hash-only watched pages are left out."""
+    out = []
+    pal, fc, ep = ext.get("palomar") or {}, ext.get("formal_conjectures") or {}, ext.get("erdosproblems") or {}
+    if pal.get("status") == "registered":
+        out.append({"name": "Palomar registry", "status": "registered", "url": pal.get("url") or "https://palomar-registry.org"})
+    s = str(fc.get("main_statement") or "")
+    if s and s != "not applicable":
+        out.append({"name": "DeepMind formal-conjectures", "status": s + (", proof linked" if fc.get("formal_proof_linked") else ""), "url": fc.get("url") or "https://github.com/google-deepmind/formal-conjectures", "dim": s == "no file"})
+    st = str(ep.get("state") or "")
+    if st and st != "not applicable":
+        out.append({"name": "erdosproblems.com", "status": st, "url": ep.get("url") or "https://www.erdosproblems.com/"})
+    for p in ext.get("pages") or []:  # tools/watch_pages.py snapshots; hash-only pages (no status word) are not shown
+        if p.get("status") and p.get("url"):
+            out.append({"name": str(p.get("name") or p["url"]), "status": str(p["status"]), "url": p["url"], "read": p.get("read", "")})
+    return out
 
 
 def claim(url, path):
@@ -54,26 +76,62 @@ def claim(url, path):
     first_ask = gaps[0] if gaps else None
     name = url.rstrip("/").split("/")[-1]
     ext = {}
-    for c in L["cycles"]:  # the latest external-status snapshot (a replay cycle; no new checking)
+    for c in L["cycles"]:  # external snapshots are replay cycles (no new checking); later readings override earlier ones key by key
         x = (c.get("outcome", {}).get("numbers") or {}).get("external")
         if c.get("kind") == "replay" and x:
-            ext = {**x, "dated": c.get("dated")}
+            ext.update(x); ext["dated"] = c.get("dated")
     reruns = list(dict.fromkeys(c["by"].split(" (")[0] for c in sorted(cyc, key=lambda c: str(c.get("dated", ""))) if c.get("kind") == "rerun"))
     reads = [c for c in cyc if c.get("kind") == "read" and c.get("not_an_author_of_the_claim", True)]
+    reports = [r for r in ext.get("reports", []) if r.get("who") and r.get("url")]
     check = {"rerun": reruns, "trace": "trace" in kinds, "reads": len(reads),
              "signed": sum(c.get("outcome", {}).get("verdict") == "signed" for c in reads),
              "refused": sum(c.get("outcome", {}).get("verdict") == "refused" for c in reads),
-             "external": ext, "application": APPS.get(name, "none"),
+             "reports": reports, "registries": registries(ext), "external": ext, "application": APPS.get(name, "none"),
              "notes": sum(c.get("kind") == "note" for c in cyc)}
+    machine = bool(reruns or reports or (ext.get("palomar") or {}).get("status") == "registered")
+    # handles for relations: the problem page and the owners of pinned source repositories
+    srcs = m.get("sources") or []
+    srcs = srcs if isinstance(srcs, list) else []
+    problem = next((s.get("ref", "").split()[0] for s in srcs if s.get("kind") == "problem" and s.get("ref")), "")
+    owners = sorted({mo.group(1).lower() for s in srcs if s.get("kind") in ("repo", "repository") for mo in [re.search(r"github\.com/([^/\s]+)/", s.get("ref", ""))] if mo})
+    nolean = "no formal deduction" in (m.get("rests_on") or "") or "no fixed file" in (m.get("rests_on") or "")
     return {"repo": name, "url": url, "label": m.get("label") or name, "title": m["title"], "area": m.get("area") or "Unclassified", "rests_on": m.get("rests_on") or "",
             "stage": stage, "stage_name": STAGES[stage], "needs_next": STAGE_NEXT[stage], "certified": n["certified"], "accepted": n["accepted"], "refuted": n["refuted"],
             "open_gaps": len(gaps), "first_ask": (first_ask["title"] if first_ask else ""), "first_ask_what": (first_ask["closes_with"][0]["what"] if first_ask and first_ask.get("closes_with") else ""),
-            "people": people, "outside": outside, "checks": check, "cycles": len(cyc), "last": dates[-1] if dates else "", "last_text": when(dates[-1]) if dates else "none yet"}
+            "people": people, "outside": outside, "checks": check, "machine_checked": machine, "human_signed": check["signed"] > 0, "no_lean": nolean,
+            "problem_url": problem, "source_owners": owners, "related": [],
+            "cycles": len(cyc), "last": dates[-1] if dates else "", "last_text": when(dates[-1]) if dates else "none yet"}
 
 
-def label_order(c):
-    m = re.search(r"#(\d+)", c["label"])
-    return (0, int(m[1]), "") if m else (1, 0, c["label"])
+def relate(claims):
+    """Relations between claims: read off the ledgers (same problem page, same claimant's repositories) and from
+    tools/relations.yaml (what only a person can see). Each claim gets a list of {repo, label, url, relation, source}."""
+    by = {c["repo"]: c for c in claims}
+    def add(a, b, rel, source):
+        if a is b or any(r["repo"] == b["repo"] and r["relation"] == rel for r in a["related"]):
+            return
+        a["related"].append({"repo": b["repo"], "label": b["label"], "url": b["url"], "relation": rel, "source": source})
+    for a in claims:
+        for b in claims:
+            if a is b: continue
+            if a["problem_url"] and a["problem_url"] == b["problem_url"]:
+                add(a, b, "same problem page", "ledger")
+            if set(a["source_owners"]) & set(b["source_owners"]):
+                add(a, b, "same claimant", "ledger")
+    for r in RELATIONS:
+        a, b = by.get(r.get("a")), by.get(r.get("b"))
+        if not (a and b): continue
+        add(a, b, r["relation"], "maintainer")
+        add(b, a, r.get("reverse", r["relation"]), "maintainer")
+    for c in claims:  # one chip per related claim; the maintainer's words first, then what the ledgers show
+        merged = {}
+        for r in sorted(c["related"], key=lambda r: (r["source"] != "maintainer", r["label"])):
+            m = merged.setdefault(r["repo"], {**r, "relations": []})
+            m["relations"].append(r["relation"])
+        for m in merged.values():
+            m["relation"] = "; ".join(m["relations"])
+        c["related"] = sorted(merged.values(), key=lambda r: (r["source"] != "maintainer", r["label"]))
+    return claims
 
 
 def page(claims, generated):
@@ -81,49 +139,36 @@ def page(claims, generated):
     T = {k: v for k, v in COPY.items() if v not in (None, "")}  # a deleted or blank line in board_copy.yaml drops the element
     def opt(key, before, after, escape=False):
         return (before + (e(T[key]) if escape else str(T[key])) + after) if key in T else ""
-    areas = sorted({c["area"] for c in claims})
-    by_cell = {}
-    for c in claims:
-        by_cell.setdefault((c["area"], c["stage"]), []).append(c)
-    rows = []
-    for a in areas:
-        cells = []
-        for s in range(5):
-            chips = "".join(f'<a class="chip {"solid" if c["outside"] else "dashed"}" href="{e(c["url"])}" title="{e(c["title"])}">{e(c["label"])}</a>' for c in by_cell.get((a, s), []))
-            cells.append(f'<td class="cell s{s}">{chips or "<span class=empty>·</span>"}</td>')
-        rows.append(f'<tr><th scope="row">{e(a)}</th>{"".join(cells)}</tr>')
-    maprows = "\n".join(rows) if rows else '<tr><td colspan="6" class="empty">No claims registered yet.</td></tr>'
+    dim = lambda s: f'<span class="dim">{s}</span>'
+    n_all, n_machine, n_human = len(claims), sum(c["machine_checked"] for c in claims), sum(c["human_signed"] for c in claims)
+    counts = [sum(c["stage"] == s for c in claims) for s in range(5)]
+    numbers = "".join(f'<div class="num"><div class="n">{v}</div><div class="l">{e(T.get(k, k))}</div></div>'
+                      for k, v in (("num_claims", n_all), ("num_machine", n_machine), ("num_human", n_human)))
+    stage_line = " ".join(f'<span class="stage s{s}">{e(STAGES[s])} <b>{counts[s]}</b></span>' for s in range(5))
     # most recent activity first; ties by stage (closest to the rule), then fewest open gaps
     closest = sorted(claims, key=lambda c: (str(c["last"]), c["stage"], -c["open_gaps"]), reverse=True)
+
     def row(c):
-        k, x = c["checks"], c["checks"]["external"]
-        pal, fc, ep = x.get("palomar", {}), x.get("formal_conjectures", {}), x.get("erdosproblems", {})
-        dim = lambda s: f'<span class="dim">{s}</span>'
-        nolean = "no formal deduction" in c["rests_on"] or "no fixed file" in c["rests_on"]
+        k = c["checks"]
         names = [(f'<span class="who-outside">{e(n)}</span>' if not MAINTAINER.match(n) else e(n)) for n in k["rerun"]]
-        if pal.get("status") == "registered":
-            names = [f'<a class="who-outside" href="{e(pal["url"])}">Palomar</a>' if n.endswith("Palomar registry</span>") else n for n in names]
-        # checks published elsewhere and recorded by a replay cycle, not filed here under the checker's name
-        reported = [f'<a class="who-outside" href="{e(r["url"])}" title="{e(r.get("what", ""))}">{e(r["who"])}</a>' for r in x.get("reports", []) if r.get("who") and r.get("url")]
-        proof = ", ".join(names) if names else dim("no Lean to check" if nolean else "nobody yet")
+        reported = [f'<a class="who-outside" href="{e(r["url"])}" title="{e(r.get("what", ""))}">{e(r["who"])}</a>' for r in k["reports"]]
+        machine = ", ".join(names) if names else dim("no Lean to check" if c["no_lean"] else "nobody yet")
         if reported:
-            proof = (proof + "<div class=\"sub\">" if names else "") + ", ".join(reported) + dim(" " + e(T.get("reported_elsewhere", "reported elsewhere, not filed here"))) + ("</div>" if names else "")
-        s = fc.get("main_statement", "")
-        dm = "" if s in ("", "not applicable") else (dim("DeepMind: no file") if s == "no file" else f'DeepMind: <a href="{e(fc["url"])}">{e(s)}</a>' + ("" if fc.get("formal_proof_linked") or not s.startswith("solved") else dim(", no proof linked")))
-        site = "" if ep.get("state", "") in ("", "not applicable") else f'<div class="sub">erdosproblems.com: {e(ep["state"])}</div>'
-        elsewhere = (dm + site) if (dm or site) else dim("—")
-        guide = f'<a href="{e(c["url"])}/blob/main/trace/DEFINITIONAL-TRACE.md">reading guide</a>' if k["trace"] else dim("no reading guide")
-        reads = (f'<div class="sub who-outside">{k["signed"]} signed' + (f', {k["refused"]} refused' if k["refused"] else "") + '</div>') if k["reads"] else '<div class="sub">not yet read</div>'
-        notes = (f'<div class="sub who-outside">{k["notes"]} note' + ("s" if k["notes"] != 1 else "") + '</div>') if k["notes"] else ""
-        reads += notes + f'<div class="sub"><a href="{e(c["url"])}/issues/new?template=reasoning-note.yml">{e(T.get("leave_reasoning", "leave your reasoning →"))}</a></div>'
-        use = '<span class="who-outside">candidate</span>' if k["application"] == "candidate" else dim("none foreseen")
-        return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div></td>'
-                f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{c["certified"]} certified · {c["open_gaps"]} open</div></td>'
-                f'<td>{proof}</td><td>{elsewhere}</td><td>{guide}{reads}</td>'
-                f'<td><a href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/APPLICATIONS.md">{use}</a></td>'
-                f'<td>{e(c["first_ask"] or c["needs_next"])}<div class="sub"><a href="{e(c["url"])}/blob/main/ASKS.md">{e(T.get("what_would_close", "What would close it"))}</a></div></td></tr>')
-    head = "".join(f"<th>{e(T.get(k, ''))}</th>" for k in ("col_claim", "col_stage", "col_proof", "col_elsewhere", "col_meaning", "col_use", "col_needs"))
-    closest_rows = "\n".join(row(c) for c in closest) or '<tr><td colspan="7" class="empty">Nothing yet.</td></tr>'
+            machine += '<div class="sub">' + ", ".join(reported) + dim(" " + e(T.get("reported_elsewhere", "reported elsewhere, not filed here"))) + "</div>"
+        guide = f'<a href="{e(c["url"])}/blob/main/trace/DEFINITIONAL-TRACE.md">{e(T.get("reading_guide", "reading guide"))}</a>' if k["trace"] else dim(e(T.get("no_reading_guide", "no reading guide")))
+        human = (f'<span class="who-outside">{k["signed"]} signed' + (f', {k["refused"]} refused' if k["refused"] else "") + '</span>') if k["reads"] else dim(e(T.get("not_read", "nobody yet")))
+        human += f'<div class="sub">{guide}' + (f' · {k["notes"]} note{"s" if k["notes"] != 1 else ""}' if k["notes"] else "") + f' · <a href="{e(c["url"])}/issues/new?template=reasoning-note.yml">{e(T.get("leave_reasoning", "leave your reasoning →"))}</a></div>'
+        regs = [f'<div class="reg{" dim" if r.get("dim") else ""}"><a href="{e(r["url"])}">{e(r["name"])}</a>: {e(r["status"])}</div>' for r in k["registries"]]
+        elsewhere = "".join(regs) if regs else dim("—")
+        chips = "".join(f'<a class="rel" href="{e(r["url"])}" title="{e(r["relation"])}{" (from the ledgers)" if r["source"] == "ledger" else ""}">{e(r["label"])} <span class="dim">{e(r["relation"])}</span></a>' for r in c["related"])
+        use = f'<a class="chip-use" href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/APPLICATIONS.md">{e(T.get("use_candidate", "engineering use: candidate"))}</a>' if k["application"] == "candidate" else ""
+        standing = " · ".join(f"{c[w]} {w}" for w in ("certified", "accepted", "refuted") if c[w]) or "nothing has standing yet"
+        return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div>{("<div class=rels>" + chips + "</div>") if chips else ""}{use}</td>'
+                f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{e(standing)} · {c["open_gaps"]} open</div>'
+                f'<div class="sub next">{e(T.get("needs", "needs"))} {e(c["first_ask"] or c["needs_next"])} <a href="{e(c["url"])}/blob/main/ASKS.md">{e(T.get("what_would_close", "what would close it →"))}</a></div></td>'
+                f'<td>{machine}</td><td>{human}</td><td>{elsewhere}</td></tr>')
+    head = "".join(f"<th>{e(T.get(k, ''))}</th>" for k in ("col_claim", "col_stage", "col_machine", "col_human", "col_elsewhere"))
+    rows = "\n".join(row(c) for c in closest) or '<tr><td colspan="5" class="empty">Nothing yet.</td></tr>'
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,45 +185,40 @@ a{{color:var(--cyan);text-decoration:none}}a:hover{{text-decoration:underline}}
 header{{padding:28px 0 16px;border-bottom:1px solid var(--border)}}
 header .brand{{font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,#00d4ff,#7b2ff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.5px}}
 header .by{{font-size:.8rem;color:var(--muted)}}
-.hero{{padding:40px 0 28px}}.hero h2{{font-size:2rem;line-height:1.15;font-weight:700;letter-spacing:-.5px;max-width:860px;margin-bottom:14px}}
-.hero .lede{{font-size:1.08rem;color:#c0c0c0;max-width:760px}}
-section.block{{padding:34px 0;border-top:1px solid var(--border)}}
+.hero{{padding:36px 0 24px}}.hero h2{{font-size:2rem;line-height:1.15;font-weight:700;letter-spacing:-.5px;max-width:860px;margin-bottom:14px}}
+.hero .lede{{font-size:1.08rem;color:#c0c0c0;max-width:760px;margin-bottom:22px}}
+.numbers{{display:flex;flex-wrap:wrap;gap:14px 40px;margin-bottom:18px}}.num .n{{font-size:2.6rem;font-weight:700;line-height:1;letter-spacing:-1px}}.num .l{{font-size:.8rem;color:var(--muted);margin-top:4px;max-width:200px}}
+.num:nth-child(2) .n{{color:var(--cyan)}}.num:nth-child(3) .n{{color:var(--green)}}
+.stages{{display:flex;flex-wrap:wrap;gap:8px;font-size:.8rem;color:var(--muted)}}.stages .stage b{{color:var(--text);font-weight:600;margin-left:4px}}
+section.block{{padding:30px 0;border-top:1px solid var(--border)}}
 .eyebrow{{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:8px}}
 h3{{font-size:1.35rem;margin-bottom:8px}}.lede2{{color:var(--muted);max-width:760px;margin-bottom:18px}}
 .table-scroll{{overflow-x:auto;-webkit-overflow-scrolling:touch}}
 table{{border-collapse:collapse;width:100%;font-size:.9rem}}th,td{{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}}
 thead th{{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:600}}
-td.lab a{{font-weight:600;color:var(--text)}}.sub{{font-size:.8rem;color:var(--muted);margin-top:3px}}.dim{{color:var(--dim)}}
-table.map th[scope=row]{{white-space:nowrap;color:#cfd6de;font-weight:500}}
-table.map td.cell{{min-width:140px;background:rgba(255,255,255,.015)}}
-.chip{{display:inline-block;margin:2px 4px 2px 0;padding:5px 9px;border-radius:5px;font-size:.72rem;color:#cfd6de;background:rgba(0,212,255,.05)}}
-.chip.dashed{{border:1.5px dashed rgba(255,215,0,.55);color:var(--yellow)}}.chip.solid{{border:1px solid rgba(0,212,100,.6);color:var(--green);background:rgba(0,212,100,.08)}}
-.chip:hover{{text-decoration:none;transform:scale(1.05)}}.empty{{color:var(--dim)}}
+td.lab{{min-width:220px}}td.lab a{{font-weight:600;color:var(--text)}}.sub{{font-size:.8rem;color:var(--muted);margin-top:3px}}.dim{{color:var(--dim)}}
+.sub.next{{color:#b8b8c0}}.sub.next a{{font-size:.78rem}}
+.rels{{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}}.rel{{display:inline-block;padding:2px 7px;border-radius:4px;font-size:.72rem;border:1px solid var(--border);color:#cfd6de;background:rgba(255,255,255,.02)}}.rel:hover{{text-decoration:none;border-color:var(--cyan)}}
+.chip-use{{display:inline-block;margin-top:6px;padding:2px 7px;border-radius:4px;font-size:.72rem;border:1px solid rgba(0,212,100,.5);color:var(--green)}}
+.reg{{font-size:.85rem}}.reg.dim,.reg.dim a{{color:var(--dim)}}
 .stage{{display:inline-block;padding:3px 9px;border-radius:999px;font-size:.72rem;letter-spacing:.3px;border:1px solid var(--border);color:#cfd6de;white-space:nowrap}}
 .stage.s0{{border-color:rgba(255,255,255,.2)}}.stage.s1{{border-color:rgba(0,212,255,.5);color:var(--cyan)}}.stage.s2{{border-color:rgba(123,47,247,.6);color:#b58cff}}
 .stage.s3{{border-color:rgba(0,212,100,.6);color:var(--green)}}.stage.s4{{background:rgba(0,212,100,.15);border-color:var(--green);color:var(--green)}}
-.legend{{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:.8rem;color:var(--muted);margin-top:14px;align-items:center}}
-.legend .chip{{margin:0}}
 .who-outside{{color:var(--green)}}
-.yes{{color:var(--green)}}table.stack td{{white-space:nowrap}}table.stack td .sub{{white-space:normal;max-width:220px}}
 footer{{padding:30px 0 50px;border-top:1px solid var(--border);font-size:.85rem;color:var(--muted)}}
 footer p{{margin-bottom:6px}}
 </style>
 </head>
 <body>
 <header><div class="container">{opt('brand', '<div class="brand">', '</div>', True)}{('<div class="by">' + e(T['byline'].format(generated=generated)) + '</div>') if 'byline' in T else ''}</div></header>
-{('<section class="hero"><div class="container">' + opt('hero_heading', '<h2>', '</h2>') + opt('hero_lede', '<p class="lede">', '</p>') + '</div></section>') if 'hero_heading' in T or 'hero_lede' in T else ''}
-<section class="block" id="map"><div class="container">
-{opt('map_eyebrow', '<div class="eyebrow">', '</div>')}{opt('map_heading', '<h3>', '</h3>')}{opt('map_lede', '<p class="lede2">', '</p>')}
-<div class="table-scroll"><table class="map"><thead><tr><th>area</th>{"".join(f"<th>{e(s)}</th>" for s in STAGES)}</tr></thead><tbody>
-{maprows}
-</tbody></table></div>
-{('<div class="legend">' + opt('legend_dashed', '<span class="chip dashed">', '</span>', True) + opt('legend_solid', '<span class="chip solid">', '</span>', True) + '</div>') if 'legend_dashed' in T or 'legend_solid' in T else ''}
+<section class="hero"><div class="container">{opt('hero_heading', '<h2>', '</h2>')}{opt('hero_lede', '<p class="lede">', '</p>')}
+<div class="numbers">{numbers}</div>
+<div class="stages">{stage_line}</div>
 </div></section>
-<section class="block" id="closest"><div class="container">
+<section class="block" id="claims"><div class="container">
 {opt('claims_eyebrow', '<div class="eyebrow">', '</div>')}{opt('claims_heading', '<h3>', '</h3>')}{opt('claims_lede', '<p class="lede2">', '</p>')}
 <div class="table-scroll"><table><thead><tr>{head}</tr></thead><tbody>
-{closest_rows}
+{rows}
 </tbody></table></div>
 </div></section>
 {('<footer><div class="container">' + opt('footer_1', '<p>', '</p>') + opt('footer_2', '<p>', '</p>') + '</div></footer>') if 'footer_1' in T or 'footer_2' in T else ''}
@@ -188,12 +228,13 @@ footer p{{margin-bottom:6px}}
 
 def main(argv):
     out, pairs = argv[0], [a.split("=", 1) for a in argv[1:]]
-    claims = [c for c in (claim(u, p) for u, p in pairs) if c]
+    claims = relate([c for c in (claim(u, p) for u, p in pairs) if c])
     gen = max((c["last"] for c in claims if c["last"]), default=datetime.date.today().isoformat())  # newest ledger date, so an unchanged board regenerates identically
-    import os; os.makedirs(out, exist_ok=True)
+    os.makedirs(out, exist_ok=True)
     json.dump({"generated": gen, "stages": STAGES, "claims": claims}, open(os.path.join(out, "board.json"), "w"), indent=1, ensure_ascii=False)
     open(os.path.join(out, "index.html"), "w").write(page(claims, gen))
-    print(f"wrote {out}/index.html and board.json: {len(claims)} claims; stages " + ", ".join(f"{c['label']}={c['stage']}" for c in claims))
+    print(f"wrote {out}/index.html and board.json: {len(claims)} claims, {sum(c['machine_checked'] for c in claims)} machine-checked, {sum(c['human_signed'] for c in claims)} human-signed; stages "
+          + ", ".join(f"{c['label']}={c['stage']}" for c in claims))
 
 
 if __name__ == "__main__":

@@ -655,43 +655,35 @@
     "signed": 0,
     "refused": 0,
     "external": {
-     "sutherland_mit": {
-      "who": "Andrew Sutherland (MIT), 'checks run with Claude Code'",
-      "archive_sha256_matches_ours": true,
-      "compile": "all 175,187 modules, Lean v4.33.1, Mathlib v4.33.1, zero errors, finished 16:43 UTC",
-      "axioms_five_statements": "propext, Classical.choice, Quot.sound only",
-      "kernel_replay": "leanchecker on every module, 175,187 of 175,187, zero rejections, about 18:17 UTC",
-      "independent_kernel": "nanoda accepts the full export, exit 0 at 19:05 UTC, 27 min 42 s on 80 threads",
-      "in_progress": "lake comparator end to end; Lean default and paranoid kernels on the export",
-      "caveats_stated": "build ran on cloud machines without a sandbox, compiled by calling lean directly rather than lake build; a 77-module sample matched a real lake build; a first attempt with a wrong module root was discarded",
-      "statement_note": "GRH here means Dirichlet L-functions only"
+     "lean_mathlib_joint_statement": {
+      "who": "\"Lean and Mathlib communities\"; the page says the statement is endorsed by the Lean FRO and the Mathlib Initiative; no individual is named",
+      "dated": "2026-11-21 13:55",
+      "url": "https://leanprover-community.github.io/blog/posts/riemann-hypothesis/",
+      "says": "quoted: \"We have full confidence that Alpöge's proof of the Riemann Hypothesis is correct\" and \"We hereby certify that both the statement and the proof of the Riemann Hypothesis are correct\"; the four criteria of Kevin Buzzard's post of 2026-11-12 (xenaproject.wordpress.com) are said to be satisfied",
+      "statement": "Mathlib's RiemannHypothesis, which the page says \"has been carefully vetted by experts in Lean and number theory\"",
+      "compilation": "\"dozens of people have reported correct compilation of the codebase, reproducing the same raw proof export file\"",
+      "statement_match": "a community file isolates the statement and imports only Mathlib; compared with the proved theorem by two tools, comparator and con-leche --compare, \"both confirming\" it is exactly Mathlib's statement",
+      "proof_validity": "the exported proof checked by Lean's kernel, con-leche, con-ron and several third-party checkers in different languages; con-leche and con-ron described as carrying a formal proof, relative to set theory, that they cannot accept a false proof; checks ran on an inert export",
+      "scope": "the statement concerns the Riemann Hypothesis only; it does not mention the four Dirichlet L-function statements",
+      "on_the_mathematics": "one sentence: \"We look forward to all the activity in the mathematical community that will help explain the new ideas in this proof.\"",
+      "words": "the page uses the word certify; in this record that word is a standing reached under the rule in prereg_cycle1.yaml A1, which this statement does not address, so it is recorded as what the page says and moves nothing by itself"
      },
-     "mirrors": [
-      {
-       "repo": "Deicyde/riemann-hypothesis",
-       "note": "byte-identical to the archive plus Comparator files, per Sutherland's page; CI export sha256 bd484ac9…b2b9"
-      },
-      {
-       "repo": "CocoSgt/riemann-hypothesis-lean",
-       "created": "2026-11-20T14:59Z",
-       "note": "mirror; states no independent build or review published as of mirroring"
-      },
-      {
-       "repo": "jsmorph/rh",
-       "created": "2026-11-20T14:49Z",
-       "note": "copy; archive sha256 9631b4f0… matches ours; states the project was not built there"
-      }
-     ],
-     "reports": [
-      {
-       "who": "Andrew Sutherland (MIT)",
-       "url": "https://math.mit.edu/~drew/grh/",
-       "dated": "2026-11-20",
-       "operated_with": "Claude Code, as stated on the page",
-       "what": "full compile, standard axioms only, kernel replay of every module, independent kernel accepts the export; comparator and Lean kernels on the export in progress at 19:45 UTC"
-      }
-     ],
-     "dated": "2026-11-20"
+     "sutherland_mit_update": {
+      "who": "Andrew Sutherland (MIT), 'checks run with Claude Code'",
+      "page_updated": "2026-11-21 12:55 UTC",
+      "new_since_2026-11-20": [
+       "con-leche master (cd2eceab) on the full export: accepts, 1,468,418 declarations in --verified mode, exit 0 at 21:19:04 UTC on 20 November",
+       "con-leche --compare (5dc36dc1), challenge against solution: all five theorems \"justified by the solution\", 51,692 challenge declarations, exit 0 at 21:19:12 UTC",
+       "lean4lean (67f63b0c, Lean v4.33.1) on every compiled module: 175,187 of 175,187 pass; five needed the step limit raised",
+       "con-leche and con-ron as bundled with Lean v4.36.0: exit 2, declined, not a rejection (one reflexive inductive type unsupported)",
+       "still running at 12:55 UTC: Lean default and paranoid kernels on the export; lake comparator end to end (its statement comparison and axiom check passed)",
+       "the five statements written out in words, exactly as in the challenge file, with a scope note: GRH here means Dirichlet L-functions, all moduli and characters; Dedekind, Hecke and automorphic L-functions are not among the statements checked",
+       "arithmetic consequences: combined with kimihiro64/Robin1984 (acab1a3), robin_inequality and lagarias_inequality compile with the three standard axioms; con-leche and nanoda accept the combined export",
+       "build directory disclosed: /home/ubuntu/grh/src/lean on every build machine; 98,219 of his 175,187 compiled files contain that path and 76,968, including Main.olean, do not; his own 240-module build at another path gave 168 files equal and 72 different, all 72 containing that build's path",
+       "his page now names the exported proof, not the compiled files, as the artifact to compare across builds, and says it has not been examined whether the export can carry a source path"
+      ]
+     },
+     "dated": "2026-11-21"
     },
     "application": "none",
     "notes": 0

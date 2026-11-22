@@ -12,6 +12,30 @@
    "repo": "DEBRIEF-math-erdos1061",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1061",
    "label": "Erdős #1061",
+   "tooling": [
+    {
+     "by": "Eric Li",
+     "tier": "subscription-pro",
+     "basis": "stated by the claimant: GPT-5.5 Pro, a model of the ChatGPT Pro, Business and Enterprise tiers",
+     "models": [
+      {
+       "model": "GPT-5.5 Pro",
+       "id": "gpt-5-5-pro",
+       "vendor": "OpenAI",
+       "public_release": "2026-04-23",
+       "tiers_at_release": [
+        "subscription-pro"
+       ],
+       "public_at_the_time": "yes"
+      }
+     ],
+     "work": {
+      "to": "2026-07-26"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed solution of Erdős Problem #1061 (solutions of sigma(a) + sigma(b) = sigma(a+b))",
    "area": "Number theory: arithmetic functions",
    "rests_on": "an arXiv paper only; no formal deduction",
@@ -82,6 +106,33 @@
    "repo": "DEBRIEF-math-erdos1133",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1133",
    "label": "Erdős #1133",
+   "tooling": [
+    {
+     "by": "Jia-Qi Yang",
+     "tier": "unknown",
+     "basis": "stated by the claimant as GPT-6 without a variant or tier; GPT-6 Astra reached Plus and higher plans from 3 to 4 September, the Pro variant on Pro, Business and Enterprise",
+     "models": [
+      {
+       "model": "GPT-6 Astra",
+       "id": "gpt-6-astra",
+       "vendor": "OpenAI",
+       "public_release": "2026-09-03",
+       "tiers_at_release": [
+        "subscription",
+        "subscription-pro",
+        "api"
+       ],
+       "public_at_the_time": "yes",
+       "note": "public 10 days before the date submitted; the work's start is not stated"
+      }
+     ],
+     "work": {
+      "to": "2026-09-13"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed solution of Erdős Problem #1133 (polynomials agreeing with bounded data at most nodes)",
    "area": "Analysis: polynomials",
    "rests_on": "a PDF write-up in a public repository; no formal deduction",
@@ -154,6 +205,30 @@
    "repo": "DEBRIEF-math-erdos1177",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177",
    "label": "Erdős #1177",
+   "tooling": [
+    {
+     "by": "Eric Li",
+     "tier": "subscription-pro",
+     "basis": "stated by the claimant: GPT-5.5 Pro, a model of the ChatGPT Pro, Business and Enterprise tiers",
+     "models": [
+      {
+       "model": "GPT-5.5 Pro",
+       "id": "gpt-5-5-pro",
+       "vendor": "OpenAI",
+       "public_release": "2026-04-23",
+       "tiers_at_release": [
+        "subscription-pro"
+       ],
+       "public_at_the_time": "yes"
+      }
+     ],
+     "work": {
+      "to": "2026-07-17"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed solution of Erdős Problem #1177 (three statements about triple systems avoiding a fixed finite one)",
    "area": "Set theory and hypergraphs: chromatic number",
    "rests_on": "an arXiv paper and a Lean development shared with the claim on problem 593",
@@ -297,6 +372,57 @@
    "repo": "DEBRIEF-math-erdos306",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos306",
    "label": "Erdős #306",
+   "tooling": [
+    {
+     "by": "Shisheng Li",
+     "tier": "unknown",
+     "basis": "stated by the claimant: three models named, no tier; all three were public by the date submitted",
+     "models": [
+      {
+       "model": "GPT-5.6 Sol",
+       "id": "gpt-5-6-sol",
+       "vendor": "OpenAI",
+       "public_release": "2026-07-09",
+       "tiers_at_release": [
+        "subscription",
+        "subscription-pro",
+        "api"
+       ],
+       "public_at_the_time": "yes"
+      },
+      {
+       "model": "GPT-6 Astra",
+       "id": "gpt-6-astra",
+       "vendor": "OpenAI",
+       "public_release": "2026-09-03",
+       "tiers_at_release": [
+        "subscription",
+        "subscription-pro",
+        "api"
+       ],
+       "public_at_the_time": "yes"
+      },
+      {
+       "model": "Claude Opus 5.5",
+       "id": "claude-opus-5-5",
+       "vendor": "Anthropic",
+       "public_release": "2026-09-22",
+       "tiers_at_release": [
+        "api",
+        "subscription",
+        "subscription-pro"
+       ],
+       "public_at_the_time": "yes",
+       "note": "public 7 days before the date submitted; the work's start is not stated"
+      }
+     ],
+     "work": {
+      "to": "2026-09-29"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed solution of Erdős Problem #306 (sums of unit fractions with semiprime denominators)",
    "area": "Number theory: unit fractions",
    "rests_on": "an arXiv paper and a Lean development, built on an earlier conditional Lean development by another author",
@@ -377,6 +503,30 @@
    "repo": "DEBRIEF-math-erdos550",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos550",
    "label": "Erdős #550",
+   "tooling": [
+    {
+     "by": "Eric Li",
+     "tier": "subscription-pro",
+     "basis": "stated by the claimant: GPT-5.5 Pro, a model of the ChatGPT Pro, Business and Enterprise tiers",
+     "models": [
+      {
+       "model": "GPT-5.5 Pro",
+       "id": "gpt-5-5-pro",
+       "vendor": "OpenAI",
+       "public_release": "2026-04-23",
+       "tiers_at_release": [
+        "subscription-pro"
+       ],
+       "public_at_the_time": "yes"
+      }
+     ],
+     "work": {
+      "to": "2026-07-17"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed solution of Erdős Problem #550 (Ramsey numbers of trees versus complete multipartite graphs)",
    "area": "Graph theory: Ramsey theory",
    "rests_on": "an arXiv paper and a Lean development",
@@ -517,6 +667,53 @@
    "repo": "DEBRIEF-math-erdos593",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos593",
    "label": "Erdős #593",
+   "tooling": [
+    {
+     "by": "Samuil Petkov",
+     "tier": "subscription-pro",
+     "basis": "stated by the claimant: ChatGPT 5.6 Sol Pro, a Pro and Enterprise tier model",
+     "models": [
+      {
+       "model": "GPT-5.6 Sol Pro",
+       "id": "gpt-5-6-sol-pro",
+       "vendor": "OpenAI",
+       "public_release": "2026-07-09",
+       "tiers_at_release": [
+        "subscription-pro"
+       ],
+       "public_at_the_time": "yes",
+       "note": "public 6 days before the date submitted; the work's start is not stated"
+      }
+     ],
+     "work": {
+      "to": "2026-07-15"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    },
+    {
+     "by": "Eric Li",
+     "tier": "subscription-pro",
+     "basis": "stated by the claimant: GPT-5.5 Pro, a model of the ChatGPT Pro, Business and Enterprise tiers",
+     "models": [
+      {
+       "model": "GPT-5.5 Pro",
+       "id": "gpt-5-5-pro",
+       "vendor": "OpenAI",
+       "public_release": "2026-04-23",
+       "tiers_at_release": [
+        "subscription-pro"
+       ],
+       "public_at_the_time": "yes"
+      }
+     ],
+     "work": {
+      "to": "2026-07-17"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed solutions of Erdős Problem #593 (finite triple systems forced by uncountable chromatic number)",
    "area": "Set theory and hypergraphs: chromatic number",
    "rests_on": "two independent arXiv or PDF write-ups and two Lean developments, one per claimant",
@@ -683,6 +880,66 @@
    "repo": "DEBRIEF-math-erdos671",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos671",
    "label": "Erdős #671",
+   "tooling": [
+    {
+     "by": "Liam Price",
+     "tier": "subscription-pro",
+     "basis": "stated by the claimant: GPT Pro and GPT 5.5",
+     "models": [
+      {
+       "model": "GPT-5.5 Pro",
+       "id": "gpt-5-5-pro",
+       "vendor": "OpenAI",
+       "public_release": "2026-04-23",
+       "tiers_at_release": [
+        "subscription-pro"
+       ],
+       "public_at_the_time": "yes"
+      }
+     ],
+     "work": {
+      "to": "2026-07-15"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    },
+    {
+     "by": "QuietMethod",
+     "tier": "unknown",
+     "basis": "stated by the claimant: OpenAI Codex with GPT-5; Codex runs on Plus and higher plans and on API keys, and the claimant does not say which",
+     "models": [
+      {
+       "model": "OpenAI Codex (agent)",
+       "id": "codex",
+       "vendor": "OpenAI",
+       "public_release": "2025-05-16",
+       "tiers_at_release": [
+        "subscription-pro",
+        "subscription"
+       ],
+       "public_at_the_time": "yes"
+      },
+      {
+       "model": "GPT-5",
+       "id": "gpt-5",
+       "vendor": "OpenAI",
+       "public_release": "2025-08-07",
+       "tiers_at_release": [
+        "free",
+        "subscription",
+        "subscription-pro",
+        "api"
+       ],
+       "public_at_the_time": "yes"
+      }
+     ],
+     "work": {
+      "to": "2026-07-24"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed solution of Erdős Problem #671 (Lagrange interpolation and the Lebesgue function)",
    "area": "Analysis: polynomial interpolation",
    "rests_on": "two written arguments and two Lean files, one pinned by hash and one a live-editor link",
@@ -755,6 +1012,30 @@
    "repo": "DEBRIEF-math-erdos731",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos731",
    "label": "Erdős #731",
+   "tooling": [
+    {
+     "by": "Eric Li",
+     "tier": "subscription-pro",
+     "basis": "stated by the claimant: GPT-5.5 Pro, a model of the ChatGPT Pro, Business and Enterprise tiers",
+     "models": [
+      {
+       "model": "GPT-5.5 Pro",
+       "id": "gpt-5-5-pro",
+       "vendor": "OpenAI",
+       "public_release": "2026-04-23",
+       "tiers_at_release": [
+        "subscription-pro"
+       ],
+       "public_at_the_time": "yes"
+      }
+     ],
+     "work": {
+      "to": "2026-07-17"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed solution of Erdős Problem #731 (the least non-divisor of the central binomial coefficient)",
    "area": "Number theory: binomial coefficients",
    "rests_on": "an arXiv paper and a Lean development, under the claimant's own formalisation of the word 'reasonable'",
@@ -895,6 +1176,30 @@
    "repo": "DEBRIEF-math-erdos768",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos768",
    "label": "Erdős #768",
+   "tooling": [
+    {
+     "by": "Eric Li",
+     "tier": "subscription-pro",
+     "basis": "stated by the claimant: GPT-5.5 Pro, a model of the ChatGPT Pro, Business and Enterprise tiers",
+     "models": [
+      {
+       "model": "GPT-5.5 Pro",
+       "id": "gpt-5-5-pro",
+       "vendor": "OpenAI",
+       "public_release": "2026-04-23",
+       "tiers_at_release": [
+        "subscription-pro"
+       ],
+       "public_at_the_time": "yes"
+      }
+     ],
+     "work": {
+      "to": "2026-07-17"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed solution of Erdős Problem #768 (density of integers with a witness divisor for every prime factor)",
    "area": "Number theory: multiplicative structure",
    "rests_on": "an arXiv paper and a Lean development that vendors two other Lean projects",
@@ -1037,6 +1342,31 @@
    "repo": "DEBRIEF-math-erdos856",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-erdos856",
    "label": "Erdős #856",
+   "tooling": [
+    {
+     "by": "RayYoung, Keheng Zhu and Yanping Luo",
+     "tier": "subscription-pro",
+     "basis": "stated by the claimants: GPT 5.6 Sol Pro, a Pro and Enterprise tier model",
+     "models": [
+      {
+       "model": "GPT-5.6 Sol Pro",
+       "id": "gpt-5-6-sol-pro",
+       "vendor": "OpenAI",
+       "public_release": "2026-07-09",
+       "tiers_at_release": [
+        "subscription-pro"
+       ],
+       "public_at_the_time": "yes",
+       "note": "public 9 days before the date submitted; the work's start is not stated"
+      }
+     ],
+     "work": {
+      "to": "2026-07-18"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed solution of Erdős Problem #856 (sets with no k elements sharing a pairwise least common multiple)",
    "area": "Number theory: extremal problems",
    "rests_on": "an Overleaf read-only document; no fixed file and no formal deduction",
@@ -1107,6 +1437,20 @@
    "repo": "DEBRIEF-math-grh-masullo",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-grh-masullo",
    "label": "Generalized Riemann Hypothesis (Masullo)",
+   "tooling": [
+    {
+     "by": "Alessandro Maria Masullo",
+     "tier": "none",
+     "basis": "stated in the announcement: all human, with no AI",
+     "models": [],
+     "work": {
+      "from": "2014-11-20",
+      "to": "2026-11-20"
+     },
+     "duration": "twelve years, by the author's preface",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed proof of the Generalized Riemann Hypothesis by Alessandro Maria Masullo, a 940-page draft released on 20 November 2026",
    "area": "Number theory: zeros of Hecke L-functions",
    "rests_on": "a 940-page PDF draft, written without AI, released on Ravi Vakil's blog with Brian Conrad's months of private reading reported but not published",
@@ -1189,6 +1533,44 @@
    "repo": "DEBRIEF-math-navierstokes-forced",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes-forced",
    "label": "Navier–Stokes blow-up, forced (OpenAI)",
+   "tooling": [
+    {
+     "by": "OpenAI",
+     "tier": "internal",
+     "basis": "stated in the repository's formalization.yaml: GPT-6 Astra agents in the Codex framework; the claimant is the model's maker",
+     "models": [
+      {
+       "model": "GPT-6 Astra",
+       "id": "gpt-6-astra",
+       "vendor": "OpenAI",
+       "public_release": "2026-09-03",
+       "tiers_at_release": [
+        "subscription",
+        "subscription-pro",
+        "api"
+       ],
+       "public_at_the_time": "yes",
+       "note": "public 5 days before the date submitted; the work's start is not stated"
+      },
+      {
+       "model": "OpenAI Codex (agent)",
+       "id": "codex",
+       "vendor": "OpenAI",
+       "public_release": "2025-05-16",
+       "tiers_at_release": [
+        "subscription-pro",
+        "subscription"
+       ],
+       "public_at_the_time": "yes"
+      }
+     ],
+     "work": {
+      "to": "2026-09-08"
+     },
+     "duration": "\"developed over the weekend\" before the announcement, per OpenAI's press briefing as reported",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed finite-time blow-up of the three-dimensional Navier–Stokes equations with a smooth force, announced by OpenAI on 8 September 2026 with a Lean development",
    "area": "Partial differential equations: regularity of the Navier–Stokes equations",
    "rests_on": "a 166-page paper, a Lean 4 development with Comparator challenge files, and a metadata file recording the review status as self-assessed",
@@ -1340,6 +1722,76 @@
    "repo": "DEBRIEF-math-navierstokes",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes",
    "label": "Navier–Stokes blow-up, unforced (Alpöge and Buckmaster)",
+   "tooling": [
+    {
+     "by": "Levent Alpöge and Tristan Buckmaster",
+     "tier": "mixed",
+     "basis": "inferred: Alpöge is an Anthropic employee; Buckmaster's statement of 7 September calls the collaboration personal and names Claude, and Codex with GPT-5.6 Sol and GPT-6 Astra, for the pair's earlier forced results; the repository's commits of 20 November name Claude Fable 5.2; the tier of Buckmaster's access is not stated",
+     "models": [
+      {
+       "model": "Claude Fable 5.2",
+       "id": "claude-fable-5-2",
+       "vendor": "Anthropic",
+       "public_release": "2026-11-09",
+       "tiers_at_release": [
+        "api",
+        "subscription",
+        "subscription-pro"
+       ],
+       "public_at_the_time": "yes",
+       "note": "public 11 days before the date submitted; the work's start is not stated"
+      },
+      {
+       "model": "Claude (version not stated)",
+       "id": "claude-unversioned",
+       "vendor": "Anthropic",
+       "public_release": null,
+       "tiers_at_release": [],
+       "public_at_the_time": "unknown"
+      },
+      {
+       "model": "OpenAI Codex (agent)",
+       "id": "codex",
+       "vendor": "OpenAI",
+       "public_release": "2025-05-16",
+       "tiers_at_release": [
+        "subscription-pro",
+        "subscription"
+       ],
+       "public_at_the_time": "yes"
+      },
+      {
+       "model": "GPT-5.6 Sol",
+       "id": "gpt-5-6-sol",
+       "vendor": "OpenAI",
+       "public_release": "2026-07-09",
+       "tiers_at_release": [
+        "subscription",
+        "subscription-pro",
+        "api"
+       ],
+       "public_at_the_time": "yes"
+      },
+      {
+       "model": "GPT-6 Astra",
+       "id": "gpt-6-astra",
+       "vendor": "OpenAI",
+       "public_release": "2026-09-03",
+       "tiers_at_release": [
+        "subscription",
+        "subscription-pro",
+        "api"
+       ],
+       "public_at_the_time": "yes"
+      }
+     ],
+     "work": {
+      "to": "2026-11-20"
+     },
+     "duration": "not stated for this result; the pair's forced results date from August by the September statement",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed finite-time blow-up of the unforced three-dimensional Navier–Stokes equations by Levent Alpöge and Tristan Buckmaster, released on 20 November 2026 as a paper and a Lean development",
    "area": "Partial differential equations: regularity of the Navier–Stokes equations",
    "rests_on": "a 79-page paper, a Lean 4 development whose statement files carry sorry and whose solution file proves them from a library, and a computer-assisted certificate that is named by hash and not yet released",
@@ -1474,6 +1926,33 @@
    "repo": "DEBRIEF-math-primegaps",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-primegaps",
    "label": "Prime gaps ≤ 186 (OpenAI)",
+   "tooling": [
+    {
+     "by": "OpenAI",
+     "tier": "internal",
+     "basis": "stated by the claimant: the result is credited to its model GPT-6 Astra; the claimant is the model's maker, and the repository's only commit predates the model's public release",
+     "models": [
+      {
+       "model": "GPT-6 Astra",
+       "id": "gpt-6-astra",
+       "vendor": "OpenAI",
+       "public_release": "2026-09-03",
+       "tiers_at_release": [
+        "subscription",
+        "subscription-pro",
+        "api"
+       ],
+       "public_at_the_time": "no",
+       "note": "public from 2026-09-03, after the date submitted"
+      }
+     ],
+     "work": {
+      "to": "2026-09-02"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claim that primes come within 186 of each other infinitely often",
    "area": "Number theory: gaps between primes",
    "rests_on": "a Lean formalization with three stated assumptions, a numerical certificate (Python/FLINT) and a paper",
@@ -1582,6 +2061,29 @@
    "repo": "DEBRIEF-math-riemann",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-riemann",
    "label": "Riemann Hypothesis (Alpöge, with Claude)",
+   "tooling": [
+    {
+     "by": "Levent Alpöge",
+     "tier": "internal",
+     "basis": "inferred: the claimant is an Anthropic employee and names Claude as a co-worker without a version; the companion Navier–Stokes repository's commits of 20 November name Claude Fable 5.2, public from 9 November, after most of the note's timeline",
+     "models": [
+      {
+       "model": "Claude (version not stated)",
+       "id": "claude-unversioned",
+       "vendor": "Anthropic",
+       "public_release": null,
+       "tiers_at_release": [],
+       "public_at_the_time": "unknown"
+      }
+     ],
+     "work": {
+      "from": "2026-10-06",
+      "to": "2026-11-16"
+     },
+     "duration": "six weeks, by the note's twenty-step timeline",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claimed proof of the Riemann Hypothesis announced by Levent Alpöge on 20 November 2026, built with Claude and released as Lean 4 code",
    "area": "Number theory: zeros of the Riemann zeta function and Dirichlet L-functions",
    "rests_on": "a four-page note and a Lean 4 development released as a 14-part archive on the claimant's website",
@@ -1743,7 +2245,17 @@
       "compiled_files_reproduced": "175,186 of 175,187 identical to his original manifest; the one exception, Formalism/LocalToGlobal/SiegelLatticeTheory/CokernelGLCounts/RankPointCounts/LocModel.olean, compiles non-deterministically: six recompilations with identical inputs gave one output four times and the other twice, differing in 38 bytes, the name of a bound variable in an equation lemma Lean generates on first use, taken from whichever of two parallel theorem elaborations gets there first; bound-variable names play no part in kernel checking",
       "con_ron_compare": "con-ron --compare (master 3f22699b): all five theorems justified by the solution; exit 0 at 2026-11-21 23:02:33 UTC",
       "our_comparison": "his two manifests differ from each other on exactly that one file; our cycle 2 manifest equals his sandbox manifest on the same 76,968 files as his original (the path-free ones); our LocModel.olean carries our source path, so which of his two variants our build produced cannot be read from the hash"
-     }
+     },
+     "public_reactions": [
+      {
+       "who": "Abhishek Saha, number theorist (automorphic forms)",
+       "url": "https://x.com/ObhishekSaha/status/2123861825750290445",
+       "posted": "2026-11-20",
+       "what": "says he, like most mathematicians, had thought the Riemann Hypothesis out of reach without new theory-building in arithmetic geometry; describes the claimed proof as a route through existing results in higher-rank automorphic forms (theta functions on unitary groups, Gan–Gross–Prasad period formulas, relative trace formulas) rather than new theory, a chain he says neither a human alone nor a current AI alone could have produced; gives it a very good chance of being correct; credits Alpöge",
+       "is_a_reading": false,
+       "note": "an informed public opinion on the shape of the argument and on who would be able to read it; not a statement of having read it; carries no standing here"
+      }
+     ]
     },
     "application": "none",
     "notes": 0
@@ -1798,6 +2310,32 @@
    "repo": "DEBRIEF-math-zhang240",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-zhang240",
    "label": "Prime gaps ≤ 240 (Zhang)",
+   "tooling": [
+    {
+     "by": "Hanxin Zhang",
+     "tier": "unknown",
+     "basis": "stated by the claimant: the discovery is credited to GPT-5.6 Sol; the tier is not stated",
+     "models": [
+      {
+       "model": "GPT-5.6 Sol",
+       "id": "gpt-5-6-sol",
+       "vendor": "OpenAI",
+       "public_release": "2026-07-09",
+       "tiers_at_release": [
+        "subscription",
+        "subscription-pro",
+        "api"
+       ],
+       "public_at_the_time": "yes"
+      }
+     ],
+     "work": {
+      "to": "2026-08-28"
+     },
+     "duration": "not stated",
+     "compute": "not stated"
+    }
+   ],
    "title": "The claim that primes come within 240 of each other infinitely often (Zhang)",
    "area": "Number theory: gaps between primes",
    "rests_on": "an exact arithmetic certificate (Python) and a paper",

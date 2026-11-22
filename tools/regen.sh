@@ -16,6 +16,11 @@ for r in "$D"/DEBRIEF-*/ledger/*.json; do
   fi
   P="$P $B/$name=$r"
 done
+# Each mission's tooling disclosure (tooling.yaml) is written into its ledger first, so the pages read it.
+for kv in $P; do
+  dir=$(dirname "$(dirname "${kv#*=}")")
+  [ -f "$dir/tooling.yaml" ] && python3 tools/tooling.py "$dir" > /dev/null
+done
 # shellcheck disable=SC2086
 python3 tools/index.py INDEX.md $P
 python3 tools/contributors.py CONTRIBUTORS.md $P

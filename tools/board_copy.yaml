@@ -34,6 +34,16 @@ not_read: nobody yet
 leave_reasoning: leave your reasoning →
 reported_elsewhere: reported elsewhere, not yet filed here
 use_candidate: "engineering use: candidate"
+tooling: "tooling:"
+tiers_label: "by access tier of the claimant:"
+tier_none: no model
+tier_free: free tier
+tier_subscription: subscription
+tier_subscription_pro: top subscription tier
+tier_api: API
+tier_mixed: mixed
+tier_internal: lab internal
+tier_unknown: not stated
 
 footer_1: >-
   How to contribute:

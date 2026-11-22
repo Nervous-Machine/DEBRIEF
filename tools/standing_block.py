@@ -28,6 +28,10 @@ def block(c):
         return f"[{r['label']}]({r['url']}): {r['relation']}"
     related = " · ".join(rel(r) for r in c.get("related_display", c.get("related", []))) or "—"
     standing = " · ".join(f"{c[w]} {w}" for w in ("certified", "accepted", "refuted") if c[w]) or "nothing has standing yet"
+    def tool(t):
+        ms = ", ".join(m["model"] + (" (not yet public)" if m.get("public_at_the_time") == "no" else " (public part way through)" if m.get("public_at_the_time") == "partly" else "") for m in t["models"]) or "none"
+        return f"{ms} · tier: {t['tier']}" + (f" · {t['duration']}" if t.get("duration") and t["duration"] != "not stated" else "") + f" ({t.get('basis', '')})"
+    tooling = " / ".join(tool(t) for t in c.get("tooling", [])) or "not recorded"
     lines = [BEGIN,
              f"**Standing, {c['last_text']}.** Stage: {c['stage_name']}. Needs next: {c['first_ask'] or c['needs_next']} ([what would close it](ASKS.md)).",
              "",
@@ -41,6 +45,7 @@ def block(c):
              f"| read by a person | {human} |",
              f"| elsewhere | {regs} |",
              f"| related | {related} |",
+             f"| tooling | {tooling} |",
              "",
              f"Rendered from `ledger/` at regeneration; the full record is `SCORECARD.md`, what is owed is `ASKS.md`. Standing words: {standing}.",
              END]

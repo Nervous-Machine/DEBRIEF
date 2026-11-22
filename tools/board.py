@@ -95,7 +95,8 @@ def claim(url, path):
     problem = next((s.get("ref", "").split()[0] for s in srcs if s.get("kind") == "problem" and s.get("ref")), "")
     owners = sorted({mo.group(1).lower() for s in srcs if s.get("kind") in ("repo", "repository") for mo in [re.search(r"github\.com/([^/\s]+)/", s.get("ref", ""))] if mo})
     nolean = "no formal deduction" in (m.get("rests_on") or "") or "no fixed file" in (m.get("rests_on") or "")
-    return {"repo": name, "url": url, "label": m.get("label") or name, "title": m["title"], "area": m.get("area") or "Unclassified", "rests_on": m.get("rests_on") or "",
+    tooling = m.get("tooling") or []
+    return {"repo": name, "url": url, "label": m.get("label") or name, "tooling": tooling, "title": m["title"], "area": m.get("area") or "Unclassified", "rests_on": m.get("rests_on") or "",
             "stage": stage, "stage_name": STAGES[stage], "needs_next": STAGE_NEXT[stage], "certified": n["certified"], "accepted": n["accepted"], "refuted": n["refuted"],
             "open_gaps": len(gaps), "first_ask": (first_ask["title"] if first_ask else ""), "first_ask_what": (first_ask["closes_with"][0]["what"] if first_ask and first_ask.get("closes_with") else ""),
             "people": people, "outside": outside, "checks": check, "machine_checked": machine, "human_signed": check["signed"] > 0, "no_lean": nolean,
@@ -156,6 +157,12 @@ def page(claims, generated):
     numbers = "".join(f'<div class="num"><div class="n">{v}</div><div class="l">{e(T.get(k, k))}</div></div>'
                       for k, v in (("num_claims", n_all), ("num_machine", n_machine), ("num_human", n_human)))
     stage_line = " ".join(f'<span class="stage s{s}">{e(STAGES[s])} <b>{counts[s]}</b></span>' for s in range(5))
+    tiers = {}
+    for c in claims:
+        for t in c["tooling"]:
+            tiers[t["tier"]] = tiers.get(t["tier"], 0) + 1
+    order = ["none", "free", "subscription", "subscription-pro", "api", "mixed", "internal", "unknown"]
+    tier_line = " ".join(f'<span class="tier">{e(T.get("tier_" + k.replace("-", "_"), k))} <b>{tiers[k]}</b></span>' for k in order if tiers.get(k))
     # most recent activity first; ties by stage (closest to the rule), then fewest open gaps
     closest = sorted(claims, key=lambda c: (str(c["last"]), c["stage"], -c["open_gaps"]), reverse=True)
 
@@ -176,9 +183,19 @@ def page(claims, generated):
                 return f'<span class="rel" title="from the ledgers"><span class="dim">{e(r["relation"])}:</span> ' + ", ".join(f'<a href="{e(u)}">{e(l)}</a>' for l, u in r["links"]) + "</span>"
             return f'<a class="rel" href="{e(r["url"])}" title="{e(r["relation"])}{" (from the ledgers)" if r["source"] == "ledger" else ""}">{e(r["label"])} <span class="dim">{e(r["relation"])}</span></a>'
         chips = "".join(chip(r) for r in c["related_display"])
+        def tooling_line(t):
+            ms = []
+            for m in t["models"]:
+                w = m["model"]
+                if m.get("public_at_the_time") == "no": w += " (not yet public)"
+                elif m.get("public_at_the_time") == "partly": w += " (public part way through)"
+                ms.append(e(w))
+            basis = e(t.get("basis", ""))
+            return f'<div class="sub tool" title="{basis}">{e(T.get("tooling", "tooling:"))} ' + (", ".join(ms) if ms else e("none")) + f' · <span class="tier">{e(T.get("tier_" + t["tier"].replace("-", "_"), t["tier"]))}</span>' + (f' · {e(t["duration"])}' if t.get("duration") and t["duration"] != "not stated" else "") + "</div>"
+        tooling = "".join(tooling_line(t) for t in c["tooling"])
         use = f'<a class="chip-use" href="https://github.com/Nervous-Machine/DEBRIEF/blob/main/APPLICATIONS.md">{e(T.get("use_candidate", "engineering use: candidate"))}</a>' if k["application"] == "candidate" else ""
         standing = " · ".join(f"{c[w]} {w}" for w in ("certified", "accepted", "refuted") if c[w]) or "nothing has standing yet"
-        return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div>{("<div class=rels>" + chips + "</div>") if chips else ""}{use}</td>'
+        return (f'<tr><td class="lab"><a href="{e(c["url"])}">{e(c["label"])}</a><div class="sub">{e(c["title"])}</div>{tooling}{("<div class=rels>" + chips + "</div>") if chips else ""}{use}</td>'
                 f'<td><span class="stage s{c["stage"]}">{e(c["stage_name"])}</span><div class="sub">{e(standing)} · {c["open_gaps"]} open</div>'
                 f'<div class="sub next">{e(T.get("needs", "needs"))} {e(c["first_ask"] or c["needs_next"])} <a href="{e(c["url"])}/blob/main/ASKS.md">{e(T.get("what_would_close", "what would close it →"))}</a></div></td>'
                 f'<td>{machine}</td><td>{human}</td><td>{elsewhere}</td></tr>')
@@ -204,7 +221,8 @@ header .by{{font-size:.8rem;color:var(--muted)}}
 .hero .lede{{font-size:1.08rem;color:#c0c0c0;max-width:760px;margin-bottom:22px}}
 .numbers{{display:flex;flex-wrap:wrap;gap:14px 40px;margin-bottom:18px}}.num .n{{font-size:2.6rem;font-weight:700;line-height:1;letter-spacing:-1px}}.num .l{{font-size:.8rem;color:var(--muted);margin-top:4px;max-width:200px}}
 .num:nth-child(2) .n{{color:var(--cyan)}}.num:nth-child(3) .n{{color:var(--green)}}
-.stages{{display:flex;flex-wrap:wrap;gap:8px;font-size:.8rem;color:var(--muted)}}.stages .stage b{{color:var(--text);font-weight:600;margin-left:4px}}
+.stages{{display:flex;flex-wrap:wrap;gap:8px;font-size:.8rem;color:var(--muted);align-items:center}}.stages.tiers{{margin-top:8px}}.stages .lbl{{margin-right:4px}}
+.tier{{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.72rem;border:1px solid var(--border);color:#cfd6de;white-space:nowrap}}.tier b{{color:var(--text);font-weight:600;margin-left:4px}}.sub.tool .tier{{font-size:.68rem;padding:1px 6px}}.stages .stage b{{color:var(--text);font-weight:600;margin-left:4px}}
 section.block{{padding:30px 0;border-top:1px solid var(--border)}}
 .eyebrow{{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:8px}}
 h3{{font-size:1.35rem;margin-bottom:8px}}.lede2{{color:var(--muted);max-width:760px;margin-bottom:18px}}
@@ -229,6 +247,7 @@ footer p{{margin-bottom:6px}}
 <section class="hero"><div class="container">{opt('hero_heading', '<h2>', '</h2>')}{opt('hero_lede', '<p class="lede">', '</p>')}
 <div class="numbers">{numbers}</div>
 <div class="stages">{stage_line}</div>
+{('<div class="stages tiers">' + opt('tiers_label', '<span class="lbl">', '</span>', True) + tier_line + '</div>') if tier_line else ''}
 </div></section>
 <section class="block" id="claims"><div class="container">
 {opt('claims_eyebrow', '<div class="eyebrow">', '</div>')}{opt('claims_heading', '<h3>', '</h3>')}{opt('claims_lede', '<p class="lede2">', '</p>')}

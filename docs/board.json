@@ -1186,6 +1186,302 @@
    ]
   },
   {
+   "repo": "DEBRIEF-math-navierstokes-forced",
+   "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes-forced",
+   "label": "Navier–Stokes blow-up, forced (OpenAI)",
+   "title": "The claimed finite-time blow-up of the three-dimensional Navier–Stokes equations with a smooth force, announced by OpenAI on 8 September 2026 with a Lean development",
+   "area": "Partial differential equations: regularity of the Navier–Stokes equations",
+   "rests_on": "a 166-page paper, a Lean 4 development with Comparator challenge files, and a metadata file recording the review status as self-assessed",
+   "stage": 0,
+   "stage_name": "Registered",
+   "needs_next": "an independent rerun of whatever is machine-checkable",
+   "certified": 0,
+   "accepted": 0,
+   "refuted": 0,
+   "open_gaps": 4,
+   "first_ask": "The Lean development has not been built or kernel-checked by anyone outside the claimant",
+   "first_ask_what": "a pre-registered rerun: fetch at the pinned commit, build, confirm no sorry or admit, print the axioms",
+   "people": [],
+   "outside": [],
+   "checks": {
+    "rerun": [],
+    "trace": false,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "reports": [
+     {
+      "who": "Deep Bhattacharjee (Zenodo 10.5281/zenodo.23286556)",
+      "url": "https://zenodo.org/records/23286556",
+      "dated": "2026-10-10",
+      "operated_with": "not stated",
+      "what": "independent build of openai/NavierStokesAndEuler at commit f9e8bc5 on Lean v4.34.0-rc2: 816 files, no sorry, native_decide or new axiom; both Navier–Stokes statements on exactly propext, Classical.choice and Quot.sound; the sixteen definitions and both statements identical, declaration by declaration, to formal-conjectures at commit 8bf45ed; machine and wall time not stated"
+     }
+    ],
+    "registries": [
+     {
+      "name": "DeepMind formal-conjectures",
+      "status": "(C) and (D) marked research solved, citing an internal OpenAI model; (A) and (B) research open",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/2207c54d0dbe960de591d280f997b195bf3f6e28/FormalConjectures/Millennium/NavierStokes.lean",
+      "dim": false
+     },
+     {
+      "name": "Clay Mathematics Institute",
+      "status": "Active",
+      "url": "https://www.claymath.org/millennium/navier-stokes-equation/",
+      "read": "2026-11-22T20:16:58Z"
+     },
+     {
+      "name": "DeepMind formal-conjectures, NavierStokes.lean",
+      "status": "research solved",
+      "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/main/FormalConjectures/Millennium/NavierStokes.lean",
+      "read": "2026-11-22T20:16:58Z"
+     }
+    ],
+    "external": {
+     "reports": [
+      {
+       "who": "Deep Bhattacharjee (Zenodo 10.5281/zenodo.23286556)",
+       "url": "https://zenodo.org/records/23286556",
+       "dated": "2026-10-10",
+       "operated_with": "not stated",
+       "what": "independent build of openai/NavierStokesAndEuler at commit f9e8bc5 on Lean v4.34.0-rc2: 816 files, no sorry, native_decide or new axiom; both Navier–Stokes statements on exactly propext, Classical.choice and Quot.sound; the sixteen definitions and both statements identical, declaration by declaration, to formal-conjectures at commit 8bf45ed; machine and wall time not stated"
+      }
+     ],
+     "formal_conjectures": {
+      "main_statement": "(C) and (D) marked research solved, citing an internal OpenAI model; (A) and (B) research open",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/2207c54d0dbe960de591d280f997b195bf3f6e28/FormalConjectures/Millennium/NavierStokes.lean",
+      "formal_proof_linked": false
+     },
+     "preprint_on_translation": {
+      "who": "Alexander Bastounis, Fabian Circelli, Anders C. Hansen (King's College London; Cambridge)",
+      "url": "https://arxiv.org/abs/2610.08144",
+      "dated": "2026-10-06",
+      "what": "reports that the Lean estimate corresponding to Lemma 8.6 of the paper bounds the inverse with m+5 derivatives where the paper writes m+4, and similar mismatches elsewhere; states that it makes no claim about the correctness of the written proof"
+     },
+     "self_assessment": {
+      "source": "formalization.yaml at commit f9e8bc5",
+      "review_status": "self-assessed",
+      "method": "GPT-6 Astra agents, Codex framework"
+     },
+     "dated": "2026-11-22",
+     "pages": [
+      {
+       "name": "Clay Mathematics Institute",
+       "url": "https://www.claymath.org/millennium/navier-stokes-equation/",
+       "read": "2026-11-22T20:16:58Z",
+       "role": "problem authority (Millennium Prize rules: publication, two years, general acceptance)",
+       "sha256": "3bf5fab042b6cbe7d2bf0052ca6bea8c6be88b6831a751c4877357e76934cc77",
+       "bytes": 108515,
+       "hash_of": "text",
+       "status": "Active",
+       "changed": true
+      },
+      {
+       "name": "DeepMind formal-conjectures, NavierStokes.lean",
+       "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/main/FormalConjectures/Millennium/NavierStokes.lean",
+       "read": "2026-11-22T20:16:58Z",
+       "role": "third-party formal statement of the four alternatives",
+       "sha256": "bd25a14ac8b8f17e6169005d33d39f5f778456521c68678395e3088697aa85db",
+       "bytes": 14574,
+       "hash_of": "text",
+       "status": "research solved",
+       "changed": true
+      }
+     ]
+    },
+    "application": "none",
+    "notes": 0
+   },
+   "machine_checked": true,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "https://www.claymath.org/millennium/navier-stokes-equation/",
+   "source_owners": [
+    "openai"
+   ],
+   "related": [
+    {
+     "repo": "DEBRIEF-math-navierstokes",
+     "label": "Navier–Stokes blow-up, unforced (Alpöge and Buckmaster)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes",
+     "relation": "the forced case; the force is what the other claim removes; same problem page",
+     "source": "maintainer",
+     "relations": [
+      "the forced case; the force is what the other claim removes",
+      "same problem page"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-primegaps",
+     "label": "Prime gaps ≤ 186 (OpenAI)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-primegaps",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
+    }
+   ],
+   "cycles": 0,
+   "last": "2026-11-22",
+   "last_text": "22 Nov 2026",
+   "related_display": [
+    {
+     "label": "Navier–Stokes blow-up, unforced (Alpöge and Buckmaster)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes",
+     "relation": "the forced case; the force is what the other claim removes; same problem page",
+     "source": "maintainer"
+    },
+    {
+     "label": "Prime gaps ≤ 186 (OpenAI)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-primegaps",
+     "relation": "same claimant",
+     "source": "ledger",
+     "links": [
+      [
+       "Prime gaps ≤ 186 (OpenAI)",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-primegaps"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "repo": "DEBRIEF-math-navierstokes",
+   "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes",
+   "label": "Navier–Stokes blow-up, unforced (Alpöge and Buckmaster)",
+   "title": "The claimed finite-time blow-up of the unforced three-dimensional Navier–Stokes equations by Levent Alpöge and Tristan Buckmaster, released on 20 November 2026 as a paper and a Lean development",
+   "area": "Partial differential equations: regularity of the Navier–Stokes equations",
+   "rests_on": "a 79-page paper, a Lean 4 development whose statement files carry sorry and whose solution file proves them from a library, and a computer-assisted certificate that is named by hash and not yet released",
+   "stage": 0,
+   "stage_name": "Registered",
+   "needs_next": "an independent rerun of whatever is machine-checkable",
+   "certified": 0,
+   "accepted": 0,
+   "refuted": 0,
+   "open_gaps": 5,
+   "first_ask": "The Lean development has not been built or kernel-checked by anyone outside the claimant",
+   "first_ask_what": "a pre-registered rerun: fetch at the pinned commit, build, confirm no sorry or admit, print the axioms",
+   "people": [],
+   "outside": [],
+   "checks": {
+    "rerun": [],
+    "trace": false,
+    "reads": 0,
+    "signed": 0,
+    "refused": 0,
+    "reports": [],
+    "registries": [
+     {
+      "name": "Clay Mathematics Institute",
+      "status": "Active",
+      "url": "https://www.claymath.org/millennium/navier-stokes-equation/",
+      "read": "2026-11-22T20:17:36Z"
+     },
+     {
+      "name": "DeepMind formal-conjectures, NavierStokes.lean",
+      "status": "research open",
+      "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/main/FormalConjectures/Millennium/NavierStokes.lean",
+      "read": "2026-11-22T20:17:36Z"
+     },
+     {
+      "name": "The certificate, per the claimants' README",
+      "status": "is not in this repository",
+      "url": "https://raw.githubusercontent.com/tristanbuckmaster/navier-stokes/main/README.md",
+      "read": "2026-11-22T20:17:36Z"
+     }
+    ],
+    "external": {
+     "pages": [
+      {
+       "name": "Clay Mathematics Institute",
+       "url": "https://www.claymath.org/millennium/navier-stokes-equation/",
+       "read": "2026-11-22T20:17:36Z",
+       "role": "problem authority (Millennium Prize rules: publication, two years, general acceptance)",
+       "sha256": "3bf5fab042b6cbe7d2bf0052ca6bea8c6be88b6831a751c4877357e76934cc77",
+       "bytes": 108515,
+       "hash_of": "text",
+       "status": "Active",
+       "changed": true
+      },
+      {
+       "name": "DeepMind formal-conjectures, NavierStokes.lean",
+       "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/main/FormalConjectures/Millennium/NavierStokes.lean",
+       "read": "2026-11-22T20:17:36Z",
+       "role": "third-party formal statement of the four alternatives",
+       "sha256": "bd25a14ac8b8f17e6169005d33d39f5f778456521c68678395e3088697aa85db",
+       "bytes": 14574,
+       "hash_of": "text",
+       "status": "research open",
+       "changed": true
+      },
+      {
+       "name": "The certificate, per the claimants' README",
+       "url": "https://raw.githubusercontent.com/tristanbuckmaster/navier-stokes/main/README.md",
+       "read": "2026-11-22T20:17:36Z",
+       "role": "the claimants' repository; a certificate release would change it",
+       "sha256": "28e634ef9f324958595d47e48b0cdebe86fefe7e18a650beec9e5853ebb46cf1",
+       "bytes": 2394,
+       "hash_of": "text",
+       "status": "is not in this repository",
+       "changed": true
+      }
+     ],
+     "dated": "2026-11-22"
+    },
+    "application": "none",
+    "notes": 0
+   },
+   "machine_checked": false,
+   "human_signed": false,
+   "no_lean": false,
+   "problem_url": "https://www.claymath.org/millennium/navier-stokes-equation/",
+   "source_owners": [
+    "tristanbuckmaster"
+   ],
+   "related": [
+    {
+     "repo": "DEBRIEF-math-navierstokes-forced",
+     "label": "Navier–Stokes blow-up, forced (OpenAI)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes-forced",
+     "relation": "the unforced case; removes the force this claim uses; same problem page",
+     "source": "maintainer",
+     "relations": [
+      "the unforced case; removes the force this claim uses",
+      "same problem page"
+     ]
+    },
+    {
+     "repo": "DEBRIEF-math-riemann",
+     "label": "Riemann Hypothesis (Alpöge, with Claude)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-riemann",
+     "relation": "same claimant (Alpöge), released the same morning",
+     "source": "maintainer",
+     "relations": [
+      "same claimant (Alpöge), released the same morning"
+     ]
+    }
+   ],
+   "cycles": 0,
+   "last": "2026-11-22",
+   "last_text": "22 Nov 2026",
+   "related_display": [
+    {
+     "label": "Navier–Stokes blow-up, forced (OpenAI)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes-forced",
+     "relation": "the unforced case; removes the force this claim uses; same problem page",
+     "source": "maintainer"
+    },
+    {
+     "label": "Riemann Hypothesis (Alpöge, with Claude)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-riemann",
+     "relation": "same claimant (Alpöge), released the same morning",
+     "source": "maintainer"
+    }
+   ]
+  },
+  {
    "repo": "DEBRIEF-math-primegaps",
    "url": "https://github.com/Nervous-Machine/DEBRIEF-math-primegaps",
    "label": "Prime gaps ≤ 186 (OpenAI)",
@@ -1257,6 +1553,16 @@
      "relations": [
       "the same problem, sharper bound (186 against 240)"
      ]
+    },
+    {
+     "repo": "DEBRIEF-math-navierstokes-forced",
+     "label": "Navier–Stokes blow-up, forced (OpenAI)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes-forced",
+     "relation": "same claimant",
+     "source": "ledger",
+     "relations": [
+      "same claimant"
+     ]
     }
    ],
    "cycles": 4,
@@ -1268,6 +1574,18 @@
      "url": "https://github.com/Nervous-Machine/DEBRIEF-math-zhang240",
      "relation": "the same problem, sharper bound (186 against 240)",
      "source": "maintainer"
+    },
+    {
+     "label": "Navier–Stokes blow-up, forced (OpenAI)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes-forced",
+     "relation": "same claimant",
+     "source": "ledger",
+     "links": [
+      [
+       "Navier–Stokes blow-up, forced (OpenAI)",
+       "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes-forced"
+      ]
+     ]
     }
    ]
   },
@@ -1457,6 +1775,16 @@
       "a special case of",
       "same problem page"
      ]
+    },
+    {
+     "repo": "DEBRIEF-math-navierstokes",
+     "label": "Navier–Stokes blow-up, unforced (Alpöge and Buckmaster)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes",
+     "relation": "same claimant (Alpöge), released the same morning",
+     "source": "maintainer",
+     "relations": [
+      "same claimant (Alpöge), released the same morning"
+     ]
     }
    ],
    "cycles": 3,
@@ -1467,6 +1795,12 @@
      "label": "Generalized Riemann Hypothesis (Masullo)",
      "url": "https://github.com/Nervous-Machine/DEBRIEF-math-grh-masullo",
      "relation": "a special case of; same problem page",
+     "source": "maintainer"
+    },
+    {
+     "label": "Navier–Stokes blow-up, unforced (Alpöge and Buckmaster)",
+     "url": "https://github.com/Nervous-Machine/DEBRIEF-math-navierstokes",
+     "relation": "same claimant (Alpöge), released the same morning",
      "source": "maintainer"
     }
    ]

@@ -17,3 +17,14 @@ relations:
   - a: DEBRIEF-math-erdos593
     b: DEBRIEF-math-erdos1177
     relation: resolved in the same paper (arXiv:2606.24882)
+  - a: DEBRIEF-math-navierstokes
+    b: DEBRIEF-math-navierstokes-forced
+    relation: the unforced case; removes the force this claim uses
+    reverse: the forced case; the force is what the other claim removes
+    note: >-
+      Fefferman's alternatives (C) and (D) allow a smooth force; OpenAI's construction uses one, Alpöge and
+      Buckmaster's claims none, which would also refute (A) and (B).
+  - a: DEBRIEF-math-navierstokes
+    b: DEBRIEF-math-riemann
+    relation: same claimant (Alpöge), released the same morning
+    reverse: same claimant (Alpöge), released the same morning

@@ -39,9 +39,11 @@ def fetch(url):
 
 def text_of(raw):
     t = raw.decode("utf-8", errors="replace")
-    t = re.sub(r"<(script|style).*?</\1>", "", t, flags=re.S)
-    t = re.sub(r"<[^>]+>", " ", t)
-    return re.sub(r"\s+", " ", html.unescape(t)).strip()
+    if re.search(r"<(!doctype|html|head|body|div|p|article)\b", t[:4000], re.I):  # markup only for pages that are markup; a raw source file keeps its < and >
+        t = re.sub(r"<(script|style).*?</\1>", "", t, flags=re.S)
+        t = re.sub(r"<[^>]+>", " ", t)
+        t = html.unescape(t)
+    return re.sub(r"\s+", " ", t).strip()
 
 
 def read(page, stamp):

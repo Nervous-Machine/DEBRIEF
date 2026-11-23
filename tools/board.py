@@ -79,11 +79,19 @@ def claim(url, path):
     for c in L["cycles"]:  # external snapshots are replay cycles (no new checking); later readings override earlier ones key by key
         x = (c.get("outcome", {}).get("numbers") or {}).get("external")
         if c.get("kind") == "replay" and x:
-            ext.update(x); ext["dated"] = c.get("dated")
+            for key, v in x.items():  # a list (reactions, reports, expositions) accumulates across cycles, deduplicated by url; a scalar is overridden
+                if isinstance(v, list) and isinstance(ext.get(key), list):
+                    seen = {str(i.get("url")) for i in ext[key] if isinstance(i, dict)}
+                    ext[key] = ext[key] + [i for i in v if not (isinstance(i, dict) and str(i.get("url")) in seen)]
+                else:
+                    ext[key] = v
+            ext["dated"] = c.get("dated")
     reruns = list(dict.fromkeys(c["by"].split(" (")[0] for c in sorted(cyc, key=lambda c: str(c.get("dated", ""))) if c.get("kind") == "rerun"))
     reads = [c for c in cyc if c.get("kind") == "read" and c.get("not_an_author_of_the_claim", True)]
     reports = [r for r in ext.get("reports", []) if r.get("who") and r.get("url")]
-    check = {"rerun": reruns, "trace": "trace" in kinds, "reads": len(reads),
+    public = [r for r in ext.get("public_reactions", []) if r.get("who") and r.get("url") and r.get("is_a_reading")]  # named readings published elsewhere, not filed here
+    check = {"rerun": reruns, "trace": "trace" in kinds, "reads": len(reads), "public_readings": public,
+             "disputes": sum(bool(re.search(r"invalid|does not contain a proof|refut|reject", str(r.get("title", "")) + " " + str(r.get("what", "")), re.I)) for r in public),
              "signed": sum(c.get("outcome", {}).get("verdict") == "signed" for c in reads),
              "refused": sum(c.get("outcome", {}).get("verdict") == "refused" for c in reads),
              "reports": reports, "registries": registries(ext), "external": ext, "application": APPS.get(name, "none"),
@@ -175,6 +183,9 @@ def page(claims, generated):
             machine += '<div class="sub">' + ", ".join(reported) + dim(" " + e(T.get("reported_elsewhere", "reported elsewhere, not filed here"))) + "</div>"
         guide = f'<a href="{e(c["url"])}/blob/main/trace/DEFINITIONAL-TRACE.md">{e(T.get("reading_guide", "reading guide"))}</a>' if k["trace"] else dim(e(T.get("no_reading_guide", "no reading guide")))
         human = (f'<span class="who-outside">{k["signed"]} signed' + (f', {k["refused"]} refused' if k["refused"] else "") + '</span>') if k["reads"] else dim(e(T.get("not_read", "nobody yet")))
+        if k["public_readings"]:
+            pub = ", ".join(f'<a class="who-outside" href="{e(r["url"])}" title="{e(r.get("title") or r.get("what", ""))}">{e(r["who"].split(",")[0])}</a>' for r in k["public_readings"])
+            human += f'<div class="sub">{pub}' + dim(" " + e(T.get("read_elsewhere", "read elsewhere, not signed here")) + (f'; {k["disputes"]} disputes the claim' if k["disputes"] else "")) + "</div>"
         human += f'<div class="sub">{guide}' + (f' · {k["notes"]} note{"s" if k["notes"] != 1 else ""}' if k["notes"] else "") + f' · <a href="{e(c["url"])}/issues/new?template=reasoning-note.yml">{e(T.get("leave_reasoning", "leave your reasoning →"))}</a></div>'
         regs = [f'<div class="reg{" dim" if r.get("dim") else ""}"><a href="{e(r["url"])}">{e(r["name"])}</a>: {e(r["status"])}</div>' for r in k["registries"]]
         elsewhere = "".join(regs) if regs else dim("—")

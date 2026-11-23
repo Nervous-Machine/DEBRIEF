@@ -18,6 +18,8 @@ def block(c):
     if k["reports"]:
         machine += "; reported elsewhere, not filed here: " + ", ".join(f"[{r['who']}]({r['url']})" for r in k["reports"])
     human = (f"{k['signed']} signed" + (f", {k['refused']} refused" if k["refused"] else "")) if k["reads"] else "nobody yet"
+    if k.get("public_readings"):  # named readings published elsewhere, not signed here
+        human += "; published elsewhere, not signed here: " + ", ".join(f"[{r['who'].split(',')[0]}]({r['url']})" for r in k["public_readings"]) + (f" ({k['disputes']} disputes the claim)" if k.get("disputes") else "")
     human += "; [reading guide](trace/DEFINITIONAL-TRACE.md)" if k["trace"] else "; no reading guide yet"
     if k["notes"]:
         human += f"; {k['notes']} reasoning note" + ("s" if k["notes"] != 1 else "")

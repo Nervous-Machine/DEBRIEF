@@ -1819,19 +1819,23 @@
    "title": "The claimed finite-time blow-up of the unforced three-dimensional Navier–Stokes equations by Levent Alpöge and Tristan Buckmaster, released on 20 November 2026 as a paper and a Lean development",
    "area": "Partial differential equations: regularity of the Navier–Stokes equations",
    "rests_on": "a 79-page paper, a Lean 4 development whose statement files carry sorry and whose solution file proves them from a library, and a computer-assisted certificate that is named by hash and not yet released",
-   "stage": 0,
-   "stage_name": "Registered",
-   "needs_next": "an independent rerun of whatever is machine-checkable",
+   "stage": 1,
+   "stage_name": "Checks rerun",
+   "needs_next": "a reading guide that traces each formal statement to its definitions",
    "certified": 0,
-   "accepted": 0,
+   "accepted": 1,
    "refuted": 0,
    "open_gaps": 5,
    "first_ask": "The Lean development has not been built or kernel-checked by anyone outside the claimant",
    "first_ask_what": "a pre-registered rerun: fetch at the pinned commit, build, confirm no sorry or admit, print the axioms",
-   "people": [],
+   "people": [
+    "Nervous Machine (Heidi Bennett; Claude Fable 5.1 as the operating agent)"
+   ],
    "outside": [],
    "checks": {
-    "rerun": [],
+    "rerun": [
+     "Nervous Machine"
+    ],
     "trace": false,
     "reads": 0,
     "public_readings": [],
@@ -1900,7 +1904,7 @@
     "application": "none",
     "notes": 0
    },
-   "machine_checked": false,
+   "machine_checked": true,
    "human_signed": false,
    "no_lean": false,
    "problem_url": "https://www.claymath.org/millennium/navier-stokes-equation/",
@@ -1930,7 +1934,7 @@
      ]
     }
    ],
-   "cycles": 0,
+   "cycles": 1,
    "last": "2026-11-22",
    "last_text": "22 Nov 2026",
    "related_display": [

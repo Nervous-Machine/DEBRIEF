@@ -32,8 +32,11 @@ reading_guide: reading guide
 no_reading_guide: no reading guide yet
 not_read: nobody yet
 leave_reasoning: leave your reasoning →
-reported_elsewhere: reported elsewhere, not yet filed here
-read_elsewhere: "published a reading elsewhere, not signed here"
+no_rerun_here: no rerun filed here
+reported_elsewhere: reported elsewhere
+model_review_elsewhere: "reviewed by a model elsewhere; not a check of the claim"
+no_read_here: no reading signed here
+read_elsewhere: read elsewhere
 use_candidate: "engineering use: candidate"
 tooling: "tooling:"
 tiers_label: "by access tier of the claimant:"

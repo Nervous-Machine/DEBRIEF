@@ -89,8 +89,10 @@ def claim(url, path):
     reruns = list(dict.fromkeys(c["by"].split(" (")[0] for c in sorted(cyc, key=lambda c: str(c.get("dated", ""))) if c.get("kind") == "rerun"))
     reads = [c for c in cyc if c.get("kind") == "read" and c.get("not_an_author_of_the_claim", True)]
     reports = [r for r in ext.get("reports", []) if r.get("who") and r.get("url")]
-    public = [r for r in ext.get("public_reactions", []) if r.get("who") and r.get("url") and r.get("is_a_reading")]  # named readings published elsewhere, not filed here
-    check = {"rerun": reruns, "trace": "trace" in kinds, "reads": len(reads), "public_readings": public,
+    public_all = [r for r in ext.get("public_reactions", []) if r.get("who") and r.get("url") and r.get("is_a_reading")]  # readings published elsewhere, not filed here
+    public = [r for r in public_all if not r.get("by_a_model")]  # a named person's reading
+    model_reviews = [r for r in public_all if r.get("by_a_model")]  # a model's review published under a company's or a person's name: neither a check of the claim nor a person's reading
+    check = {"rerun": reruns, "trace": "trace" in kinds, "reads": len(reads), "public_readings": public, "model_reviews": model_reviews,
              "disputes": sum(bool(re.search(r"invalid|does not contain a proof|refut|reject", str(r.get("title", "")) + " " + str(r.get("what", "")), re.I)) for r in public),
              "signed": sum(c.get("outcome", {}).get("verdict") == "signed" for c in reads),
              "refused": sum(c.get("outcome", {}).get("verdict") == "refused" for c in reads),
@@ -178,14 +180,17 @@ def page(claims, generated):
         k = c["checks"]
         names = [(f'<span class="who-outside">{e(n)}</span>' if not MAINTAINER.match(n) else e(n)) for n in k["rerun"]]
         reported = [f'<a class="who-outside" href="{e(r["url"])}" title="{e(r.get("what", ""))}">{e(r["who"])}</a>' for r in k["reports"]]
-        machine = ", ".join(names) if names else dim("no Lean to check" if c["no_lean"] else "nobody yet")
+        modelled = [f'<a class="who-outside" href="{e(r["url"])}" title="{e(r.get("what", ""))}">{e(r["who"].split(",")[0])}</a>' for r in k["model_reviews"]]
+        machine = ", ".join(names) if names else dim("no Lean to check" if c["no_lean"] else (e(T.get("no_rerun_here", "no rerun filed here")) if (reported or modelled) else "nobody yet"))
         if reported:
-            machine += '<div class="sub">' + ", ".join(reported) + dim(" " + e(T.get("reported_elsewhere", "reported elsewhere, not filed here"))) + "</div>"
+            machine += '<div class="sub">' + ", ".join(reported) + dim(" " + e(T.get("reported_elsewhere", "reported elsewhere"))) + "</div>"
+        if modelled:
+            machine += '<div class="sub">' + ", ".join(modelled) + dim(" " + e(T.get("model_review_elsewhere", "reviewed by a model elsewhere; not a check of the claim"))) + "</div>"
         guide = f'<a href="{e(c["url"])}/blob/main/trace/DEFINITIONAL-TRACE.md">{e(T.get("reading_guide", "reading guide"))}</a>' if k["trace"] else dim(e(T.get("no_reading_guide", "no reading guide")))
-        human = (f'<span class="who-outside">{k["signed"]} signed' + (f', {k["refused"]} refused' if k["refused"] else "") + '</span>') if k["reads"] else dim(e(T.get("not_read", "nobody yet")))
+        human = (f'<span class="who-outside">{k["signed"]} signed' + (f', {k["refused"]} refused' if k["refused"] else "") + '</span>') if k["reads"] else dim(e(T.get("no_read_here", "no reading signed here")) if k["public_readings"] else e(T.get("not_read", "nobody yet")))
         if k["public_readings"]:
             pub = ", ".join(f'<a class="who-outside" href="{e(r["url"])}" title="{e(r.get("title") or r.get("what", ""))}">{e(r["who"].split(",")[0])}</a>' for r in k["public_readings"])
-            human += f'<div class="sub">{pub}' + dim(" " + e(T.get("read_elsewhere", "read elsewhere, not signed here")) + (f'; {k["disputes"]} disputes the claim' if k["disputes"] else "")) + "</div>"
+            human += f'<div class="sub">{pub}' + dim(" " + e(T.get("read_elsewhere", "read elsewhere")) + (f'; {k["disputes"]} disputes the claim' if k["disputes"] else "")) + "</div>"
         human += f'<div class="sub">{guide}' + (f' · {k["notes"]} note{"s" if k["notes"] != 1 else ""}' if k["notes"] else "") + f' · <a href="{e(c["url"])}/issues/new?template=reasoning-note.yml">{e(T.get("leave_reasoning", "leave your reasoning →"))}</a></div>'
         regs = [f'<div class="reg{" dim" if r.get("dim") else ""}"><a href="{e(r["url"])}">{e(r["name"])}</a>: {e(r["status"])}</div>' for r in k["registries"]]
         elsewhere = "".join(regs) if regs else dim("—")

@@ -14,12 +14,15 @@ END = "<!-- standing:end -->"
 def block(c):
     k = c["checks"]
     rel = c.get("url", "")
-    machine = ", ".join(k["rerun"]) if k["rerun"] else ("no Lean to check" if c.get("no_lean") else "nobody yet")
+    outside = k["reports"] or k.get("model_reviews")
+    machine = ", ".join(k["rerun"]) if k["rerun"] else ("no Lean to check" if c.get("no_lean") else ("no rerun filed here" if outside else "nobody yet"))
     if k["reports"]:
-        machine += "; reported elsewhere, not filed here: " + ", ".join(f"[{r['who']}]({r['url']})" for r in k["reports"])
-    human = (f"{k['signed']} signed" + (f", {k['refused']} refused" if k["refused"] else "")) if k["reads"] else "nobody yet"
+        machine += "; reported elsewhere: " + ", ".join(f"[{r['who']}]({r['url']})" for r in k["reports"])
+    if k.get("model_reviews"):  # a model's review published elsewhere: neither a check of the claim nor a person's reading
+        machine += "; reviewed by a model elsewhere, not a check of the claim: " + ", ".join(f"[{r['who'].split(',')[0]}]({r['url']})" for r in k["model_reviews"])
+    human = (f"{k['signed']} signed" + (f", {k['refused']} refused" if k["refused"] else "")) if k["reads"] else ("no reading signed here" if k.get("public_readings") else "nobody yet")
     if k.get("public_readings"):  # named readings published elsewhere, not signed here
-        human += "; published elsewhere, not signed here: " + ", ".join(f"[{r['who'].split(',')[0]}]({r['url']})" for r in k["public_readings"]) + (f" ({k['disputes']} disputes the claim)" if k.get("disputes") else "")
+        human += "; read elsewhere: " + ", ".join(f"[{r['who'].split(',')[0]}]({r['url']})" for r in k["public_readings"]) + (f" ({k['disputes']} disputes the claim)" if k.get("disputes") else "")
     human += "; [reading guide](trace/DEFINITIONAL-TRACE.md)" if k["trace"] else "; no reading guide yet"
     if k["notes"]:
         human += f"; {k['notes']} reasoning note" + ("s" if k["notes"] != 1 else "")

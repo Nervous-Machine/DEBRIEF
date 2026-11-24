@@ -1489,7 +1489,16 @@
     "rerun": [],
     "trace": false,
     "reads": 0,
-    "public_readings": [],
+    "public_readings": [
+     {
+      "who": "Hassana Labs (Leon Chlon), by a reinforcement-learning \"verified debate\" model over one weekend",
+      "url": "https://hassana.io/music-of-the-primes/",
+      "posted": "2026-11-23",
+      "what": "Reports 44 issues in the 940-page draft, 23 of them not raised in any public review before, each with a proposed repair: 15 repairs proved in Lean, 5 with key pieces in Lean, 2 on paper, 1 absorbed by another. Gives what it calls an exact diagnosis, proved in Lean: in the corrected trace formula behind Theorem 12.5.1.1 the remainder is independent of the strip width if and only if every zero lies on Re = 1/2, so the argument's central step is equivalent to its conclusion. Confirms that section 12.3 reads \"Include section\", that the proof of 10.4.2.8 ends \"Return here and complete proof\", and that Theorem 13.3.1.2 has no statement. Reports new mathematics built alongside: the geometric side in the operator order P∘A at every finite rank, the missing section 12.3 decomposition, a nuclearity bound, a spectral converse, and foundations; about 80,000 lines of Lean in all. Of the nine results the argument relies on, each is listed with what is proved and what is \"not yet\", including: no continuation and functional equation for number fields other than Q; the identity of P∘A(h) with the assembled operator not yet proved; Theorem 12.4.1.1 as a whole not yet stated. Opens by congratulating the author. Lean 4.27.0-rc1, Mathlib commit fdddb3e; 1,506 declarations named, 1,393 with receipts showing exit code 0 and the three standard axioms, 26 turned back by their compile service for linter warnings only, 87 definitions inside checked files. Each source is a standalone compilation unit; the README says different sources may declare the same names.",
+      "is_a_reading": true,
+      "note": "The reader is a model and the signature is a company's, so this is a report, not a read cycle: it does not close the reading gap, and it is not a specialist's check of anything. What the Lean checks is the reviewers' own statements, not the manuscript's: the key theorem, remainder_independent_iff_critical_line in lean/spectral/Proof-28b15828da3e/Proof.lean (receipt-1.json: exit code 0, 106 s, axioms propext, Classical.choice, Quot.sound; source hash matches), is about an arbitrary entire function f with a zero count O(R log R), takes the corrected trace formula as a hypothesis in the form \"the sum over zeros within width a of the line tends to G minus remainder(a)\", and concludes that the remainder is the same for all widths if and only if f has no zero off the line. Read plainly: if the trace formula is of that form, then the step the draft would need is a restatement of the conclusion. The Chapter 13 statement for K = Q, chapter13_paired_control_iff_riemannHypothesis, is likewise conditional on an interface (Chapter13RegularizedLimit D) and concludes Mathlib's RiemannHypothesis from a control condition and back. Both are machine-checked diagnoses of the argument's shape; neither proves or refutes the trace formula on the draft's actual objects. On this record: no formal deduction of the main theorem exists (EG1 unchanged); no independent mathematician has read the draft under their name (EG2 unchanged); the author has not released Chapter 13 (EG3 unchanged, and the report confirms the placeholders page by page); the trace-formula dispute now has a public, specific form, that 12.5.1.1 sums only interior zeros while the trace it cites runs over the closed strip, with the equivalence above as its consequence, though this is a structural defect and not the numerical counterexample reported on the Zulip (EG4 remains open on that ask); the appendix errata have a second, larger list beside them, 21 of the 44 overlapping earlier reports, still unchecked by a specialist (EG5 unchanged). The report's own list of what is \"not yet\" proved is the honest part of the page and is the part this record relies on. A rerun of the 531 standalone sources under a pre-registration is feasible and would make the receipts a second-party fact; it has not been done. The note is one of about ten outside reports on the draft indexed at github.com/mccorvie/riemann-masullo/blob/main/OUTSIDE_REPORTS.md (Yonemoto, Nielsen, Golub/Refine, Nayebi, Goyal, Naslund, Baez and others), most of them AI-generated and most dated 20 to 22 November; this one carries the largest Lean component."
+     }
+    ],
     "disputes": 0,
     "signed": 0,
     "refused": 0,
@@ -1516,7 +1525,17 @@
        "changed": true
       }
      ],
-     "dated": "2026-11-22"
+     "dated": "2026-11-23",
+     "public_reactions": [
+      {
+       "who": "Hassana Labs (Leon Chlon), by a reinforcement-learning \"verified debate\" model over one weekend",
+       "url": "https://hassana.io/music-of-the-primes/",
+       "posted": "2026-11-23",
+       "what": "Reports 44 issues in the 940-page draft, 23 of them not raised in any public review before, each with a proposed repair: 15 repairs proved in Lean, 5 with key pieces in Lean, 2 on paper, 1 absorbed by another. Gives what it calls an exact diagnosis, proved in Lean: in the corrected trace formula behind Theorem 12.5.1.1 the remainder is independent of the strip width if and only if every zero lies on Re = 1/2, so the argument's central step is equivalent to its conclusion. Confirms that section 12.3 reads \"Include section\", that the proof of 10.4.2.8 ends \"Return here and complete proof\", and that Theorem 13.3.1.2 has no statement. Reports new mathematics built alongside: the geometric side in the operator order P∘A at every finite rank, the missing section 12.3 decomposition, a nuclearity bound, a spectral converse, and foundations; about 80,000 lines of Lean in all. Of the nine results the argument relies on, each is listed with what is proved and what is \"not yet\", including: no continuation and functional equation for number fields other than Q; the identity of P∘A(h) with the assembled operator not yet proved; Theorem 12.4.1.1 as a whole not yet stated. Opens by congratulating the author. Lean 4.27.0-rc1, Mathlib commit fdddb3e; 1,506 declarations named, 1,393 with receipts showing exit code 0 and the three standard axioms, 26 turned back by their compile service for linter warnings only, 87 definitions inside checked files. Each source is a standalone compilation unit; the README says different sources may declare the same names.",
+       "is_a_reading": true,
+       "note": "The reader is a model and the signature is a company's, so this is a report, not a read cycle: it does not close the reading gap, and it is not a specialist's check of anything. What the Lean checks is the reviewers' own statements, not the manuscript's: the key theorem, remainder_independent_iff_critical_line in lean/spectral/Proof-28b15828da3e/Proof.lean (receipt-1.json: exit code 0, 106 s, axioms propext, Classical.choice, Quot.sound; source hash matches), is about an arbitrary entire function f with a zero count O(R log R), takes the corrected trace formula as a hypothesis in the form \"the sum over zeros within width a of the line tends to G minus remainder(a)\", and concludes that the remainder is the same for all widths if and only if f has no zero off the line. Read plainly: if the trace formula is of that form, then the step the draft would need is a restatement of the conclusion. The Chapter 13 statement for K = Q, chapter13_paired_control_iff_riemannHypothesis, is likewise conditional on an interface (Chapter13RegularizedLimit D) and concludes Mathlib's RiemannHypothesis from a control condition and back. Both are machine-checked diagnoses of the argument's shape; neither proves or refutes the trace formula on the draft's actual objects. On this record: no formal deduction of the main theorem exists (EG1 unchanged); no independent mathematician has read the draft under their name (EG2 unchanged); the author has not released Chapter 13 (EG3 unchanged, and the report confirms the placeholders page by page); the trace-formula dispute now has a public, specific form, that 12.5.1.1 sums only interior zeros while the trace it cites runs over the closed strip, with the equivalence above as its consequence, though this is a structural defect and not the numerical counterexample reported on the Zulip (EG4 remains open on that ask); the appendix errata have a second, larger list beside them, 21 of the 44 overlapping earlier reports, still unchecked by a specialist (EG5 unchanged). The report's own list of what is \"not yet\" proved is the honest part of the page and is the part this record relies on. A rerun of the 531 standalone sources under a pre-registration is feasible and would make the receipts a second-party fact; it has not been done. The note is one of about ten outside reports on the draft indexed at github.com/mccorvie/riemann-masullo/blob/main/OUTSIDE_REPORTS.md (Yonemoto, Nielsen, Golub/Refine, Nayebi, Goyal, Naslund, Baez and others), most of them AI-generated and most dated 20 to 22 November; this one carries the largest Lean component."
+      }
+     ]
     },
     "application": "none",
     "notes": 0
@@ -1540,8 +1559,8 @@
     }
    ],
    "cycles": 0,
-   "last": "2026-11-22",
-   "last_text": "22 Nov 2026",
+   "last": "2026-11-23",
+   "last_text": "23 Nov 2026",
    "related_display": [
     {
      "label": "Riemann Hypothesis (Alpöge, with Claude)",

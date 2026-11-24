@@ -17,6 +17,9 @@ On 24 November Nervous Machine tried the general-relativity test on the proof: d
 **24 November 2026** · Wrote a reading guide for the formal statements · [The claimed proof of the Riemann Hypothesis announced by Levent Alpöge on 20 November 2026, built with Claude and released as Lean 4 code](https://github.com/Nervous-Machine/DEBRIEF-math-riemann)  
 On 24 November Nervous Machine ran the crossing test again one directory level down, at five hundred and ninety bins. Bears on the open question: No independent mathematician has reported reading the proof, and there is no referee report. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-riemann/blob/main/SCORECARD.md)
 
+**24 November 2026** · Left reasoning on the record · [The claimed proof of the Riemann Hypothesis announced by Levent Alpöge on 20 November 2026, built with Claude and released as Lean 4 code](https://github.com/Nervous-Machine/DEBRIEF-math-riemann)  
+A short check, filed because its answer closes a door. Bears on the open question: No independent mathematician has reported reading the proof, and there is no referee report. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-riemann/blob/main/SCORECARD.md)
+
 **23 November 2026** · Wrote a reading guide for the formal statements · [The claimed proof of the Riemann Hypothesis announced by Levent Alpöge on 20 November 2026, built with Claude and released as Lean 4 code](https://github.com/Nervous-Machine/DEBRIEF-math-riemann)  
 On 23 November Nervous Machine walked the dependency graph of the proof from its main theorem down, to measure what Yochay Jerby had described in words that morning. Bears on the open question: Do the formal statements say what the problem asks? Bears on the open question: No independent mathematician has reported reading the proof, and there is no referee report. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-riemann/blob/main/SCORECARD.md)
 

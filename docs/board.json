@@ -2351,7 +2351,7 @@
      "mirror_moved": "the community mirror this record names as Deicyde/riemann-hypothesis now lives at github.com/leanprover-community/riemann-hypothesis (same repository, 658 stars, 160 forks, 260 pull requests opened as of this reading); its verification notes at commit c592e91e (blob 418f3e37) report the archive hash matching this record's pin"
     },
     "application": "none",
-    "notes": 0
+    "notes": 1
    },
    "machine_checked": true,
    "human_signed": false,
@@ -2381,7 +2381,7 @@
      ]
     }
    ],
-   "cycles": 9,
+   "cycles": 10,
    "last": "2026-11-24",
    "last_text": "24 Nov 2026",
    "related_display": [

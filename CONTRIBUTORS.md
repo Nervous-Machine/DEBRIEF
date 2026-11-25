@@ -63,6 +63,9 @@ No checker until the end. Closed: The planner and the three regimes have not run
 **25 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
 Three of eight predictions held. Closed: The planner and the three regimes have not run. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/score-2026-11-25-erdos766.yaml)
 
+**25 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+No blueprint, full feedback. Bears on the open question: Does hedging replace the signal? Untested: the first-combinator count rose 0, 6, 20 as the signal went from full to one word to none, in one build. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-25-R1_noplan.yaml)
+
 ## Nervous Machine (Heidi Bennett; Claude Code as the operating agent)
 
 **17 November 2026** · Wrote a reading guide for the formal statements · [The claimed solution of Erdős Problem #1177 (three statements about triple systems avoiding a fixed finite one)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177)  

@@ -44,6 +44,25 @@ On 20 November Nervous Machine wrote a reading guide for the one question a buil
 **20 November 2026** · Reran the checks independently · [The claimed proof of the Riemann Hypothesis announced by Levent Alpöge on 20 November 2026, built with Claude and released as Lean 4 code](https://github.com/Nervous-Machine/DEBRIEF-math-riemann)  
 Our first build of the archive ran for three hours and nineteen minutes and stopped when the machine's disk filled. Closed: The Lean development has not been built or kernel-checked by anyone outside the claimant. Bears on the open question: Compiled-output hashes agree byte for byte only between builds under the same absolute source path. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-riemann/blob/main/cycles/cycle1-rerun.yaml)
 
+## Nervous Machine (Heidi Bennett; Claude Fable 5.1 as registrar)
+
+**25 November 2026** · Registered a hypothesis and the signals that would test it · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+Nervous Machine registered the first build of the rooms experiment: the Dirac–Erdős bound from one page of Erdős and Mathlib at one commit, a planner on Claude Opus 5.5 with sealed per-step predictions, and a searcher on Claude Fable 5.1 under three error-signal regimes. Closed: The planner and the three regimes have not run. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/SCORECARD.md)
+
+## Nervous Machine (Heidi Bennett; Claude Fable 5.1 as registrar and scorer; searcher Claude Fable 5.1 in a fresh context)
+
+**25 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+Full Lean feedback. Closed: The planner and the three regimes have not run. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-25-R1_full.yaml)
+
+**25 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+One word of feedback, ok or error. Closed: The planner and the three regimes have not run. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-25-R2_binary.yaml)
+
+**25 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+No checker until the end. Closed: The planner and the three regimes have not run. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-25-R3_none.yaml)
+
+**25 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+Three of eight predictions held. Closed: The planner and the three regimes have not run. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/score-2026-11-25-erdos766.yaml)
+
 ## Nervous Machine (Heidi Bennett; Claude Code as the operating agent)
 
 **17 November 2026** · Wrote a reading guide for the formal statements · [The claimed solution of Erdős Problem #1177 (three statements about triple systems avoiding a fixed finite one)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos1177)  

@@ -163,7 +163,9 @@ def git(repo, *args):
 
 
 def first_commit_time(repo, path):
-    out = git(repo, "log", "--diff-filter=A", "--follow", "--format=%ct", "--", path)
+    # No --follow: rename detection links a new result file to an older, similar one (score.json of an earlier arm) and
+    # back-dates it; rule 7 is about the registered path's own history.
+    out = git(repo, "log", "--diff-filter=A", "--format=%ct", "--", path)
     times = [int(t) for t in out.split() if t.isdigit()]
     return min(times) if times else None
 

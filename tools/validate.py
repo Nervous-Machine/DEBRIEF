@@ -199,10 +199,13 @@ def prereg_rules(L, repo, errs, warns):
         raw = open(os.path.join(repo, p), "rb").read()
         whole = hashlib.sha256(raw).hexdigest()
         text = raw.decode("utf-8", "replace")
-        mk = re.search(r"^(?:# ---- Amendment|amendments:)", text, re.M)
-        body = text[:mk.start()] if mk else text
-        candidates = {whole, hashlib.sha256(body.encode()).hexdigest(), hashlib.sha256(body.rstrip("\n").encode()).hexdigest(),
-                      hashlib.sha256((body.rstrip("\n") + "\n").encode()).hexdigest()}
+        # The registered text must be a prefix of the file, cut at some amendment marker: any marker position may be the
+        # cut, since a registration may itself end with an (empty) amendments list and have its amendments appended below.
+        candidates = {whole}
+        for mk in re.finditer(r"^(?:# ---- Amendment|amendments)", text, re.M):
+            body = text[:mk.start()]
+            candidates |= {hashlib.sha256(body.encode()).hexdigest(), hashlib.sha256(body.rstrip("\n").encode()).hexdigest(),
+                           hashlib.sha256((body.rstrip("\n") + "\n").encode()).hexdigest()}
         if not (recorded & candidates):
             errs.append(f"cycle {c['cycle']}: rule 8: {p} no longer hashes to its registered value (body above the amendment marker was edited, or the sidecar is stale)")
 

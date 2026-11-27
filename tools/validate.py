@@ -218,12 +218,12 @@ def reference_rules(L, errs, warns):
     have = {c.get("cycle") for c in L.get("cycles", [])}
     for f in L.get("findings", []):
         for cy in (f.get("evidence") or {}).get("cycles", []) or []:
-            if isinstance(cy, str) and cy not in have:   # integers are the legacy cycle numbering of the first records
+            if isinstance(cy, str) and not cy.isdigit() and cy not in have:   # bare numbers are the first records' legacy cycle numbering
                 errs.append(f"finding {f.get('finding_id')}: rule 9: evidence names cycle {cy}, which is not in the ledger")
     for g in L.get("gaps", []):
         for h in g.get("history", []) or []:
             cy = h.get("cycle")
-            if isinstance(cy, str) and cy and cy not in have:
+            if isinstance(cy, str) and cy and not cy.isdigit() and cy not in have:
                 errs.append(f"gap {g.get('gap_id')}: rule 9: history names cycle {cy}, which is not in the ledger")
 
 

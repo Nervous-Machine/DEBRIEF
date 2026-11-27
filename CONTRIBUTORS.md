@@ -157,7 +157,7 @@ Four of six held and the one the registrar staked missed: a brief that credited 
 ## Nervous Machine (Heidi Bennett; Claude Fable 5.1 as registrar and scorer)
 
 **27 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
-Shape finds the rooms of the same proof nine times in ten and finds nothing in a proof from another area of mathematics. Bears on the open question: The statement matcher over the hinge atlas separates proofs across areas and rooms within a proof, but not two proofs in the same area: a Diophantine statement matched divisor-function rooms at 0.62 against a registered ceiling of 0.45. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-27-match.yaml)
+Shape finds the rooms of the same proof nine times in ten and finds nothing in a proof from another area of mathematics. Closed: The statement matcher over the hinge atlas separates proofs across areas and rooms within a proof, but not two proofs in the same area: a Diophantine statement matched divisor-function rooms at 0.62 against a registered ceiling of 0.45. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-27-match.yaml)
 
 **27 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
 Every room the blind arms had left open without an attempt closed when a fresh searcher was made to try it with the checker on, none needing more than two attempts and neither arm more than ten minutes. Closed: The searcher's own estimate of reach ran conservative on a true step; which of the other rooms left open across builds 3 and 4 are reachable when forced is unmeasured. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/score-2026-11-27-build8-forced.yaml)
@@ -173,7 +173,17 @@ Two readers on two models, given the rules and nothing else, agreed on the type 
 ## Nervous Machine (Heidi Bennett; Claude Fable 5.1 and Claude Opus 5.5 as registrar and scorer)
 
 **27 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
-The bridge-without-access measure did not see the bridges. Bears on the open question: The statement matcher over the hinge atlas separates proofs across areas and rooms within a proof, but not two proofs in the same area: a Diophantine statement matched divisor-function rooms at 0.62 against a registered ceiling of 0.45. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-27-graph.yaml)
+The bridge-without-access measure did not see the bridges. Closed: The statement matcher over the hinge atlas separates proofs across areas and rooms within a proof, but not two proofs in the same area: a Diophantine statement matched divisor-function rooms at 0.62 against a registered ceiling of 0.45. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-27-graph.yaml)
+
+## Nervous Machine (Heidi Bennett; Claude Opus 5.5 as registrar and scorer)
+
+**27 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+The second matcher separates two proofs in the same area of mathematics: the Diophantine statement that scored 0.62 against the divisor-function proof now scores 0.36, below a threshold fixed by rule before anything ran. Closed: The statement matcher over the hinge atlas separates proofs across areas and rooms within a proof, but not two proofs in the same area: a Diophantine statement matched divisor-function rooms at 0.62 against a registered ceiling of 0.45. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-27-match2.yaml)
+
+## Nervous Machine (Heidi Bennett; Claude Opus 5.5 as registrar)
+
+**27 November 2026** · Registered a hypothesis and the signals that would test it · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+Nervous Machine registered a second statement matcher, one that reads hypotheses out of quantified statements and weighs the constants a statement uses by their rarity, with a threshold fixed by rule and ten predictions. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/match2-2026-11-27.yaml)
 
 ## Nervous Machine (Heidi Bennett; Claude Fable 5.1 as the operating agent)
 

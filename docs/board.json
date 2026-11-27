@@ -2228,6 +2228,33 @@
       "dated": "2026-11-20",
       "operated_with": "Claude Code, as stated on the page",
       "what": "full compile, standard axioms only, kernel replay of every module, independent kernel accepts the export; comparator and Lean kernels on the export in progress at 19:45 UTC"
+     },
+     {
+      "who": "Michael Rubinstein (Waterloo)",
+      "url": "https://mrubinst.github.io/grh-lean-verification/",
+      "dated": "2026-11-21",
+      "operated_with": "Claude Code, as stated on the page",
+      "what": "the original archive: full compile of 175,187 modules, standard axioms only, kernel replay of every module, nanoda on the 1,484,729 declarations the five theorems use; Main.olean equal to this record's and Sutherland's (cycle external-2026-11-27-checks)"
+     },
+     {
+      "who": "Elliot Arledge",
+      "url": "https://github.com/Infatoshi/rh-verification-receipts",
+      "dated": "2026-11-20",
+      "what": "the original archive: full compile, standard axioms only, nanoda on the export, 0 errors (cycle external-2026-11-27-checks)"
+     },
+     {
+      "who": "Andrew Sutherland (MIT), the rewriting",
+      "url": "https://math.mit.edu/~drew/shortgrh/",
+      "dated": "2026-11-25",
+      "operated_with": "Claude Code, as stated on the page",
+      "what": "the 25 November rewriting (lsernau/grh-lean 72fead10), both editions: sandboxed build, standard axioms only, kernel replay, lake comparator --paranoid on two machines for the compact edition (cycle external-2026-11-27-sernau)"
+     },
+     {
+      "who": "Michael Rubinstein (Waterloo), the rewriting",
+      "url": "https://mrubinst.github.io/grh-lean-compact-check/",
+      "dated": "2026-11-26",
+      "operated_with": "Claude Code, as stated on the page",
+      "what": "the 25 November rewriting, compact edition: build, standard axioms only, kernel replay of 794 modules, lake comparator --paranoid without its sandbox, all six kernels accept (cycle external-2026-11-27-sernau)"
      }
     ],
     "registries": [
@@ -2285,6 +2312,33 @@
        "dated": "2026-11-20",
        "operated_with": "Claude Code, as stated on the page",
        "what": "full compile, standard axioms only, kernel replay of every module, independent kernel accepts the export; comparator and Lean kernels on the export in progress at 19:45 UTC"
+      },
+      {
+       "who": "Michael Rubinstein (Waterloo)",
+       "url": "https://mrubinst.github.io/grh-lean-verification/",
+       "dated": "2026-11-21",
+       "operated_with": "Claude Code, as stated on the page",
+       "what": "the original archive: full compile of 175,187 modules, standard axioms only, kernel replay of every module, nanoda on the 1,484,729 declarations the five theorems use; Main.olean equal to this record's and Sutherland's (cycle external-2026-11-27-checks)"
+      },
+      {
+       "who": "Elliot Arledge",
+       "url": "https://github.com/Infatoshi/rh-verification-receipts",
+       "dated": "2026-11-20",
+       "what": "the original archive: full compile, standard axioms only, nanoda on the export, 0 errors (cycle external-2026-11-27-checks)"
+      },
+      {
+       "who": "Andrew Sutherland (MIT), the rewriting",
+       "url": "https://math.mit.edu/~drew/shortgrh/",
+       "dated": "2026-11-25",
+       "operated_with": "Claude Code, as stated on the page",
+       "what": "the 25 November rewriting (lsernau/grh-lean 72fead10), both editions: sandboxed build, standard axioms only, kernel replay, lake comparator --paranoid on two machines for the compact edition (cycle external-2026-11-27-sernau)"
+      },
+      {
+       "who": "Michael Rubinstein (Waterloo), the rewriting",
+       "url": "https://mrubinst.github.io/grh-lean-compact-check/",
+       "dated": "2026-11-26",
+       "operated_with": "Claude Code, as stated on the page",
+       "what": "the 25 November rewriting, compact edition: build, standard axioms only, kernel replay of 794 modules, lake comparator --paranoid without its sandbox, all six kernels accept (cycle external-2026-11-27-sernau)"
       }
      ],
      "dated": "2026-11-27",

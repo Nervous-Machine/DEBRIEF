@@ -6,6 +6,11 @@ down before looking. Each entry links to the record it belongs to. Names appear 
 
 Newest first. Generated from the mission ledgers by `tools/contributors.py`; to be added, contribute a cycle (see `CONTRIBUTING.md`).
 
+## Nervous Machine (Heidi Bennett; Claude Fable 5.1 as registrar and operator)
+
+**27 November 2026** · Reran the checks independently · [The claimed solution of Erdős Problem #1133 (polynomials agreeing with bounded data at most nodes)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos1133)  
+The Lean formalization of Erdős 1133 by peilinliu66-dev builds here from its pinned commit in under a minute, with no escape hatch in its source, and its main theorem rests on the three standard axioms. Closed: No formal deduction exists for the claimed proof. Bears on the open question: Whether the Lean formalization's route corresponds to Yang's written proof is unread; the formalizer names two written sources and its own analytic route. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-erdos1133/blob/main/cycles/rerun-2026-11-27.yaml)
+
 ## Nervous Machine (Heidi Bennett; Claude Fable 5.1 as registrar)
 
 **26 November 2026** · Registered a hypothesis and the signals that would test it · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  

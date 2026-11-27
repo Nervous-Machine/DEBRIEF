@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-25",
+ "generated": "2026-11-27",
  "stages": [
   "Registered",
   "Checks rerun",
@@ -139,19 +139,23 @@
    "title": "The claimed solution of Erdős Problem #1133 (polynomials agreeing with bounded data at most nodes)",
    "area": "Analysis: polynomials",
    "rests_on": "a PDF write-up in a public repository; no formal deduction",
-   "stage": 0,
-   "stage_name": "Registered",
-   "needs_next": "an independent rerun of whatever is machine-checkable",
-   "certified": 0,
+   "stage": 1,
+   "stage_name": "Checks rerun",
+   "needs_next": "a reading guide that traces each formal statement to its definitions",
+   "certified": 1,
    "accepted": 0,
    "refuted": 0,
    "open_gaps": 2,
-   "first_ask": "No formal deduction exists for the claimed proof",
-   "first_ask_what": "a Lean formalization of the main theorem, by the claimant or anyone else, with the statement written by a third party",
-   "people": [],
+   "first_ask": "No independent mathematician has reported reading the proof, and there is no referee report",
+   "first_ask_what": "a read cycle by a mathematician in the area who is not an author, signing or refusing each main step",
+   "people": [
+    "Nervous Machine (Heidi Bennett; Claude Fable 5.1 as registrar and operator)"
+   ],
    "outside": [],
    "checks": {
-    "rerun": [],
+    "rerun": [
+     "Nervous Machine"
+    ],
     "trace": false,
     "reads": 0,
     "public_readings": [],
@@ -189,12 +193,30 @@
       "source": "https://github.com/teorth/erdosproblems/blob/641a78e3debdcbb2d53b936d3c4c7d9528c55a90/data/problems.yaml",
       "commit": "641a78e3debdcbb2d53b936d3c4c7d9528c55a90"
      },
-     "dated": "2026-11-17"
+     "dated": "2026-11-26",
+     "formalization": {
+      "who": "peilinliu66-dev, \"with Codex AI assistance\"; not the claimant",
+      "repository": "github.com/peilinliu66-dev/jsp940-erdos1133-formalization",
+      "commit": "83ab7d38a4abbdfc1c9509cfbb7b49514cca217e",
+      "dated": "2026-09-28",
+      "licence": "Apache-2.0",
+      "toolchain": "leanprover/lean4:v4.33.0; Mathlib db584cd6",
+      "size": "49 Lean files, 7,506 lines; 19 modules reused from the author's Erdős 1152 repository at 5f77404a",
+      "endpoint": "Erdos1133.erdos_1133, stated in the repository in the same words as formal-conjectures' erdos_1133; also erdos_1133_with_threshold with ε = 1/(8k²) and n ≥ 4k²",
+      "claimed_axioms": "propext, Classical.choice, Quot.sound (README; Check.lean prints them)",
+      "sources_named": "Yang's manuscript at JiaqiYang-Fdu/erdos1133 8c3b428f (the artifact this record pins); an unsigned ulam.ai draft of 2026-04-29; Olevskii–Ulanovskii (2018), stated in the README as proved in Lean rather than assumed",
+      "found_by": "the registrar of DEBRIEF-math-rooms during a target scan on 2026-11-26, via a GitHub code search for Erdos1133 that returned tengoku's intake directory"
+     },
+     "library_intake": {
+      "who": "competemath/tengoku",
+      "dated": "2026-11-20",
+      "what": "the formalization ingested as a factory bundle; manifest lists each theorem with toolchain leanprover/lean4:v4.34.0-rc2 and a via field (equal or entails)"
+     }
     },
     "application": "candidate",
     "notes": 0
    },
-   "machine_checked": false,
+   "machine_checked": true,
    "human_signed": false,
    "no_lean": true,
    "problem_url": "https://www.erdosproblems.com/1133",
@@ -202,9 +224,9 @@
     "jiaqiyang-fdu"
    ],
    "related": [],
-   "cycles": 0,
-   "last": "2026-11-17",
-   "last_text": "17 Nov 2026",
+   "cycles": 1,
+   "last": "2026-11-27",
+   "last_text": "27 Nov 2026",
    "related_display": []
   },
   {

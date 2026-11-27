@@ -212,6 +212,21 @@ def prereg_rules(L, repo, errs, warns):
             errs.append(f"cycle {c['cycle']}: rule 8: {p} no longer hashes to its registered value (body above the amendment marker was edited, or the sidecar is stale)")
 
 
+def reference_rules(L, errs, warns):
+    """Rule 9: every cycle a finding's evidence or a gap's history names must be in the ledger (a merge that stopped on a
+    malformed cycle file has twice left findings pointing at cycles that were never merged)."""
+    have = {c.get("cycle") for c in L.get("cycles", [])}
+    for f in L.get("findings", []):
+        for cy in (f.get("evidence") or {}).get("cycles", []) or []:
+            if isinstance(cy, str) and cy not in have:   # integers are the legacy cycle numbering of the first records
+                errs.append(f"finding {f.get('finding_id')}: rule 9: evidence names cycle {cy}, which is not in the ledger")
+    for g in L.get("gaps", []):
+        for h in g.get("history", []) or []:
+            cy = h.get("cycle")
+            if isinstance(cy, str) and cy and cy not in have:
+                errs.append(f"gap {g.get('gap_id')}: rule 9: history names cycle {cy}, which is not in the ledger")
+
+
 def standing_line(L):
     fs = [f for f in L["findings"] if f.get("audience", "briefing") == "briefing"]
     n = {k: sum(f["standing"]["status"] == k for f in fs) for k in ("certified", "accepted", "refuted")}
@@ -238,6 +253,7 @@ def main(argv):
             reserved_words(L, errs)
             if repo:
                 prereg_rules(L, repo, errs, warns)
+                reference_rules(L, errs, warns)
         except (KeyError, TypeError) as e:
             errs.append(f"rules could not run on a malformed document: {e!r}")
     m = L["missions"][0]

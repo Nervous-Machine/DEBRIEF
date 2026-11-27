@@ -22,6 +22,9 @@ Nervous Machine registered the first statement matcher over the hinge atlas and 
 **27 November 2026** · Registered a hypothesis and the signals that would test it · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
 Nervous Machine registered a blind re-typing of the 82 build 6 rooms under a revised type system with a decision order and written boundary rules, by two fresh readers on two models, with the agreement threshold written first. Bears on the open question: The join types are reproducible at the ends of the scale and not in the middle: a second reader agreed with the planner on 85 percent of one blueprint and 67 percent of the other, disagreeing on identity against split, bound against averaging, and glue against identity. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/retype-2026-11-27.yaml)
 
+**27 November 2026** · Registered a hypothesis and the signals that would test it · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+Nervous Machine registered an index of the rooms searchers created that no planner drew, across fourteen arms, with predictions about where they appear and whether they recur. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/discovered-2026-11-27.yaml)
+
 **26 November 2026** · Registered a hypothesis and the signals that would test it · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
 Nervous Machine registered build 3: two Erdős Ramsey problems, one solved by a human paper in June 2026 and one open, with the rooms drawn from the question and a hold-position rule under which leaving the root as sorry is the correct outcome and changing the claim is the failure. Closed: Does hedging replace the signal? Untested: the first-combinator count rose 0, 6, 20 as the signal went from full to one word to none, in one build. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/build-2026-11-26-hypothesis.yaml)
 
@@ -155,6 +158,9 @@ Shape finds the rooms of the same proof nine times in ten and finds nothing in a
 
 **27 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
 Every room the blind arms had left open without an attempt closed when a fresh searcher was made to try it with the checker on, none needing more than two attempts and neither arm more than ten minutes. Closed: The searcher's own estimate of reach ran conservative on a true step; which of the other rooms left open across builds 3 and 4 are reachable when forced is unmeasured. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/score-2026-11-27-build8-forced.yaml)
+
+**27 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+Every room a searcher invented survived to the end of its file, all one hundred and seventy-six. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-27-discovered.yaml)
 
 ## Nervous Machine (Heidi Bennett; Claude Fable 5.1 as registrar and scorer; readers Claude Fable 5.1 and Claude Opus 5.5 in fresh contexts)
 

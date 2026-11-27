@@ -180,10 +180,16 @@ The bridge-without-access measure did not see the bridges. Closed: The statement
 **27 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
 The second matcher separates two proofs in the same area of mathematics: the Diophantine statement that scored 0.62 against the divisor-function proof now scores 0.36, below a threshold fixed by rule before anything ran. Closed: The statement matcher over the hinge atlas separates proofs across areas and rooms within a proof, but not two proofs in the same area: a Diophantine statement matched divisor-function rooms at 0.62 against a registered ceiling of 0.45. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-27-match2.yaml)
 
+**27 November 2026** · Supplied data · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+The test found no step to test. Bears on the open question: Once every hinge's hypotheses are read, the two hinges that never closed are the best-surrounded rooms in their proofs, not the most isolated: access 0.351 against Lemma 7's 0.324 for 569, 0.322 against at most 0.301 for 159, seen after registration on two hinges. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/data-2026-11-27-eg9.yaml)
+
 ## Nervous Machine (Heidi Bennett; Claude Opus 5.5 as registrar)
 
 **27 November 2026** · Registered a hypothesis and the signals that would test it · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
 Nervous Machine registered a second statement matcher, one that reads hypotheses out of quantified statements and weighs the constants a statement uses by their rarity, with a threshold fixed by rule and ten predictions. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/match2-2026-11-27.yaml)
+
+**27 November 2026** · Registered a hypothesis and the signals that would test it · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
+Nervous Machine registered a test of whether a step no searcher can take is better surrounded by existing steps than the steps that give way, on a fifth Erdős problem and on thirteen steps of a fourth that were never forced. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-rooms/blob/main/cycles/build-2026-11-27-eg9.yaml)
 
 ## Nervous Machine (Heidi Bennett; Claude Fable 5.1 as the operating agent)
 

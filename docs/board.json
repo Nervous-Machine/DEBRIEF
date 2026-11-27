@@ -2180,13 +2180,14 @@
    "stage_name": "Reading guide written",
    "needs_next": "two independent readers to sign the semantic read",
    "certified": 0,
-   "accepted": 1,
+   "accepted": 2,
    "refuted": 0,
    "open_gaps": 4,
    "first_ask": "Do the formal statements say what the problem asks?",
    "first_ask_what": "a machine comparison of the claimant's main theorem with the third-party formal statement RiemannHypothesis in leanprover-community/mathlib4, then a human read of any difference",
    "people": [
-    "Nervous Machine (Heidi Bennett; Claude Fable 5.1 as the operating agent)"
+    "Nervous Machine (Heidi Bennett; Claude Fable 5.1 as the operating agent)",
+    "Nervous Machine (Heidi Bennett; Claude Opus 5.5 as the operating agent)"
    ],
    "outside": [],
    "checks": {
@@ -2286,7 +2287,7 @@
        "what": "full compile, standard axioms only, kernel replay of every module, independent kernel accepts the export; comparator and Lean kernels on the export in progress at 19:45 UTC"
       }
      ],
-     "dated": "2026-11-23",
+     "dated": "2026-11-27",
      "lean_mathlib_joint_statement": {
       "who": "\"Lean and Mathlib communities\"; the page says the statement is endorsed by the Lean FRO and the Mathlib Initiative; no individual is named",
       "dated": "2026-11-21 13:55",
@@ -2422,7 +2423,53 @@
        "is_a_reading": false
       }
      ],
-     "mirror_moved": "the community mirror this record names as Deicyde/riemann-hypothesis now lives at github.com/leanprover-community/riemann-hypothesis (same repository, 658 stars, 160 forks, 260 pull requests opened as of this reading); its verification notes at commit c592e91e (blob 418f3e37) report the archive hash matching this record's pin"
+     "mirror_moved": "the community mirror this record names as Deicyde/riemann-hypothesis now lives at github.com/leanprover-community/riemann-hypothesis (same repository, 658 stars, 160 forks, 260 pull requests opened as of this reading); its verification notes at commit c592e91e (blob 418f3e37) report the archive hash matching this record's pin",
+     "rubinstein_waterloo_original": {
+      "checked": "the archive as released (14 parts, assembled lean.tar.gz sha256 9631b4f0…, the record's pin), Lean v4.33.1, Mathlib 0df444a3 from the official cache, on University of Waterloo servers, run with Claude Code",
+      "compile": "175,187 of 175,187 modules, 0 errors, finished 2026-11-21 01:47:44 UTC",
+      "axioms": "each of the five entry theorems: propext, Classical.choice, Quot.sound only",
+      "kernel_replay": "175,187 of 175,187 modules replayed through Lean's kernel (leanchecker), 0 rejected, finished 2026-11-21 05:24:21 UTC",
+      "second_kernel": "nanoda: 1,484,729 declarations the five theorems depend on, no typechecker errors, finished 2026-11-21 10:06:58 UTC",
+      "static_scan": "no axiom, sorry, admit, native_decide, implemented_by, extern, unsafe, opaque or unchecked declaration-adding calls in 175,187 files",
+      "statements": "read by hand: RH is Mathlib's RiemannHypothesis; the GRH statements are a 16-line file importing only Mathlib",
+      "main_olean": "9146dfb4148e24d2… (equal to Sutherland's and to the record's cycle 2 build)"
+     },
+     "arledge_receipts": {
+      "checked": "archive sha256 9631b4f0… (matches), remark.pdf sha256 3fc97784…, stock Lean v4.33.1, Mathlib 0df444a3",
+      "compile": "175,187 of 175,187 modules, 0 failures, finished 2026-11-20 19:05:21 UTC",
+      "axioms": "all five theorems: propext, Classical.choice, Quot.sound",
+      "second_kernel": "lean4export of the five theorems piped to nanoda_bin (commit 0da9f98f): 1,484,729 declarations, 0 errors",
+      "main_olean": "ce9a2006… (differs from ours, Sutherland's and Rubinstein's 9146dfb4…)"
+     },
+     "naskrecki_dashboard": {
+      "what": "a map of the argument, a guide in standard mathematical language and a record of who has checked what; states that it is not a proof, a referee report or an endorsement"
+     },
+     "release": {
+      "authors": "Luke Sernau with colleagues at Anthropic and Claude; Main.lean's header line reads \"The proof is Levent Alpöge's, with Claude.\"",
+      "what": "a rewriting of the Alpöge–Claude development proving the same five theorems; two Lean projects in one repository",
+      "compact_edition": "grh-compact/: 794 files, 112,827 lines, 76,149 of them code (Sutherland's count of non-blank, non-comment lines under src/); libraries Lib (573 modules), New (219), Main (Statements, Main)",
+      "readable_edition": "grh/: 803 files, 477,124 lines, 299,902 of them code",
+      "original_for_comparison": "175,187 files, 17,374,215 lines, 15,531,759 code (Sutherland's count)",
+      "toolchain": "Lean v4.35.0, Mathlib 56a00585 (the original: v4.33.1, Mathlib 0df444a3)",
+      "argument_size": "Naskręcki's note: the argument itself takes 24,850 lines of code; the rest is background, separated and referenced"
+     },
+     "sutherland_shortgrh": {
+      "build": "sandboxed lake build, both editions, no errors (compact: 9,843 jobs, 33 min 32 s, finished 2026-11-25 23:06:56 UTC)",
+      "axioms": "both editions, all five theorems: propext, Classical.choice, Quot.sound",
+      "kernel_replay": "every module of both editions",
+      "exports": "byte-identical exports of the five theorems made independently on two machines; nanoda, con-leche and con-ron accept them for both editions; con-leche and con-ron --compare confirm all five against the challenge file",
+      "comparator": "lake comparator --paranoid (Lean v4.35.0): \"Your solution is okay!\" for both editions; for the compact edition independently on two machines; the readable edition on one machine only (lean4lean needs 332 GB for it)",
+      "schoenfeld": "Schoenfeld's bound |ψ(x) − x| < √x log²x / (8π) for x ≥ 73.2, and its equivalence with RH, derived from the compact edition; comparator --paranoid passes for both"
+     },
+     "rubinstein_compact": {
+      "build": "794 of 794 modules (compact edition, commit 72fead10)",
+      "statements": "src/Statements.lean imports only Mathlib and is identical, apart from blank lines, to the statements checked for the original",
+      "static_scan": "no axiom, sorry, native_decide, unsafe, implemented_by, @[extern], and no macro, syntax, notation or elab declarations",
+      "axioms": "all five: propext, Classical.choice, Quot.sound",
+      "kernel_replay": "794 of 794 accepted",
+      "comparator": "lake comparator --paranoid with --inadvisably-no-sandbox (the cluster blocks the sandbox): all six kernels accept, \"Your solution is okay!\", 2026-11-26"
+     },
+     "not_yet": "no mathematician has reported reading either edition (Naskręcki's note, 25 November)"
     },
     "application": "none",
     "notes": 1
@@ -2455,9 +2502,9 @@
      ]
     }
    ],
-   "cycles": 11,
-   "last": "2026-11-25",
-   "last_text": "25 Nov 2026",
+   "cycles": 13,
+   "last": "2026-11-27",
+   "last_text": "27 Nov 2026",
    "related_display": [
     {
      "label": "Generalized Riemann Hypothesis (Masullo)",

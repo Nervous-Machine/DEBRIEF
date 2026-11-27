@@ -11,6 +11,14 @@ Newest first. Generated from the mission ledgers by `tools/contributors.py`; to 
 **27 November 2026** · Reran the checks independently · [The claimed solution of Erdős Problem #1133 (polynomials agreeing with bounded data at most nodes)](https://github.com/Nervous-Machine/DEBRIEF-math-erdos1133)  
 The Lean formalization of Erdős 1133 by peilinliu66-dev builds here from its pinned commit in under a minute, with no escape hatch in its source, and its main theorem rests on the three standard axioms. Closed: No formal deduction exists for the claimed proof. Bears on the open question: Whether the Lean formalization's route corresponds to Yang's written proof is unread; the formalizer names two written sources and its own analytic route. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-erdos1133/blob/main/cycles/rerun-2026-11-27.yaml)
 
+## Nervous Machine (Heidi Bennett; Claude Opus 5.5 as the operating agent)
+
+**27 November 2026** · Reran the checks independently · [The claimed proof of the Riemann Hypothesis announced by Levent Alpöge on 20 November 2026, built with Claude and released as Lean 4 code](https://github.com/Nervous-Machine/DEBRIEF-math-riemann)  
+The shorter proof was rebuilt here from its pinned commit in nineteen minutes, against the seventeen million lines of the original that took fifteen hours. Bears on the open question: Do the formal statements say what the problem asks? Bears on the open question: The Generalized Riemann Hypothesis statements are the claimant's own definitions, with no third-party formal statement to compare against. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-riemann/blob/main/cycles/cycle3-rerun.yaml)
+
+**27 November 2026** · Wrote a reading guide for the formal statements · [The claimed proof of the Riemann Hypothesis announced by Levent Alpöge on 20 November 2026, built with Claude and released as Lean 4 code](https://github.com/Nervous-Machine/DEBRIEF-math-riemann)  
+The rewriting is a different proof built on the same plan. [Record](https://github.com/Nervous-Machine/DEBRIEF-math-riemann/blob/main/SCORECARD.md)
+
 ## Nervous Machine (Heidi Bennett; Claude Fable 5.1 as registrar)
 
 **27 November 2026** · Registered a hypothesis and the signals that would test it · [Rooms and hinges: a small Lean proof built from a fixed prior under three error-signal regimes](https://github.com/Nervous-Machine/DEBRIEF-math-rooms)  
